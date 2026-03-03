@@ -31,3 +31,37 @@ test('Keycloak Unfold Theme - Demo Login Page', async ({ page }) => {
   // Background should be #f8fafc (slate-50) -> rgb(248, 250, 252)
   expect(bodyStyle.backgroundColor).toMatch(/rgb\(248, 250, 252\)/);
 });
+
+test('Keycloak Unfold Theme - Demo Account Console', async ({ page }) => {
+  // Go to Demo realm account console
+  await page.goto('http://localhost:8080/realms/demo/account/');
+
+  // Login
+  await page.waitForSelector('#kc-form-login');
+  await page.fill('#username', 'testuser');
+  await page.fill('#password', 'password');
+  await page.click('#kc-login');
+
+  // Wait for Account Console to load
+  await page.waitForSelector('.pf-v5-c-page__main');
+
+  // Verify body background and font-family
+  const bodyStyle = await page.evaluate(() => window.getComputedStyle(document.body));
+  expect(bodyStyle.backgroundColor).toMatch(/rgb\(248, 250, 252\)/);
+  expect(bodyStyle.fontFamily).toMatch(/Inter/);
+
+  // Verify main container background
+  const mainContainer = page.locator('.pf-v5-c-page__main');
+  const mainStyle = await mainContainer.evaluate(el => window.getComputedStyle(el));
+  expect(mainStyle.backgroundColor).toMatch(/rgb\(248, 250, 252\)/);
+
+  // Verify card border
+  const card = page.locator('.pf-v5-c-card').first();
+  const cardStyle = await card.evaluate(el => window.getComputedStyle(el));
+  expect(cardStyle.border).toMatch(/1px solid rgb\(226, 232, 240\)/);
+
+  // Verify primary button background
+  const primaryButton = page.locator('.pf-v5-c-button.pf-m-primary').first();
+  const buttonStyle = await primaryButton.evaluate(el => window.getComputedStyle(el));
+  expect(buttonStyle.backgroundColor).toMatch(/rgb\(15, 23, 42\)/);
+});
