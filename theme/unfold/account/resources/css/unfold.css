@@ -1,0 +1,42 @@
+:root {
+  --pf-v5-global--FontFamily--sans-serif: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+
+  /* Unfold colors */
+  --pf-v5-global--BackgroundColor--100: #f8fafc; /* slate-50 */
+  --pf-v5-global--BackgroundColor--200: #ffffff;
+  --pf-v5-global--BackgroundColor--dark-100: #0f172a; /* slate-900 */
+  --pf-v5-global--primary-color--100: #0f172a; /* primary button color */
+  --pf-v5-global--primary-color--200: #334155; /* primary button hover */
+  --pf-v5-global--link--Color: #0f172a;
+  --pf-v5-global--link--Color--hover: #334155;
+
+  /* Card and input styling */
+  --pf-v5-global--BorderRadius--sm: 0.375rem; /* rounded-md */
+  --pf-v5-global--BorderRadius--lg: 0.5rem; /* rounded-lg */
+
+  --pf-v5-c-button--BorderRadius: 0.375rem;
+  --pf-v5-c-form-control--BorderRadius: 0.375rem;
+  --pf-v5-c-card--BorderRadius: 0.5rem;
+  --pf-v5-c-card--BoxShadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+body {
+  background-color: var(--pf-v5-global--BackgroundColor--100);
+  font-family: var(--pf-v5-global--FontFamily--sans-serif);
+}
+
+.pf-v5-c-page__main {
+  background-color: var(--pf-v5-global--BackgroundColor--100);
+}
+
+.pf-v5-c-card {
+  border: 1px solid #e2e8f0; /* slate-200 */
+}
+
+.pf-v5-c-button.pf-m-primary {
+  background-color: var(--pf-v5-global--primary-color--100);
+}
+
+.pf-v5-c-button.pf-m-primary:hover {
+  background-color: var(--pf-v5-global--primary-color--200);
+}
