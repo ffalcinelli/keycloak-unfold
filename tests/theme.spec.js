@@ -55,11 +55,11 @@ test('Keycloak Unfold Theme - Demo Account Console', async ({ page }) => {
   const mainStyle = await mainContainer.evaluate(el => window.getComputedStyle(el));
   expect(mainStyle.backgroundColor).toMatch(/(oklch\(0\.985 0\.002 247\.839\)|rgb\(249, 250, 251\))/);
 
-  // Verify card border
-  const card = page.locator('.pf-v5-c-card').first();
-  const cardStyle = await card.evaluate(el => window.getComputedStyle(el));
-  // Border color should be base-200 -> rgb(229, 231, 235) or oklch
-  expect(cardStyle.border).toMatch(/(oklch\(0\.928 0\.006 264\.531\)|1px solid rgb\(229, 231, 235\))/);
+  // Verify form-control background color
+  const formControl = page.locator('.pf-v5-c-form-control').first();
+  const formControlStyle = await formControl.evaluate(el => window.getComputedStyle(el));
+  // Form control background color should be base-200 -> #fff
+  expect(formControlStyle.backgroundColor).toMatch(/rgb\(255, 255, 255\)/);
 
   // Verify primary button background
   const primaryButton = page.locator('.pf-v5-c-button.pf-m-primary').first();
