@@ -118,8 +118,8 @@
         <div class="w-full sm:w-96 ${properties.kcLoginMain!}">
             <header id="kc-header" class="border-b border-base-200 mb-8 pb-6 dark:border-base-800">
                 <h1 class="font-semibold">
-                    <span class="block text-font-important-light dark:text-font-important-dark">Welcome to </span>
-                    <span id="kc-header-wrapper" class="block font-semibold text-primary-600 tracking-tight text-xl dark:text-primary-500">${kcSanitize(msg("loginTitleHtml",(realm.displayNameHtml!'')))?no_esc}</span>
+                    <span class="inline-block text-font-important-light dark:text-font-important-dark">Welcome to </span>
+                    <span id="kc-header-wrapper" class="inline-block font-semibold text-primary-600 tracking-tight text-xl dark:text-primary-500">${kcSanitize(msg("loginTitleHtml",(realm.displayNameHtml!'')))?no_esc}</span>
                 </h1>
             </header>
 
