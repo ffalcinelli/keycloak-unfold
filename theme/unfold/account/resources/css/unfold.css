@@ -3,8 +3,9 @@
 }
 
 .pf-v5-c-card {
-  background-color: var(--pf-v5-global--BackgroundColor--200);
-  border: 1px solid var(--pf-v5-global--BorderColor--100);
+  background-color: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .pf-v5-c-form-control {
