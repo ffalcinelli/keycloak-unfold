@@ -8,7 +8,7 @@
     <div class="${properties.kcInputGroup!}">
       <div class="${properties.kcInputGroupItemClass!} ${properties.kcFill!}">
         <span class="${properties.kcInputClass!} ${properties.kcFormReadOnlyClass!}">
-          <input id="kc-attempted-username" value="${auth.attemptedUsername}" readonly>
+          <input id="kc-attempted-username" value="${kcSanitize(auth.attemptedUsername!'')}" readonly>
         </span>
       </div>
       <div class="${properties.kcInputGroupItemClass!}">
