@@ -165,7 +165,8 @@
     </div>
 
     <!-- Right side (Background Image) -->
-    <div class="bg-cover grow hidden max-w-3xl xl:max-w-4xl xl:block" style="background-image: url('${url.resourcesPath}/img/login-bg.jpg');">
+    <div class="bg-base-100 flex grow hidden items-center justify-center max-w-3xl xl:max-w-4xl xl:flex dark:bg-base-800">
+        <div class="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600 dark:border-primary-500"></div>
     </div>
 </div>
 
