@@ -117,9 +117,9 @@
     <div class="flex grow items-center justify-center mx-auto px-4 relative ${properties.kcLoginContainer!}">
         <div class="w-full sm:w-96 ${properties.kcLoginMain!}">
             <header id="kc-header" class="border-b border-base-200 mb-8 pb-6 dark:border-base-800">
-                <h1 class="font-semibold text-left">
-                    <span class="block text-font-important-light dark:text-font-important-dark text-base">Welcome back to</span>
-                    <span id="kc-header-wrapper" class="block font-semibold text-primary-600 tracking-tight text-xl dark:text-primary-500 mt-1">${kcSanitize(msg("loginTitleHtml",(realm.displayNameHtml!'')))?no_esc}</span>
+                <h1 class="font-semibold text-center">
+                    <span class="text-font-important-light dark:text-font-important-dark text-base">Welcome back to</span>
+                    <span id="kc-header-wrapper" class="font-semibold text-primary-600 tracking-tight text-xl dark:text-primary-500 mt-1">${kcSanitize(msg("loginTitleHtml",(realm.displayNameHtml!'')))?no_esc}</span>
                 </h1>
             </header>
 
@@ -165,8 +165,7 @@
     </div>
 
     <!-- Right side (Background Image) -->
-    <div class="bg-base-100 flex grow hidden items-center justify-center max-w-3xl xl:max-w-4xl xl:flex dark:bg-base-800">
-        <div class="animate-spin rounded-full h-32 w-32 border-b-2 border-primary-600 dark:border-primary-500"></div>
+    <div class="bg-base-100 flex grow hidden items-center justify-center max-w-3xl xl:max-w-4xl xl:flex dark:bg-base-800 bg-cover bg-center bg-no-repeat" style="background-image: url('${url.resourcesPath}/img/login-bg.jpg');">
     </div>
 </div>
 
