@@ -94,6 +94,11 @@
                 </div>
             </div>
         </#if>
+        <#if properties.termsUrl?has_content || url.termsUrl??>
+        <div id="kc-terms-and-conditions" class="mt-4 pt-4 border-t border-base-200 dark:border-base-800 text-center text-xs">
+            By logging in, you agree to our <a href="${properties.termsUrl!url.termsUrl!'#'}" class="font-semibold text-primary-600 hover:text-primary-700 dark:text-primary-500">${msg("termsTitle")}</a>.
+        </div>
+        </#if>
     <#elseif section = "socialProviders" >
         <#if realm.password && social?? && social.providers?has_content>
             <div id="kc-social-providers" class="mt-6 border-t border-base-200 dark:border-base-800 pt-6">
