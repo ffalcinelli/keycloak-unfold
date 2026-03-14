@@ -1,42 +1,45 @@
 {
-    "realm": "demo",
-    "enabled": true,
-    "loginTheme": "unfold",
-    "accountTheme": "unfold",
-    "adminTheme": "unfold",
-    "emailTheme": "unfold",
-    "users": [
+  "realm": "demo",
+  "enabled": true,
+  "loginTheme": "unfold",
+  "accountTheme": "unfold",
+  "adminTheme": "unfold",
+  "emailTheme": "unfold",
+  "users": [
+    {
+      "username": "testuser",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Test",
+      "lastName": "User",
+      "email": "test@example.com",
+      "credentials": [
         {
-            "username": "testuser",
-            "enabled": true,
-            "emailVerified": true,
-            "firstName": "Test",
-            "lastName": "User",
-            "email": "test@example.com",
-            "credentials": [
-                {
-                    "type": "password",
-                    "value": "password",
-                    "temporary": false
-                }
-            ],
-            "realmRoles": [
-                "default-roles-demo"
-            ]
+          "type": "password",
+          "value": "password",
+          "temporary": false
         }
-    ],
-    "clients": [
-        {
-            "clientId": "demo-client",
-            "enabled": true,
-            "publicClient": true,
-            "directAccessGrantsEnabled": true,
-            "redirectUris": [
-                "*"
-            ],
-            "webOrigins": [
-                "*"
-            ]
-        }
-    ]
+      ],
+      "realmRoles": [
+        "default-roles-demo"
+      ]
+    }
+  ],
+  "clients": [
+    {
+      "clientId": "demo-client",
+      "enabled": true,
+      "publicClient": true,
+      "directAccessGrantsEnabled": true,
+      "redirectUris": [
+        "*"
+      ],
+      "webOrigins": [
+        "*"
+      ]
+    }
+  ],
+  "rememberMe": true,
+  "resetPasswordAllowed": true,
+  "registrationAllowed": true
 }

@@ -114,7 +114,7 @@
 
 <div id="page" class="bg-white flex min-h-screen dark:bg-base-900 w-full ${properties.kcLogin!}">
     <!-- Left side (Form) -->
-    <div class="flex grow items-center justify-center mx-auto px-4 relative ${properties.kcLoginContainer!}">
+    <div class="flex lg:flex-1 grow items-center justify-center mx-auto px-4 relative ${properties.kcLoginContainer!}">
         <div class="w-full sm:w-96 ${properties.kcLoginMain!}">
             <header id="kc-header" class="border-b border-base-200 mb-8 pb-6 dark:border-base-800">
                 <h1 class="font-semibold text-center">
@@ -165,7 +165,7 @@
     </div>
 
     <!-- Right side (Background Image) -->
-    <div class="bg-base-100 flex grow hidden items-center justify-center max-w-3xl xl:max-w-4xl xl:flex dark:bg-base-800 bg-cover bg-center bg-no-repeat" style="background-image: url('${url.resourcesPath}/img/login-bg.jpg');">
+    <div class="bg-base-100 hidden lg:flex-1 lg:block dark:bg-base-800 bg-cover bg-center bg-no-repeat" style="background-image: url('${url.resourcesPath}/img/login-bg.jpg');">
     </div>
 </div>
 
