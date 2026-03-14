@@ -165,7 +165,7 @@
     </div>
 
     <!-- Right side (Background Image) -->
-    <div class="bg-base-100 flex grow hidden items-center justify-center max-w-3xl xl:max-w-4xl xl:flex dark:bg-base-800 bg-cover bg-center bg-no-repeat" style="background-image: url('https://demo.unfoldadmin.com/static/formula/images/login-bg.jpg');">
+    <div class="bg-base-100 flex grow hidden items-center justify-center max-w-3xl xl:max-w-4xl xl:flex dark:bg-base-800 bg-cover bg-center bg-no-repeat" style="background-image: url('${url.resourcesPath}/img/login-bg.jpg');">
     </div>
 </div>
 
