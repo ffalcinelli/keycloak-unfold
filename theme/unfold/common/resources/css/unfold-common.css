@@ -1,4 +1,4 @@
-:root {
+:root, :where(:root), .pf-v5-c-form-control, .pf-v5-c-button, a {
   --pf-v5-global--FontFamily--sans-serif: "Inter", -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, sans-serif;
 
   /* Base colors */
@@ -34,6 +34,8 @@
   --pf-v5-global--primary-color--200: var(--color-primary-700) !important;
   --pf-v5-global--active-color--100: var(--color-primary-600) !important;
   --pf-v5-global--active-color--200: var(--color-primary-700) !important;
+  --pf-v5-global--active-color--300: var(--color-primary-600) !important;
+  --pf-v5-global--active-color--400: var(--color-primary-700) !important;
   --pf-v5-global--link--Color: var(--color-primary-600) !important;
   --pf-v5-global--link--Color--hover: var(--color-primary-700) !important;
   --pf-v5-global--Color--100: var(--color-base-600);
@@ -52,14 +54,15 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-    /* Dark theme mapping */
+  :root, :where(:root), .pf-v5-c-form-control, .pf-v5-c-button, a {
     --pf-v5-global--BackgroundColor--100: var(--color-base-900);
     --pf-v5-global--BackgroundColor--200: var(--color-base-950);
-    --pf-v5-global--primary-color--100: var(--color-primary-500);
-    --pf-v5-global--primary-color--200: var(--color-primary-400);
-    --pf-v5-global--active-color--100: var(--color-primary-500);
-    --pf-v5-global--active-color--200: var(--color-primary-400);
+    --pf-v5-global--primary-color--100: var(--color-primary-500) !important;
+    --pf-v5-global--primary-color--200: var(--color-primary-400) !important;
+    --pf-v5-global--active-color--100: var(--color-primary-500) !important;
+    --pf-v5-global--active-color--200: var(--color-primary-400) !important;
+    --pf-v5-global--active-color--300: var(--color-primary-500) !important;
+    --pf-v5-global--active-color--400: var(--color-primary-400) !important;
     --pf-v5-global--link--Color: var(--color-primary-500) !important;
     --pf-v5-global--link--Color--hover: var(--color-primary-400) !important;
     --pf-v5-global--Color--100: var(--color-base-300);
