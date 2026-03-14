@@ -5,3 +5,5 @@ keycloak_server/
 node_modules/
 keycloak.log
 test-results/
+keycloak-23.0.0/
+kc-themes/
