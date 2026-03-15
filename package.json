@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "lint:css": "stylelint \"**/*.css\""
+  },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
     "@tailwindcss/cli": "^4.2.1",
