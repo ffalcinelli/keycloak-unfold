@@ -1,5 +1,7 @@
 # keycloak-unfold-theme
 
+> **Disclaimer**: This project is experimentally written almost entirely by AI. Any usage of this software should keep this in mind, and the execution of this software is at your own risk.
+
 This repository contains a custom Keycloak theme designed to resemble the Tailwind-based 'Unfold' theme. Theme customization is achieved by extending standard Keycloak themes (such as `keycloak.v2`, `keycloak.v3`, and `base`) and overriding PatternFly 5 (`--pf-v5-*`) CSS variables.
 
 ## Local Development
