@@ -181,7 +181,7 @@
 
 <body id="keycloak-bg" class="antialiased bg-base-50 font-sans text-font-default-light text-sm dark:bg-base-900 dark:text-font-default-dark bg-base-50 login dark:bg-base-900 ${properties.kcBodyClass!}">
 
-<div id="page" class="bg-white !flex min-h-screen dark:bg-base-900 w-full ${properties.kcLogin!}">
+<div id="page" class="bg-white !flex !flex-col lg:!flex-row min-h-screen dark:bg-base-900 w-full ${properties.kcLogin!}">
     <!-- Left side (Form) -->
     <div class="flex lg:flex-1 grow items-center justify-center mx-auto px-4 relative ${properties.kcLoginContainer!}">
         <div class="absolute flex flex-row items-center justify-between left-0 m-4 right-0 top-0 z-50">
@@ -210,7 +210,7 @@
                 </div>
             </div>
         </div>
-        <div class="w-full sm:w-96 p-8 sm:p-10 ${properties.kcLoginMain!}">
+        <div class="w-full sm:w-10/12 md:w-8/12 lg:w-96 p-8 sm:p-10 mx-auto ${properties.kcLoginMain!}">
             <header id="kc-header" class="border-b border-base-200 mb-8 pb-6 dark:border-base-800">
                 <h1 class="font-semibold text-center">
                     <span class="text-font-important-light dark:text-font-important-dark text-base">Welcome back to</span>
