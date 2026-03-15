@@ -60,21 +60,90 @@
       <script type="module" async blocking="render">
           const DARK_MODE_CLASS = "${properties.kcDarkModeClass!'pf-v5-theme-dark'}";
           const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+          const THEME_STORAGE_KEY = "unfold-theme-preference";
 
-          updateDarkMode(mediaQuery.matches);
-          mediaQuery.addEventListener("change", (event) => updateDarkMode(event.matches));
+          // Icons for different themes
+          const THEME_ICONS = {
+              'light': 'fa-sun',
+              'dark': 'fa-moon',
+              'auto': 'fa-desktop'
+          };
 
-          function updateDarkMode(isEnabled) {
-            const { classList } = document.documentElement;
-
-            if (isEnabled) {
-              classList.add(DARK_MODE_CLASS);
-              classList.add("dark");
-            } else {
-              classList.remove(DARK_MODE_CLASS);
-              classList.remove("dark");
-            }
+          function getStoredTheme() {
+              return localStorage.getItem(THEME_STORAGE_KEY) || 'auto';
           }
+
+          function applyTheme(theme) {
+              const { classList } = document.documentElement;
+              const isDark = theme === 'dark' || (theme === 'auto' && mediaQuery.matches);
+
+              if (isDark) {
+                  classList.add(DARK_MODE_CLASS, "dark");
+              } else {
+                  classList.remove(DARK_MODE_CLASS, "dark");
+              }
+
+              // Update the active state in dropdown
+              document.querySelectorAll('.theme-btn').forEach(btn => {
+                  const val = btn.getAttribute('data-theme-value');
+                  if (val === theme) {
+                      btn.classList.add('text-primary-600', 'dark:text-primary-500', 'dark:hover:text-primary-500!', 'hover:text-primary-600!');
+                  } else {
+                      btn.classList.remove('text-primary-600', 'dark:text-primary-500', 'dark:hover:text-primary-500!', 'hover:text-primary-600!');
+                  }
+              });
+
+              // Update the button icon
+              const iconEl = document.getElementById('theme-switcher-icon');
+              if (iconEl) {
+                  iconEl.className = `fas ${THEME_ICONS[theme]}`;
+              }
+          }
+
+          // Initial setup
+          let currentTheme = getStoredTheme();
+          applyTheme(currentTheme);
+
+          // Handle system theme changes
+          mediaQuery.addEventListener("change", () => {
+              if (getStoredTheme() === 'auto') {
+                  applyTheme('auto');
+              }
+          });
+
+          // Setup UI events once DOM is loaded
+          window.addEventListener('DOMContentLoaded', () => {
+              // We need to re-apply the active state on load to be sure buttons have correct classes
+              applyTheme(getStoredTheme());
+
+              const themeButton = document.getElementById('theme-switcher-button');
+              const themeDropdown = document.getElementById('theme-switcher-dropdown');
+
+              if (themeButton && themeDropdown) {
+                  themeButton.addEventListener('click', (e) => {
+                      e.stopPropagation();
+                      themeDropdown.classList.toggle('hidden');
+                  });
+
+                  // Close dropdown when clicking outside
+                  document.addEventListener('click', (e) => {
+                      if (!themeDropdown.contains(e.target) && !themeButton.contains(e.target)) {
+                          themeDropdown.classList.add('hidden');
+                      }
+                  });
+
+                  // Setup click handlers for theme buttons
+                  document.querySelectorAll('.theme-btn').forEach(btn => {
+                      btn.addEventListener('click', () => {
+                          const newTheme = btn.getAttribute('data-theme-value');
+                          localStorage.setItem(THEME_STORAGE_KEY, newTheme);
+                          currentTheme = newTheme;
+                          applyTheme(newTheme);
+                          themeDropdown.classList.add('hidden');
+                      });
+                  });
+              }
+          });
       </script>
     </#if>
     <#if properties.scripts?has_content>
@@ -115,6 +184,32 @@
 <div id="page" class="bg-white !flex min-h-screen dark:bg-base-900 w-full ${properties.kcLogin!}">
     <!-- Left side (Form) -->
     <div class="flex lg:flex-1 grow items-center justify-center mx-auto px-4 relative ${properties.kcLoginContainer!}">
+        <div class="absolute flex flex-row items-center justify-between left-0 m-4 right-0 top-0 z-50">
+            <div class="ml-auto">
+                <div class="relative" id="theme-switcher-container">
+                    <button class="block cursor-pointer h-[18px] leading-none text-base-500 hover:text-base-700 dark:hover:text-base-200" id="theme-switcher-button" type="button" aria-label="Theme">
+                        <i class="fas fa-desktop" id="theme-switcher-icon"></i>
+                    </button>
+
+                    <nav id="theme-switcher-dropdown" class="hidden absolute bg-white border border-base-200 flex flex-col leading-none py-1 -right-2 rounded-default shadow-lg top-7 w-40 z-50 dark:bg-base-800 dark:border-base-700 text-left">
+                        <button class="theme-btn cursor-pointer flex flex-row mx-1 px-3 py-1.5 rounded-default hover:bg-base-100 hover:text-base-700 dark:hover:bg-base-700 dark:hover:text-base-200" data-theme-value="light" type="button">
+                            <i class="fas fa-sun mr-2 self-center w-4 text-center"></i>
+                            <span class="leading-none self-center">Light</span>
+                        </button>
+
+                        <button class="theme-btn cursor-pointer flex flex-row leading-none mx-1 px-3 py-1.5 rounded-default hover:bg-base-100 hover:text-base-700 dark:hover:bg-base-700 dark:hover:text-base-200" data-theme-value="dark" type="button">
+                            <i class="fas fa-moon mr-2 self-center w-4 text-center"></i>
+                            <span class="leading-none self-center">Dark</span>
+                        </button>
+
+                        <button class="theme-btn cursor-pointer flex flex-row mx-1 px-3 py-1.5 rounded-default hover:bg-base-100 hover:text-base-700 dark:hover:bg-base-700 dark:hover:text-base-200" data-theme-value="auto" type="button">
+                            <i class="fas fa-desktop mr-2 self-center w-4 text-center"></i>
+                            <span class="leading-none self-center">System</span>
+                        </button>
+                    </nav>
+                </div>
+            </div>
+        </div>
         <div class="w-full sm:w-96 p-8 sm:p-10 ${properties.kcLoginMain!}">
             <header id="kc-header" class="border-b border-base-200 mb-8 pb-6 dark:border-base-800">
                 <h1 class="font-semibold text-center">
