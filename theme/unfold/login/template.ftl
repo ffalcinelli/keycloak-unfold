@@ -96,7 +96,7 @@
               // Update the button icon
               const iconEl = document.getElementById('theme-switcher-icon');
               if (iconEl) {
-                  iconEl.className = `fas ${THEME_ICONS[theme]}`;
+                  iconEl.className = 'fas ' + THEME_ICONS[theme];
               }
           }
 
