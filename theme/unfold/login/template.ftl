@@ -125,7 +125,7 @@
 
             <main>
                 <div class="${properties.kcLoginMainHeader!}">
-                    <h2 class="block font-semibold text-primary-600 tracking-tight text-xl dark:text-primary-500 mb-4" id="kc-page-title"><#nested "header"></h2>
+                    <h2 class="block font-semibold text-primary-600 tracking-tight text-xl dark:text-primary-500 mb-4 text-left" id="kc-page-title"><#nested "header"></h2>
                 </div>
 
                 <div class="${properties.kcLoginMainBody!}">
@@ -165,7 +165,8 @@
     </div>
 
     <!-- Right side (Background Image) -->
-    <div class="bg-base-100 hidden lg:flex-1 lg:block dark:bg-base-800 bg-cover bg-center bg-no-repeat" style="background-image: url('${url.resourcesPath}/img/login-bg.jpg');">
+    <div class="bg-base-100 hidden lg:flex-1 lg:block dark:bg-base-800 relative">
+        <img class="absolute inset-0 w-full h-full object-cover" src="${url.resourcesPath}/img/login-bg.jpg" alt="Background image">
     </div>
 </div>
 
