@@ -23,13 +23,13 @@
 
 <#macro registrationLayout bodyClass="" displayInfo=false displayMessage=true displayRequiredFields=false>
 <!DOCTYPE html>
-<html class="${properties.kcHtmlClass!}" lang="${lang}"<#if realm.internationalizationEnabled> dir="${(locale.rtl)?then('rtl','ltr')}"</#if>>
+<html class="${properties.kcHtmlClass!}" lang="${properties.kcHtmlLang!"en"}"<#if realm.internationalizationEnabled> dir="${(locale.rtl)?then('rtl','ltr')}"</#if>>
 
 <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="robots" content="noindex, nofollow">
-    <meta name="color-scheme" content="light${darkMode?then(' dark', '')}">
+    <meta name="color-scheme" content="light${properties.darkMode?has_content?then(' dark', '')}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <#if properties.meta?has_content>
@@ -56,7 +56,7 @@
             }
         }
     </script>
-    <#if darkMode>
+    <#if properties.darkMode?has_content>
       <script type="module" async blocking="render">
           const DARK_MODE_CLASS = "${properties.kcDarkModeClass!'pf-v5-theme-dark'}";
           const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
@@ -164,7 +164,7 @@
             "${url.ssoLoginInOtherTabsUrl?no_esc}"
         );
     </script>
-    <#if authenticationSession??>
+    <#if authenticationSession?? && authenticationSession.authSessionIdHash??>
         <script type="module">
             import { checkAuthSession } from "${url.resourcesPath}/js/authChecker.js";
 
@@ -260,8 +260,8 @@
     </div>
 
     <!-- Right side (Background Image) -->
-    <div class="bg-base-100 hidden lg:!flex-1 lg:!block dark:bg-base-800 relative">
-        <img class="absolute inset-0 w-full h-full object-cover" src="${url.resourcesPath}/img/login-bg.jpg" alt="Background image">
+    <div class="bg-base-100 hidden lg:!flex-1 lg:!block dark:bg-base-800 relative overflow-hidden">
+        <img class="w-full h-full object-cover" src="${url.resourcesPath}/img/login-bg.jpg" alt="Background image">
     </div>
 </div>
 

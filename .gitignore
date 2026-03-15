@@ -8,3 +8,7 @@ test-results/
 keycloak-23.0.0/
 kc-themes/
 tests/visual/
+keycloak-26.0.5/
+keycloak-26.0.5.zip
+keycloak.log
+keycloak.pid
