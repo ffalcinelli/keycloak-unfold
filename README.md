@@ -27,3 +27,15 @@ To execute the tests, install the dependencies and run:
 npm install
 npx playwright test
 ```
+
+## Screenshots
+
+### Login Page
+![Login Page](assets/login-screenshot.png)
+
+### Keycloak Admin Console
+![Keycloak Admin Console](assets/admin-screenshot.png)
+
+## Credits
+
+This project is inspired by the excellent [Django Unfold Theme](https://github.com/unfoldadmin/django-unfold).
