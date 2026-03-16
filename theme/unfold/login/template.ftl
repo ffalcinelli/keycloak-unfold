@@ -184,8 +184,8 @@
 <div id="page" class="bg-white !flex !flex-col lg:!flex-row min-h-screen dark:bg-base-900 w-full ${properties.kcLogin!}">
     <!-- Left side (Form) -->
     <div class="flex lg:flex-1 grow items-center justify-center mx-auto px-4 relative ${properties.kcLoginContainer!}">
-        <div class="absolute flex flex-row items-center justify-between left-0 m-4 right-0 top-0 z-50">
-            <div class="ml-auto">
+        <div class="relative w-full sm:w-10/12 md:w-8/12 lg:w-96 p-8 sm:p-10 mx-auto ${properties.kcLoginMain!}">
+            <div class="absolute right-4 top-4 sm:right-6 sm:top-6 z-50">
                 <div class="relative" id="theme-switcher-container">
                     <button class="block cursor-pointer h-[18px] leading-none text-base-500 hover:text-base-700 dark:hover:text-base-200" id="theme-switcher-button" type="button" aria-label="Theme">
                         <i class="fas fa-desktop" id="theme-switcher-icon"></i>
@@ -209,8 +209,6 @@
                     </nav>
                 </div>
             </div>
-        </div>
-        <div class="w-full sm:w-10/12 md:w-8/12 lg:w-96 p-8 sm:p-10 mx-auto ${properties.kcLoginMain!}">
             <header id="kc-header" class="border-b border-base-200 mb-8 pb-6 dark:border-base-800">
                 <h1 class="font-semibold text-center">
                     <span class="text-font-important-light dark:text-font-important-dark text-base">Welcome back to</span>
