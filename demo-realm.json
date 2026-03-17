@@ -1,10 +1,10 @@
 {
   "realm": "demo",
   "enabled": true,
-  "loginTheme": "unfold",
-  "accountTheme": "unfold",
-  "adminTheme": "unfold",
-  "emailTheme": "unfold",
+  "loginTheme": "unfold-centered",
+  "accountTheme": "unfold-base",
+  "adminTheme": "unfold-base",
+  "emailTheme": "unfold-base",
   "users": [
     {
       "username": "testuser",
