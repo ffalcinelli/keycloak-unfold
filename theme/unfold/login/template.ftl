@@ -183,7 +183,7 @@
 
 <div id="page" class="bg-white !flex !flex-col lg:!flex-row min-h-screen dark:bg-base-900 w-full ${properties.kcLogin!}">
     <!-- Left side (Form) -->
-    <div class="flex lg:flex-1 grow items-center justify-center mx-auto px-4 relative ${properties.kcLoginContainer!}">
+    <div class="flex grow items-center justify-center mx-auto px-4 relative ${properties.kcLoginContainer!}">
         <div class="relative w-full sm:w-10/12 md:w-8/12 lg:w-96 p-8 sm:p-10 mx-auto ${properties.kcLoginMain!}">
             <div class="absolute right-4 top-4 sm:right-6 sm:top-6 z-50">
                 <div class="relative" id="theme-switcher-container">
@@ -258,7 +258,7 @@
     </div>
 
     <!-- Right side (Background Image) -->
-    <div class="bg-base-100 hidden lg:!flex-1 lg:!block dark:bg-base-800 relative overflow-hidden">
+    <div class="bg-base-100 hidden lg:!block !grow max-w-3xl xl:max-w-4xl dark:bg-base-800 relative overflow-hidden">
         <img class="w-full h-full object-cover" src="${url.resourcesPath}/img/login-bg.jpg" alt="Background image">
     </div>
 </div>
