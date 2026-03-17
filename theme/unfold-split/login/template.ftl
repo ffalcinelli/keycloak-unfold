@@ -93,10 +93,16 @@
     </script>
 </head>
 
-<body id="keycloak-bg" class="m-0 p-0 antialiased bg-base-50 font-sans text-font-default-light text-sm dark:bg-base-900 dark:text-font-default-dark bg-base-50 login dark:bg-base-900 ${properties.kcBodyClass!}">
+<body id="keycloak-bg" class="m-0 p-0 antialiased bg-base-50 font-sans text-font-default-light text-sm dark:bg-base-900 dark:text-font-default-dark login ${properties.kcBodyClass!}">
 
-<div id="page" class="min-h-screen grid grid-cols-1 lg:grid-cols-2 w-full ${properties.kcLogin!}">
-    <div class="flex flex-col justify-center items-center w-full bg-white dark:bg-slate-900 px-4 sm:px-6 lg:px-12 py-12 relative">
+<div id="page" class="min-h-screen grid grid-cols-1 lg:grid-cols-2 w-full">
+    <div class="flex flex-col justify-center items-center w-full bg-base-50 dark:bg-base-900 px-4 sm:px-6 lg:px-12 py-12 relative">
+        <a href="${properties.kcLogoLink!'#'}" class="absolute top-6 left-6 z-50 flex items-center gap-2 text-primary-600 hover:text-primary-700 dark:text-primary-500 dark:hover:text-primary-400 text-sm font-medium transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
+            </svg>
+            Return to site
+        </a>
         <button id="theme-toggle-button" class="absolute top-6 right-6 z-50 p-2 rounded-md text-slate-500 hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-700 transition-colors" type="button" aria-label="Toggle Theme">
             <svg id="theme-toggle-sun" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"></path>
@@ -105,17 +111,19 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"></path>
             </svg>
         </button>
-        <div class="w-full max-w-md ${properties.kcLoginContainer!}">
-            <header id="kc-header" class="mb-8">
-                <h1 class="font-bold text-slate-900 dark:text-white text-2xl text-center">
+        <div class="w-full max-w-md">
+            <header id="kc-header" class="mb-8 self-start w-full">
+                <div class="text-sm font-semibold text-slate-900 dark:text-white mb-1">Welcome back to</div>
+                <h1 class="font-bold text-primary-600 dark:text-primary-500 text-2xl">
                     <span id="kc-header-wrapper">${kcSanitize(msg("loginTitleHtml",(realm.displayNameHtml!'')))?no_esc}</span>
                 </h1>
+                <hr class="mt-4 border-slate-200 dark:border-slate-700 w-full"/>
             </header>
-            <div class="bg-white dark:bg-base-800 py-8 px-4 shadow-lg sm:rounded-xl sm:px-10 ${properties.kcLoginMain!} relative">
+            <div class="w-full relative">
 
                 <main>
                     <div class="${properties.kcLoginMainHeader!}">
-                        <h2 class="block font-semibold text-primary-600 tracking-tight text-xl dark:text-primary-500 mb-4 text-left" id="kc-page-title"><#nested "header"></h2>
+                        <h2 class="hidden font-semibold text-primary-600 tracking-tight text-xl dark:text-primary-500 mb-4 text-left" id="kc-page-title"><#nested "header"></h2>
                     </div>
 
                     <div class="${properties.kcLoginMainBody!}">
