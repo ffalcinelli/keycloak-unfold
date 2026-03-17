@@ -95,21 +95,6 @@
 
 <body id="keycloak-bg" class="antialiased bg-base-50 font-sans text-font-default-light text-sm dark:bg-base-900 dark:text-font-default-dark bg-base-50 login dark:bg-base-900 ${properties.kcBodyClass!}">
 
-<#assign layoutVariant = properties.layoutVariant!"centered">
-
-<#if layoutVariant == "split">
-<div id="page" class="min-h-screen flex lg:grid lg:grid-cols-2 w-full ${properties.kcLogin!}">
-    <div class="flex flex-col justify-center items-center w-full bg-white dark:bg-base-900 px-4 sm:px-6 lg:px-8 py-12 relative">
-        <button id="theme-toggle-button" class="absolute top-4 right-4 sm:top-6 sm:right-6 z-50 p-2 rounded-md text-slate-500 hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-700 transition-colors" type="button" aria-label="Toggle Theme">
-            <svg id="theme-toggle-sun" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"></path>
-            </svg>
-            <svg id="theme-toggle-moon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"></path>
-            </svg>
-        </button>
-        <div class="w-full sm:max-w-md ${properties.kcLoginContainer!}">
-<#else>
 <div id="page" class="min-h-screen flex flex-col justify-center items-center py-12 sm:px-6 lg:px-8 w-full ${properties.kcLogin!}">
     <button id="theme-toggle-button" class="fixed top-4 right-4 sm:top-6 sm:right-6 z-50 p-2 rounded-md text-slate-500 hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-700 transition-colors" type="button" aria-label="Toggle Theme">
         <svg id="theme-toggle-sun" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -121,7 +106,6 @@
     </button>
     <!-- Centered Form -->
     <div class="w-full sm:max-w-md ${properties.kcLoginContainer!}">
-</#if>
         <div class="bg-white dark:bg-base-800 py-8 px-4 shadow-lg sm:rounded-xl sm:px-10 ${properties.kcLoginMain!} relative">
             <header id="kc-header" class="border-b border-base-200 mb-8 pb-6 dark:border-base-800">
                 <h1 class="font-semibold text-center">
@@ -170,13 +154,6 @@
             </main>
         </div>
     </div>
-    <#if layoutVariant == "split">
-    </div>
-    <div class="hidden lg:block relative bg-slate-100 dark:bg-slate-800">
-        <img src="${url.resourcesPath}/img/bg.png" class="absolute inset-0 w-full h-full object-cover" alt="Background" />
-        <div class="absolute inset-0 bg-base-900/20 mix-blend-multiply"></div>
-    </div>
-    </#if>
 </div>
 
 </body>

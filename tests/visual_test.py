@@ -27,8 +27,8 @@ async def main():
             <!DOCTYPE html>
             <html>
             <head>
-                <link rel="stylesheet" href="/theme/unfold/common/resources/css/unfold-common.css">
-                <link rel="stylesheet" href="/theme/unfold/login/resources/css/tailwind.css">
+                <link rel="stylesheet" href="/theme/unfold-base/common/resources/css/unfold-common.css">
+                <link rel="stylesheet" href="/theme/unfold-base/login/resources/css/tailwind.css">
             </head>
             <body class="bg-base-50 antialiased font-sans">
                 <div id="page" class="bg-white flex min-h-screen">

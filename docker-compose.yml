@@ -9,5 +9,5 @@ services:
       - "8080:8080"
     command: start-dev --import-realm
     volumes:
-      - ./theme/unfold:/opt/keycloak/themes/unfold
+      - ./theme:/opt/keycloak/themes
       - ./demo-realm.json:/opt/keycloak/data/import/demo-realm.json
