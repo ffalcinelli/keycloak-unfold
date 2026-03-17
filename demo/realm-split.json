@@ -1,0 +1,19 @@
+{
+  "id": "Unfold-Split-Demo",
+  "realm": "Unfold-Split-Demo",
+  "enabled": true,
+  "loginTheme": "unfold-split",
+  "users": [
+    {
+      "username": "testuser",
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password",
+          "temporary": false
+        }
+      ]
+    }
+  ]
+}
