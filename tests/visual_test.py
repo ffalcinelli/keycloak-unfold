@@ -59,10 +59,10 @@ async def main():
             print(f"Body background color: {body_bg_color}")
 
             # Check the primary-600 color
-            assert "rgb(152, 16, 250)" in bg_color or "oklch(0.558 0.288 302.321)" in bg_color, f"Unexpected background color {bg_color}"
+            assert "rgb(124, 58, 237)" in bg_color or "oklch(0.558 0.288 302.321)" in bg_color, f"Unexpected background color {bg_color}"
 
             # Check base-50 color for body
-            assert "rgb(249, 250, 251)" in body_bg_color or "oklch(0.985 0.002 247.839)" in body_bg_color, f"Unexpected body background color {body_bg_color}"
+            assert "rgb(248, 250, 252)" in body_bg_color or "oklch(0.985 0.002 247.839)" in body_bg_color, f"Unexpected body background color {body_bg_color}"
 
             print("Visual test passed")
 
