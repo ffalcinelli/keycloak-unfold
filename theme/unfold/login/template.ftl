@@ -49,6 +49,7 @@
             <link href="${url.resourcesPath}/${style}" rel="stylesheet" />
         </#list>
     </#if>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap">
     <script type="importmap">
         {
             "imports": {
@@ -181,11 +182,11 @@
 
 <body id="keycloak-bg" class="antialiased bg-base-50 font-sans text-font-default-light text-sm dark:bg-base-900 dark:text-font-default-dark bg-base-50 login dark:bg-base-900 ${properties.kcBodyClass!}">
 
-<div id="page" class="bg-white !flex min-h-screen dark:bg-base-900 w-full ${properties.kcLogin!}">
-    <!-- Left side (Form) -->
-    <div class="flex grow items-center justify-center mx-auto px-4 relative ${properties.kcLoginContainer!}">
-        <div class="relative w-full sm:w-96 ${properties.kcLoginMain!}">
-            <div class="absolute right-4 top-4 sm:right-6 sm:top-6 z-50">
+<div id="page" class="min-h-screen flex flex-col justify-center items-center py-12 sm:px-6 lg:px-8 w-full ${properties.kcLogin!}">
+    <!-- Centered Form -->
+    <div class="w-full sm:max-w-md ${properties.kcLoginContainer!}">
+        <div class="bg-white dark:bg-base-800 py-8 px-4 shadow-lg sm:rounded-xl sm:px-10 ${properties.kcLoginMain!} relative">
+            <div class="absolute right-4 top-4 sm:right-8 sm:top-8 z-50">
                 <div class="relative" id="theme-switcher-container">
                     <button class="block cursor-pointer h-[18px] leading-none text-base-500 hover:text-base-700 dark:hover:text-base-200" id="theme-switcher-button" type="button" aria-label="Theme">
                         <i class="fas fa-desktop" id="theme-switcher-icon"></i>
@@ -255,11 +256,6 @@
                 </#if>
             </main>
         </div>
-    </div>
-
-    <!-- Right side (Background Image) -->
-    <div class="bg-base-100 hidden lg:!block !grow max-w-3xl xl:max-w-4xl dark:bg-base-800 relative overflow-hidden">
-        <img class="w-full h-full object-cover" src="${url.resourcesPath}/img/login-bg.jpg" alt="Background image">
     </div>
 </div>
 
