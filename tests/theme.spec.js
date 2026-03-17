@@ -66,3 +66,37 @@ test('Keycloak Unfold Theme - Demo Account Console', async ({ page }) => {
   const buttonStyle = await primaryButton.evaluate(el => window.getComputedStyle(el));
   expect(buttonStyle.backgroundColor).toMatch(/(oklch\(0\.558 0\.288 302\.321\)|rgb\(152, 16, 250\))/);
 });
+
+test('Keycloak Unfold Theme - Demo Registration Page', async ({ page }) => {
+  // Go to Demo realm account console, which should redirect to demo realm login page
+  await page.goto('http://localhost:8080/realms/demo/account/');
+
+  // Wait for login form to appear
+  await page.waitForSelector('#kc-form-login');
+
+  // Click on register link
+  await page.click('#kc-registration a');
+
+  // Wait for registration form to appear
+  await page.waitForSelector('#kc-register-form');
+
+  // Verify registration fields are present
+  await expect(page.locator('#firstName')).toBeVisible();
+  await expect(page.locator('#lastName')).toBeVisible();
+  await expect(page.locator('#email')).toBeVisible();
+  await expect(page.locator('#password')).toBeVisible();
+  await expect(page.locator('#password-confirm')).toBeVisible();
+
+  // Verify custom CSS overrides applied to the main container
+  const mainContainer = page.locator('.pf-v5-c-login__main');
+  const mainStyle = await mainContainer.evaluate(el => window.getComputedStyle(el));
+  expect(mainStyle.borderRadius).toMatch(/8px/);
+
+  // Check the registration button
+  const registerButton = page.locator('button[type="submit"]');
+  const buttonStyle = await registerButton.evaluate(el => window.getComputedStyle(el));
+
+  // Primary button color should match the theme
+  expect(buttonStyle.backgroundColor).toMatch(/(oklch\(0\.558 0\.288 302\.321\)|rgb\(152, 16, 250\))/);
+  expect(buttonStyle.borderRadius).toMatch(/6px/);
+});
