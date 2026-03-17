@@ -181,10 +181,10 @@
 
 <body id="keycloak-bg" class="antialiased bg-base-50 font-sans text-font-default-light text-sm dark:bg-base-900 dark:text-font-default-dark bg-base-50 login dark:bg-base-900 ${properties.kcBodyClass!}">
 
-<div id="page" class="bg-white !flex !flex-col lg:!flex-row min-h-screen dark:bg-base-900 w-full ${properties.kcLogin!}">
+<div id="page" class="bg-white !flex min-h-screen dark:bg-base-900 w-full ${properties.kcLogin!}">
     <!-- Left side (Form) -->
     <div class="flex grow items-center justify-center mx-auto px-4 relative ${properties.kcLoginContainer!}">
-        <div class="relative w-full sm:w-10/12 md:w-8/12 lg:w-96 p-8 sm:p-10 mx-auto ${properties.kcLoginMain!}">
+        <div class="relative w-full sm:w-96 ${properties.kcLoginMain!}">
             <div class="absolute right-4 top-4 sm:right-6 sm:top-6 z-50">
                 <div class="relative" id="theme-switcher-container">
                     <button class="block cursor-pointer h-[18px] leading-none text-base-500 hover:text-base-700 dark:hover:text-base-200" id="theme-switcher-button" type="button" aria-label="Theme">
