@@ -1,0 +1,19 @@
+{
+  "id": "Unfold-Centered-Demo",
+  "realm": "Unfold-Centered-Demo",
+  "enabled": true,
+  "loginTheme": "unfold-centered",
+  "users": [
+    {
+      "username": "testuser",
+      "enabled": true,
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password",
+          "temporary": false
+        }
+      ]
+    }
+  ]
+}
