@@ -33,6 +33,8 @@
     "shorthand-property-no-redundant-values": null,
     "color-function-alias-notation": null,
     "custom-property-empty-line-before": null,
+    "comment-empty-line-before": null,
+    "declaration-empty-line-before": null,
     "no-empty-source": null,
     "at-rule-no-unknown": [true, {"ignoreAtRules": ["tailwind", "apply", "variants", "responsive", "screen", "layer"]}],
     "no-duplicate-selectors": null
