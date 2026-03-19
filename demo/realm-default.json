@@ -1,8 +1,10 @@
 {
-  "id": "Unfold-Centered-Demo",
-  "realm": "Unfold-Centered-Demo",
+  "id": "unfold-default-demo",
+  "realm": "unfold-default-demo",
   "enabled": true,
-  "loginTheme": "unfold-centered",
+  "loginTheme": "unfold-default",
+  "accountTheme": "unfold-default",
+  "adminTheme": "unfold-default",
   "users": [
     {
       "username": "testuser",

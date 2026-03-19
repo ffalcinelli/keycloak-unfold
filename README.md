@@ -20,8 +20,8 @@ The default admin credentials are:
 * **Password:** `admin`
 
 You can view the specific demo login pages using the following links (login with username `testuser` and password `password`):
-* **Centered Theme Demo:** [http://localhost:8080/realms/Unfold-Centered-Demo/account/](http://localhost:8080/realms/Unfold-Centered-Demo/account/)
-* **Split Theme Demo:** [http://localhost:8080/realms/Unfold-Split-Demo/account/](http://localhost:8080/realms/Unfold-Split-Demo/account/)
+* **Default Theme Demo:** [http://localhost:8080/realms/unfold-default-demo/account/](http://localhost:8080/realms/unfold-default-demo/account/)
+* **Full Theme Demo:** [http://localhost:8080/realms/unfold-full-demo/account/](http://localhost:8080/realms/unfold-full-demo/account/)
 
 ## Testing
 

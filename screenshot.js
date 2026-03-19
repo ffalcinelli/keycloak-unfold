@@ -7,7 +7,7 @@ const { chromium } = require('playwright');
   });
   const page = await context.newPage();
 
-  await page.goto('http://localhost:8080/realms/Unfold-Split-Demo/account/');
+  await page.goto('http://localhost:8080/realms/unfold-full-demo/account/');
 
   // Wait for network idle and specific element to ensure page is loaded
   await page.waitForLoadState('networkidle');

@@ -1,8 +1,8 @@
 {
-  "id": "Unfold-Split-Demo",
-  "realm": "Unfold-Split-Demo",
+  "id": "unfold-full-demo",
+  "realm": "unfold-full-demo",
   "enabled": true,
-  "loginTheme": "unfold-split",
+  "loginTheme": "unfold-full",
   "users": [
     {
       "username": "testuser",

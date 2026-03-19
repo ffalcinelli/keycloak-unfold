@@ -96,7 +96,7 @@
 <body id="keycloak-bg" class="antialiased bg-base-50 font-sans text-font-default-light text-sm dark:bg-base-900 dark:text-font-default-dark bg-base-50 login dark:bg-base-900 ${properties.kcBodyClass!}">
 
 <div id="page" class="min-h-screen flex flex-col justify-center items-center py-12 sm:px-6 lg:px-8 w-full ${properties.kcLogin!}">
-    <button id="theme-toggle-button" class="fixed top-4 right-4 sm:top-6 sm:right-6 z-50 p-2 rounded-md text-slate-500 hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-700 transition-colors" type="button" aria-label="Toggle Theme">
+    <button id="theme-toggle-button" class="fixed top-4 right-4 sm:top-6 sm:right-6 z-50 p-2 rounded-md text-base-500 hover:bg-base-200 dark:text-base-400 dark:hover:bg-base-700 transition-colors" type="button" aria-label="Toggle Theme">
         <svg id="theme-toggle-sun" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"></path>
         </svg>
@@ -107,9 +107,9 @@
     <!-- Centered Form -->
     <div class="w-full sm:max-w-md ${properties.kcLoginContainer!}">
         <div class="bg-white dark:bg-base-800 py-8 px-4 shadow-lg sm:rounded-xl sm:px-10 ${properties.kcLoginMain!} relative">
-            <header id="kc-header" class="border-b border-base-200 mb-8 pb-6 dark:border-base-800">
+            <header id="kc-header" class="border-b border-base-200 mb-8 pb-6 dark:border-base-700">
                 <h1 class="font-semibold text-center">
-                    <span class="text-font-important-light dark:text-font-important-dark text-base">Welcome back to</span>
+                    <span class="text-base-900 dark:text-base-100 text-base">Welcome back to</span>
                     <span id="kc-header-wrapper" class="font-semibold text-primary-600 tracking-tight text-xl dark:text-primary-500 mt-1">${kcSanitize(msg("loginTitleHtml",(realm.displayNameHtml!'')))?no_esc}</span>
                 </h1>
             </header>

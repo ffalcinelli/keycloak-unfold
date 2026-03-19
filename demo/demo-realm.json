@@ -1,9 +1,9 @@
 {
   "realm": "demo",
   "enabled": true,
-  "loginTheme": "unfold-centered",
-  "accountTheme": "unfold-base",
-  "adminTheme": "unfold-base",
+  "loginTheme": "unfold-default",
+  "accountTheme": "unfold-default",
+  "adminTheme": "unfold-default",
   "emailTheme": "unfold-base",
   "users": [
     {

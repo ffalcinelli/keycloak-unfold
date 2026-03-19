@@ -103,7 +103,7 @@
             </svg>
             Return to site
         </a>
-        <button id="theme-toggle-button" class="absolute top-6 right-6 z-50 p-2 rounded-md text-slate-500 hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-700 transition-colors" type="button" aria-label="Toggle Theme">
+        <button id="theme-toggle-button" class="absolute top-6 right-6 z-50 p-2 rounded-md text-base-500 hover:bg-base-200 dark:text-base-400 dark:hover:bg-base-700 transition-colors" type="button" aria-label="Toggle Theme">
             <svg id="theme-toggle-sun" class="w-5 h-5 hidden" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z"></path>
             </svg>
@@ -113,11 +113,11 @@
         </button>
         <div class="w-full max-w-md">
             <header id="kc-header" class="mb-8 self-start w-full">
-                <div class="text-sm font-semibold text-slate-900 dark:text-white mb-1">Welcome back to</div>
+                <div class="text-sm font-semibold text-base-900 dark:text-base-100 mb-1">Welcome back to</div>
                 <h1 class="font-bold text-primary-600 dark:text-primary-500 text-2xl">
                     <span id="kc-header-wrapper">${kcSanitize(msg("loginTitleHtml",(realm.displayNameHtml!'')))?no_esc}</span>
                 </h1>
-                <hr class="mt-4 border-slate-200 dark:border-slate-700 w-full"/>
+                <hr class="mt-4 border-base-200 dark:border-base-700 w-full"/>
             </header>
             <div class="w-full relative">
 
@@ -163,10 +163,10 @@
         </div>
     </div>
     <div class="hidden lg:flex lg:flex-col lg:justify-between lg:relative bg-cover bg-center bg-no-repeat" style="background-image: url('${url.resourcesPath}/${properties.bgImage}');">
-        <div class="absolute inset-0 bg-slate-900/40 mix-blend-multiply"></div>
+        <div class="absolute inset-0 bg-base-900/40 mix-blend-multiply"></div>
         <div class="relative z-10 p-12 text-white mt-auto">
             <blockquote class="text-2xl font-semibold mb-4">Start building your next great application.</blockquote>
-            <p class="text-slate-300">Join thousands of developers using our platform.</p>
+            <p class="text-base-300">Join thousands of developers using our platform.</p>
         </div>
     </div>
 </div>
