@@ -49,8 +49,13 @@
   --pf-v5-c-form-control--BorderRadius: 0.375rem;
   --pf-v5-c-card--BorderRadius: 0.5rem;
   --pf-v5-c-card--BoxShadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
-  --pf-v5-c-login__main--BorderRadius: 0.5rem;
-  --pf-v5-c-login__main--BoxShadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
+  --pf-v5-c-page__main--BorderRadius: 0.5rem;
+  --pf-v5-c-page__main--BoxShadow: 0 4px 6px -1px rgb(0 0 0 / 10%), 0 2px 4px -1px rgb(0 0 0 / 6%);
+
+  /* Page component overrides */
+  --pf-v5-c-page__header--BackgroundColor: var(--pf-v5-global--BackgroundColor--200);
+  --pf-v5-c-page__main--BackgroundColor: var(--pf-v5-global--BackgroundColor--100);
+  --pf-v5-c-page__sidebar--BackgroundColor: var(--pf-v5-global--BackgroundColor--200);
 }
 
 :root.pf-v5-theme-dark, :where(:root.pf-v5-theme-dark),
@@ -70,6 +75,11 @@
   --pf-v5-global--Color--100: var(--color-base-300);
   --pf-v5-global--Color--200: var(--color-base-400);
   --pf-v5-global--BorderColor--100: var(--color-base-800);
+
+  /* Page component overrides - Dark Mode */
+  --pf-v5-c-page__header--BackgroundColor: var(--pf-v5-global--BackgroundColor--200);
+  --pf-v5-c-page__main--BackgroundColor: var(--pf-v5-global--BackgroundColor--100);
+  --pf-v5-c-page__sidebar--BackgroundColor: var(--pf-v5-global--BackgroundColor--200);
 }
 
 body {

@@ -3,17 +3,44 @@
   "realm": "unfold-full-demo",
   "enabled": true,
   "loginTheme": "unfold-full",
+  "accountTheme": "unfold-full",
+  "adminTheme": "unfold-full",
+  "emailTheme": "unfold-base",
   "users": [
     {
       "username": "testuser",
       "enabled": true,
+      "emailVerified": true,
+      "firstName": "Test",
+      "lastName": "User",
+      "email": "test@example.com",
       "credentials": [
         {
           "type": "password",
           "value": "password",
           "temporary": false
         }
+      ],
+      "realmRoles": [
+        "default-roles-unfold-full-demo"
       ]
     }
-  ]
+  ],
+  "clients": [
+    {
+      "clientId": "demo-client",
+      "enabled": true,
+      "publicClient": true,
+      "directAccessGrantsEnabled": true,
+      "redirectUris": [
+        "*"
+      ],
+      "webOrigins": [
+        "*"
+      ]
+    }
+  ],
+  "rememberMe": true,
+  "resetPasswordAllowed": true,
+  "registrationAllowed": true
 }
