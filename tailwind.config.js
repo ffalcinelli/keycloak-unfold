@@ -2,8 +2,8 @@
 module.exports = {
   content: [
     "./theme/unfold-base/**/*.ftl",
-    "./theme/unfold-centered/**/*.ftl",
-    "./theme/unfold-split/**/*.ftl"
+    "./theme/unfold-default/**/*.ftl",
+    "./theme/unfold-full/**/*.ftl"
   ],
   darkMode: 'class',
   theme: {

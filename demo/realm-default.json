@@ -1,5 +1,6 @@
 {
-  "realm": "demo",
+  "id": "unfold-default-demo",
+  "realm": "unfold-default-demo",
   "enabled": true,
   "loginTheme": "unfold-default",
   "accountTheme": "unfold-default",
@@ -21,7 +22,7 @@
         }
       ],
       "realmRoles": [
-        "default-roles-demo"
+        "default-roles-unfold-default-demo"
       ]
     }
   ],
