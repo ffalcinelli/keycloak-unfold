@@ -1,3 +1,20 @@
+:root, :where(:root) {
+  /* Login Theme Mapping - Structural Colors Only */
+  --pf-v5-global--BackgroundColor--100: var(--color-base-50);
+  --pf-v5-global--BackgroundColor--200: #fff;
+  --pf-v5-global--Color--100: var(--color-base-600);
+  --pf-v5-global--Color--200: var(--color-base-500);
+  --pf-v5-global--BorderColor--100: var(--color-base-200);
+}
+
+:root.pf-v5-theme-dark, :where(:root.pf-v5-theme-dark) {
+  /* Login Theme Mapping - Dark Mode structural Colors */
+  --pf-v5-global--BackgroundColor--100: var(--color-base-900);
+  --pf-v5-global--BackgroundColor--200: var(--color-base-950);
+  --pf-v5-global--Color--100: var(--color-base-300);
+  --pf-v5-global--Color--200: var(--color-base-400);
+  --pf-v5-global--BorderColor--100: var(--color-base-800);
+}
 
 .pf-v5-c-login {
   background-color: var(--pf-v5-global--BackgroundColor--100);

@@ -2,11 +2,16 @@
 
 > **Disclaimer**: This project is experimentally written almost entirely by AI. Any usage of this software should keep this in mind, and the execution of this software is at your own risk.
 
-This repository contains a custom Keycloak theme designed to resemble the Tailwind-based 'Unfold' theme. Theme customization is achieved by extending standard Keycloak themes (such as `keycloak.v2`, `keycloak.v3`, and `base`) and overriding PatternFly 5 (`--pf-v5-*`) CSS variables.
+This repository contains a modular Keycloak theme designed to emulate the aesthetics of the [Django Unfold Theme](https://github.com/unfoldadmin/django-unfold). It focuses on a clean, modern interface by extending Keycloak's `v2` theme and overriding PatternFly 5 CSS variables.
+
+## Theme Variants
+
+- **`unfold-default`**: A simple login layout with a centered container. The Admin and Account consoles are kept close to the standard Keycloak look, modified only with the Unfold accent colors and typography.
+- **`unfold-full`**: A modern login layout with a split-screen background image. The Admin and Account consoles feature additional styling like rounded corners and subtle shadows for a more distinct "Unfold" experience.
 
 ## Local Development
 
-Local development and demonstration rely on Docker Compose to run a Keycloak instance with a pre-configured demo realm.
+Local development and demonstration rely on Docker Compose to run a Keycloak instance with pre-configured demo realms.
 
 To start the Keycloak instance, run:
 
@@ -36,11 +41,23 @@ npx playwright test
 
 ## Screenshots
 
-### Login Page
-![Login Page](assets/login-screenshot.png)
+### Unfold Default
+The `unfold-default` variant focuses on a clean, "Keycloak-native" feel with custom accent colors.
 
-### Keycloak Admin Console
-![Keycloak Admin Console](assets/admin-screenshot.png)
+**Login Page**
+![unfold-default-login](assets/unfold-default-login.png)
+
+**Account Console**
+![unfold-default-account](assets/unfold-default-account.png)
+
+### Unfold Full
+The `unfold-full` variant provides a more customized, high-aesthetic experience.
+
+**Login Page**
+![unfold-full-login](assets/unfold-full-login.png)
+
+**Account Console**
+![unfold-full-account](assets/unfold-full-account.png)
 
 ## Credits
 
