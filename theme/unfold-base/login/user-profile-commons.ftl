@@ -1,3 +1,5 @@
+<#import "field.ftl" as field>
+
 <#macro userProfileFormFields>
 	<#assign currentGroup="">
 
@@ -41,14 +43,14 @@
 			<#nested "beforeField" attribute>
 			<div class="flex flex-col group mb-5">
 				<div class="flex flex-col gap-2">
-					<label for="${attribute.name}" class="block font-semibold text-font-important-light dark:text-font-important-dark">${advancedMsg(attribute.displayName!'')}<#if attribute.required><span class="text-red-600">*</span></#if></label>
+					<label for="${attribute.name}" class="${field.labelClass}">${advancedMsg(attribute.displayName!'')}<#if attribute.required><span class="text-red-600">*</span></#if></label>
 
 					<#if attribute.annotations.inputHelperTextBefore??>
 						<div class="text-sm text-base-500 mb-1" id="form-help-text-before-${attribute.name}" aria-live="polite">${kcSanitize(advancedMsg(attribute.annotations.inputHelperTextBefore))?no_esc}</div>
 					</#if>
 					<@inputFieldByType attribute=attribute/>
 					<#if messagesPerField.existsError('${attribute.name}')>
-						<span id="input-error-${attribute.name}" class="text-red-600 text-sm mt-1" aria-live="polite">
+						<span id="input-error-${attribute.name}" class="${field.errorClass}" aria-live="polite">
 							${kcSanitize(messagesPerField.get('${attribute.name}'))?no_esc}
 						</span>
 					</#if>
@@ -92,7 +94,7 @@
 </#macro>
 
 <#macro inputTag attribute value>
-	<input type="<@inputTagType attribute=attribute/>" id="${attribute.name}" name="${attribute.name}" value="${(value!'')}" class="border border-base-200 bg-white font-medium min-w-20 placeholder-base-400 rounded-default shadow-xs text-font-default-light text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 group-[.errors]:border-red-600 focus:group-[.errors]:outline-red-600 dark:bg-base-900 dark:border-base-700 dark:text-font-default-dark dark:group-[.errors]:border-red-500 dark:focus:group-[.errors]:outline-red-500 dark:scheme-dark group-[.primary]:border-transparent disabled:!bg-base-50 dark:disabled:!bg-base-800 px-3 py-2 w-full"
+	<input type="<@inputTagType attribute=attribute/>" id="${attribute.name}" name="${attribute.name}" value="${(value!'')}" class="${field.inputClass}"
 		aria-invalid="<#if messagesPerField.existsError('${attribute.name}')>true</#if>"
 		<#if attribute.readOnly>disabled</#if>
 		<#if attribute.autocomplete??>autocomplete="${attribute.autocomplete}"</#if>
@@ -125,7 +127,7 @@
 </#macro>
 
 <#macro textareaTag attribute>
-	<textarea id="${attribute.name}" name="${attribute.name}" class="border border-base-200 bg-white font-medium min-w-20 placeholder-base-400 rounded-default shadow-xs text-font-default-light text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 group-[.errors]:border-red-600 focus:group-[.errors]:outline-red-600 dark:bg-base-900 dark:border-base-700 dark:text-font-default-dark dark:group-[.errors]:border-red-500 dark:focus:group-[.errors]:outline-red-500 dark:scheme-dark group-[.primary]:border-transparent disabled:!bg-base-50 dark:disabled:!bg-base-800 px-3 py-2 w-full"
+	<textarea id="${attribute.name}" name="${attribute.name}" class="${field.inputClass}"
 		aria-invalid="<#if messagesPerField.existsError('${attribute.name}')>true</#if>"
 		<#if attribute.readOnly>disabled</#if>
 		<#if attribute.annotations.inputTypeCols??>cols="${attribute.annotations.inputTypeCols}"</#if>
@@ -135,7 +137,7 @@
 </#macro>
 
 <#macro selectTag attribute>
-	<select id="${attribute.name}" name="${attribute.name}" class="border border-base-200 bg-white font-medium min-w-20 placeholder-base-400 rounded-default shadow-xs text-font-default-light text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 group-[.errors]:border-red-600 focus:group-[.errors]:outline-red-600 dark:bg-base-900 dark:border-base-700 dark:text-font-default-dark dark:group-[.errors]:border-red-500 dark:focus:group-[.errors]:outline-red-500 dark:scheme-dark group-[.primary]:border-transparent disabled:!bg-base-50 dark:disabled:!bg-base-800 px-3 py-2 w-full"
+	<select id="${attribute.name}" name="${attribute.name}" class="${field.inputClass}"
 		aria-invalid="<#if messagesPerField.existsError('${attribute.name}')>true</#if>"
 		<#if attribute.readOnly>disabled</#if>
 		<#if attribute.annotations.inputType=='multiselect'>multiple</#if>

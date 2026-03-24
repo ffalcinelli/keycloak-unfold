@@ -1,3 +1,5 @@
+<#import "field.ftl" as field>
+
 <#macro termsAcceptance>
     <#if termsAcceptanceRequired??>
         <div class="flex flex-col group mb-5">
@@ -16,7 +18,7 @@
                 <label for="termsAccepted" class="ml-2 block text-sm text-font-default-light dark:text-font-default-dark">${msg("acceptTerms")}</label>
             </div>
             <#if messagesPerField.existsError('termsAccepted')>
-                <div class="text-red-600 text-sm mt-1">
+                <div class="${field.errorClass}">
                             <span id="input-error-terms-accepted" aria-live="polite">
                                 ${kcSanitize(messagesPerField.get('termsAccepted'))?no_esc}
                             </span>
