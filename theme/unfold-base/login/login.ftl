@@ -16,15 +16,15 @@
 
                         <div class="flex flex-col group mb-5">
                             <div class="flex flex-col gap-2">
-                                <label for="username" class="block font-semibold text-font-important-light dark:text-font-important-dark">
+                                <label for="username" class="${field.labelClass}">
                                     ${label}
                                     <span class="text-red-600">*</span>
                                 </label>
-                                <input tabindex="1" id="username" class="border border-base-200 bg-white font-medium min-w-20 placeholder-base-400 rounded-default shadow-xs text-font-default-light text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 group-[.errors]:border-red-600 focus:group-[.errors]:outline-red-600 dark:bg-base-900 dark:border-base-700 dark:text-font-default-dark dark:group-[.errors]:border-red-500 dark:focus:group-[.errors]:outline-red-500 dark:scheme-dark group-[.primary]:border-transparent disabled:!bg-base-50 dark:disabled:!bg-base-800 px-3 py-2 w-full" name="username" value="${kcSanitize(login.username!'')}" type="text" autofocus autocomplete="username"
+                                <input tabindex="1" id="username" class="${field.inputClass}" name="username" value="${kcSanitize(login.username!'')}" type="text" autofocus autocomplete="username"
                                        aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
                                 />
                                 <#if messagesPerField.existsError('username','password')>
-                                    <span id="input-error" class="text-red-600 text-sm mt-1" aria-live="polite">
+                                    <span id="input-error" class="${field.errorClass}" aria-live="polite">
                                             ${kcSanitize(messagesPerField.getFirstError('username','password'))?no_esc}
                                     </span>
                                 </#if>
@@ -34,13 +34,13 @@
 
                     <div class="flex flex-col group mb-5">
                         <div class="flex flex-col gap-2">
-                            <label for="password" class="block font-semibold text-font-important-light dark:text-font-important-dark">
+                            <label for="password" class="${field.labelClass}">
                                 ${msg("password")}
                                 <span class="text-red-600">*</span>
                             </label>
 
                             <div class="relative w-full">
-                                <input tabindex="2" id="password" class="border border-base-200 bg-white font-medium min-w-20 placeholder-base-400 rounded-default shadow-xs text-font-default-light text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 group-[.errors]:border-red-600 focus:group-[.errors]:outline-red-600 dark:bg-base-900 dark:border-base-700 dark:text-font-default-dark dark:group-[.errors]:border-red-500 dark:focus:group-[.errors]:outline-red-500 dark:scheme-dark group-[.primary]:border-transparent disabled:!bg-base-50 dark:disabled:!bg-base-800 px-3 py-2 w-full" name="password" type="password" autocomplete="current-password"
+                                <input tabindex="2" id="password" class="${field.inputClass}" name="password" type="password" autocomplete="current-password"
                                        aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
                                 />
                                 <button class="absolute inset-y-0 right-0 flex items-center px-3 text-base-400 hover:text-base-600" type="button" aria-label="${msg('showPassword')}"
@@ -52,7 +52,7 @@
                             </div>
 
                             <#if usernameHidden?? && messagesPerField.existsError('username','password')>
-                                <span id="input-error" class="text-red-600 text-sm mt-1" aria-live="polite">
+                                <span id="input-error" class="${field.errorClass}" aria-live="polite">
                                         ${kcSanitize(messagesPerField.getFirstError('username','password'))?no_esc}
                                 </span>
                             </#if>
@@ -71,12 +71,12 @@
 
                     <div class="flex flex-col gap-3 mt-2">
                         <input type="hidden" id="id-hidden-input" name="credentialId" <#if auth.selectedCredential?has_content>value="${auth.selectedCredential}"</#if>/>
-                        <button tabindex="4" class="font-medium flex group items-center gap-2 px-3 py-2 relative rounded-default justify-center whitespace-nowrap cursor-pointer border border-base-200 bg-primary-600 border-transparent text-white w-full hover:bg-primary-700 transition-colors" name="login" id="kc-login" type="submit">
+                        <button tabindex="4" class="${field.primaryButtonClass}" name="login" id="kc-login" type="submit">
                             ${msg("doLogIn")}
                         </button>
 
                         <#if realm.resetPasswordAllowed>
-                            <a tabindex="5" href="${url.loginResetCredentialsUrl}" class="font-medium flex group items-center gap-2 px-3 py-2 relative rounded-default justify-center whitespace-nowrap cursor-pointer bg-base-100 border border-transparent dark:bg-base-800 text-font-default-light dark:text-font-default-dark w-full hover:bg-base-200 dark:hover:bg-base-700 transition-colors">
+                            <a tabindex="5" href="${url.loginResetCredentialsUrl}" class="${field.secondaryButtonClass}">
                                 ${msg("doForgotPassword")}
                             </a>
                         </#if>

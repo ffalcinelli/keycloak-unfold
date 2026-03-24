@@ -1,4 +1,5 @@
 <#import "template.ftl" as layout>
+<#import "field.ftl" as field>
 <#import "user-profile-commons.ftl" as userProfileCommons>
 <#import "register-commons.ftl" as registerCommons>
 <@layout.registrationLayout displayMessage=messagesPerField.exists('global') displayRequiredFields=true; section>
@@ -17,9 +18,9 @@
                     <#if passwordRequired?? && (attribute.name == 'username' || (attribute.name == 'email' && realm.registrationEmailAsUsername))>
                         <div class="flex flex-col group mb-5">
                             <div class="flex flex-col gap-2">
-                                <label for="password" class="block font-semibold text-font-important-light dark:text-font-important-dark">${msg("password")}<span class="text-red-600">*</span></label>
+                                <label for="password" class="${field.labelClass}">${msg("password")}<span class="text-red-600">*</span></label>
                                 <div class="relative w-full">
-                                    <input type="password" id="password" class="border border-base-200 bg-white font-medium min-w-20 placeholder-base-400 rounded-default shadow-xs text-font-default-light text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 group-[.errors]:border-red-600 focus:group-[.errors]:outline-red-600 dark:bg-base-900 dark:border-base-700 dark:text-font-default-dark dark:group-[.errors]:border-red-500 dark:focus:group-[.errors]:outline-red-500 dark:scheme-dark group-[.primary]:border-transparent disabled:!bg-base-50 dark:disabled:!bg-base-800 px-3 py-2 w-full" name="password"
+                                    <input type="password" id="password" class="${field.inputClass}" name="password"
                                            autocomplete="new-password"
                                            aria-invalid="<#if messagesPerField.existsError('password','password-confirm')>true</#if>"
                                     />
@@ -32,7 +33,7 @@
                                 </div>
 
                                 <#if messagesPerField.existsError('password')>
-                                    <span id="input-error-password" class="text-red-600 text-sm mt-1" aria-live="polite">
+                                    <span id="input-error-password" class="${field.errorClass}" aria-live="polite">
 		                                ${kcSanitize(messagesPerField.get('password'))?no_esc}
 		                            </span>
                                 </#if>
@@ -42,9 +43,9 @@
                         <div class="flex flex-col group mb-5">
                             <div class="flex flex-col gap-2">
                                 <label for="password-confirm"
-                                       class="block font-semibold text-font-important-light dark:text-font-important-dark">${msg("passwordConfirm")}<span class="text-red-600">*</span></label>
+                                       class="${field.labelClass}">${msg("passwordConfirm")}<span class="text-red-600">*</span></label>
                                 <div class="relative w-full">
-                                    <input type="password" id="password-confirm" class="border border-base-200 bg-white font-medium min-w-20 placeholder-base-400 rounded-default shadow-xs text-font-default-light text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 group-[.errors]:border-red-600 focus:group-[.errors]:outline-red-600 dark:bg-base-900 dark:border-base-700 dark:text-font-default-dark dark:group-[.errors]:border-red-500 dark:focus:group-[.errors]:outline-red-500 dark:scheme-dark group-[.primary]:border-transparent disabled:!bg-base-50 dark:disabled:!bg-base-800 px-3 py-2 w-full"
+                                    <input type="password" id="password-confirm" class="${field.inputClass}"
                                            name="password-confirm" autocomplete="new-password"
                                            aria-invalid="<#if messagesPerField.existsError('password-confirm')>true</#if>"
                                     />
@@ -57,7 +58,7 @@
                                 </div>
 
                                 <#if messagesPerField.existsError('password-confirm')>
-                                    <span id="input-error-password-confirm" class="text-red-600 text-sm mt-1" aria-live="polite">
+                                    <span id="input-error-password-confirm" class="${field.errorClass}" aria-live="polite">
 		                                ${kcSanitize(messagesPerField.get('password-confirm'))?no_esc}
 		                            </span>
                                 </#if>
@@ -84,16 +85,16 @@
                             document.getElementById("kc-register-form").requestSubmit();
                         }
                     </script>
-                    <button class="font-medium flex group items-center gap-2 px-3 py-2 relative rounded-default justify-center whitespace-nowrap cursor-pointer border border-base-200 bg-primary-600 border-transparent text-white w-full hover:bg-primary-700 transition-colors g-recaptcha"
+                    <button class="${field.primaryButtonClass} g-recaptcha"
                         data-sitekey="${recaptchaSiteKey}" data-callback='onSubmitRecaptcha' data-action='${recaptchaAction}' type="submit">
                         ${msg("doRegister")}
                     </button>
                 <#else>
-                    <button class="font-medium flex group items-center gap-2 px-3 py-2 relative rounded-default justify-center whitespace-nowrap cursor-pointer border border-base-200 bg-primary-600 border-transparent text-white w-full hover:bg-primary-700 transition-colors" type="submit">
+                    <button class="${field.primaryButtonClass}" type="submit">
                         ${msg("doRegister")}
                     </button>
                 </#if>
-                <a href="${url.loginUrl}" class="font-medium flex group items-center gap-2 px-3 py-2 relative rounded-default justify-center whitespace-nowrap cursor-pointer bg-base-100 border border-transparent dark:bg-base-800 text-font-default-light dark:text-font-default-dark w-full hover:bg-base-200 dark:hover:bg-base-700 transition-colors">
+                <a href="${url.loginUrl}" class="${field.secondaryButtonClass}">
                     ${msg("backToLogin")}
                 </a>
             </div>

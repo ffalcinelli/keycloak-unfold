@@ -1,4 +1,5 @@
 <#import "template.ftl" as layout>
+<#import "field.ftl" as field>
 <#import "password-commons.ftl" as passwordCommons>
 <@layout.registrationLayout displayMessage=!messagesPerField.existsError('password','password-confirm'); section>
     <#if section = "header">
@@ -11,9 +12,9 @@
 
             <div class="flex flex-col group mb-5">
                 <div class="flex flex-col gap-2">
-                    <label for="password-new" class="block font-semibold text-font-important-light dark:text-font-important-dark">${msg("passwordNew")}<span class="text-red-600">*</span></label>
+                    <label for="password-new" class="${field.labelClass}">${msg("passwordNew")}<span class="text-red-600">*</span></label>
                     <div class="relative w-full">
-                        <input type="password" id="password-new" name="password-new" class="border border-base-200 bg-white font-medium min-w-20 placeholder-base-400 rounded-default shadow-xs text-font-default-light text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 group-[.errors]:border-red-600 focus:group-[.errors]:outline-red-600 dark:bg-base-900 dark:border-base-700 dark:text-font-default-dark dark:group-[.errors]:border-red-500 dark:focus:group-[.errors]:outline-red-500 dark:scheme-dark group-[.primary]:border-transparent disabled:!bg-base-50 dark:disabled:!bg-base-800 px-3 py-2 w-full"
+                        <input type="password" id="password-new" name="password-new" class="${field.inputClass}"
                                autofocus autocomplete="new-password"
                                aria-invalid="<#if messagesPerField.existsError('password','password-confirm')>true</#if>"
                         />
@@ -26,7 +27,7 @@
                     </div>
 
                     <#if messagesPerField.existsError('password')>
-                        <span id="input-error-password" class="text-red-600 text-sm mt-1" aria-live="polite">
+                        <span id="input-error-password" class="${field.errorClass}" aria-live="polite">
                             ${kcSanitize(messagesPerField.get('password'))?no_esc}
                         </span>
                     </#if>
@@ -35,9 +36,9 @@
 
             <div class="flex flex-col group mb-5">
                 <div class="flex flex-col gap-2">
-                    <label for="password-confirm" class="block font-semibold text-font-important-light dark:text-font-important-dark">${msg("passwordConfirm")}<span class="text-red-600">*</span></label>
+                    <label for="password-confirm" class="${field.labelClass}">${msg("passwordConfirm")}<span class="text-red-600">*</span></label>
                     <div class="relative w-full">
-                        <input type="password" id="password-confirm" name="password-confirm" class="border border-base-200 bg-white font-medium min-w-20 placeholder-base-400 rounded-default shadow-xs text-font-default-light text-sm focus:outline-2 focus:-outline-offset-2 focus:outline-primary-600 group-[.errors]:border-red-600 focus:group-[.errors]:outline-red-600 dark:bg-base-900 dark:border-base-700 dark:text-font-default-dark dark:group-[.errors]:border-red-500 dark:focus:group-[.errors]:outline-red-500 dark:scheme-dark group-[.primary]:border-transparent disabled:!bg-base-50 dark:disabled:!bg-base-800 px-3 py-2 w-full"
+                        <input type="password" id="password-confirm" name="password-confirm" class="${field.inputClass}"
                                autocomplete="new-password"
                                aria-invalid="<#if messagesPerField.existsError('password-confirm')>true</#if>"
                         />
@@ -50,7 +51,7 @@
                     </div>
 
                     <#if messagesPerField.existsError('password-confirm')>
-                        <span id="input-error-password-confirm" class="text-red-600 text-sm mt-1" aria-live="polite">
+                        <span id="input-error-password-confirm" class="${field.errorClass}" aria-live="polite">
                             ${kcSanitize(messagesPerField.get('password-confirm'))?no_esc}
                         </span>
                     </#if>
@@ -58,11 +59,11 @@
             </div>
 
             <div class="flex flex-col gap-3 mt-2">
-                <button class="font-medium flex group items-center gap-2 px-3 py-2 relative rounded-default justify-center whitespace-nowrap cursor-pointer border border-base-200 bg-primary-600 border-transparent text-white w-full hover:bg-primary-700 transition-colors" type="submit">
+                <button class="${field.primaryButtonClass}" type="submit">
                     ${msg("doSubmit")}
                 </button>
                 <#if isAppInitiatedAction??>
-                    <button class="font-medium flex group items-center gap-2 px-3 py-2 relative rounded-default justify-center whitespace-nowrap cursor-pointer bg-base-100 border border-transparent dark:bg-base-800 text-font-default-light dark:text-font-default-dark w-full hover:bg-base-200 dark:hover:bg-base-700 transition-colors" type="submit" name="cancel-aia" value="true">
+                    <button class="${field.secondaryButtonClass}" type="submit" name="cancel-aia" value="true">
                         ${msg("doCancel")}
                     </button>
                 </#if>
