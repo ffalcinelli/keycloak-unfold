@@ -9,6 +9,21 @@ This repository contains a modular Keycloak theme designed to emulate the aesthe
 - **`unfold-default`**: A simple login layout with a centered container. The Admin and Account consoles are kept close to the standard Keycloak look, modified only with the Unfold accent colors and typography.
 - **`unfold-full`**: A modern login layout with a split-screen background image. The Admin and Account consoles feature additional styling like rounded corners and subtle shadows for a more distinct "Unfold" experience.
 
+## Deployment / Installation
+
+For production environments, the recommended Keycloak best practice is to deploy themes as a JAR file.
+
+1. Download the latest `keycloak-unfold-theme-v*.jar` from the [GitHub Releases](../../releases) page.
+2. Copy the `.jar` file to the `providers/` directory of your Keycloak installation.
+3. Run the Keycloak build step to register the new theme provider:
+   ```bash
+   bin/kc.sh build
+   ```
+4. Start Keycloak:
+   ```bash
+   bin/kc.sh start
+   ```
+
 ## Local Development
 
 Local development and demonstration rely on Docker Compose to run a Keycloak instance with pre-configured demo realms.

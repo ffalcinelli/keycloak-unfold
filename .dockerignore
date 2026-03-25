@@ -39,3 +39,14 @@ META-INF/
 # OS
 .DS_Store
 Thumbs.db
+
+# Git
+.git/
+.gitignore
+.github/
+
+# Documentation
+README.md
+assets/
+LICENSE
+GEMINI.md

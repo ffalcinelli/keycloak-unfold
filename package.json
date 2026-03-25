@@ -1,6 +1,11 @@
 {
+  "name": "keycloak-unfold-theme",
+  "version": "26.0.0",
   "scripts": {
-    "lint:css": "stylelint \"**/*.css\""
+    "lint:css": "stylelint \"**/*.css\"",
+    "build:css": "tailwindcss -i ./theme/unfold-base/login/resources/css/tailwind-input.css -o ./theme/unfold-base/login/resources/css/tailwind.css --minify",
+    "build": "npm run build:css",
+    "package": "npm run build && zip -r ${npm_package_name}-v${npm_package_version}.jar theme/ META-INF/"
   },
   "devDependencies": {
     "@playwright/test": "^1.58.2",
