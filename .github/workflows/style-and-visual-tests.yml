@@ -36,5 +36,8 @@ jobs:
     - name: Run stylelint
       run: npm run lint:css
 
+    - name: Build CSS
+      run: npm run build:css
+
     - name: Run visual tests
       run: python3 tests/visual_test.py
