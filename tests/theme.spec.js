@@ -100,3 +100,43 @@ test('Keycloak Unfold Theme - Demo Registration Page', async ({ page }) => {
   expect(buttonStyle.backgroundColor).toMatch(/(oklch\(0\.558 0\.288 302\.321\)|rgb\(152, 16, 250\)|rgb\(124, 58, 237\))/);
   expect(buttonStyle.borderRadius).toMatch(/6px/);
 });
+
+test('Keycloak Unfold Theme - Dark Mode Toggle', async ({ page }) => {
+  // Go to Demo realm account console, which should redirect to demo realm login page
+  await page.goto('http://localhost:8080/realms/demo/account/');
+
+  // Wait for toggle button to appear
+  await page.waitForSelector('#theme-toggle-button');
+
+  const html = page.locator('html');
+  const toggleButton = page.locator('#theme-toggle-button');
+  const sunIcon = page.locator('#theme-toggle-sun');
+  const moonIcon = page.locator('#theme-toggle-moon');
+
+  // 1. Ensure we start from a known state (Light Mode)
+  const isInitiallyDark = await html.evaluate(el => el.classList.contains('dark'));
+  if (isInitiallyDark) {
+    await toggleButton.click();
+    await expect(html).not.toHaveClass(/\bdark\b/);
+  }
+
+  // 2. Toggle to Dark Mode
+  await toggleButton.click();
+  await expect(html).toHaveClass(/\bdark\b/);
+  await expect(html).toHaveClass(/\bpf-v5-theme-dark\b/);
+  await expect(sunIcon).toBeVisible();
+  await expect(moonIcon).toBeHidden();
+
+  const darkPreference = await page.evaluate(() => localStorage.getItem('unfold-theme-preference'));
+  expect(darkPreference).toBe('dark');
+
+  // 3. Toggle back to Light Mode
+  await toggleButton.click();
+  await expect(html).not.toHaveClass(/\bdark\b/);
+  await expect(html).not.toHaveClass(/\bpf-v5-theme-dark\b/);
+  await expect(sunIcon).toBeHidden();
+  await expect(moonIcon).toBeVisible();
+
+  const lightPreference = await page.evaluate(() => localStorage.getItem('unfold-theme-preference'));
+  expect(lightPreference).toBe('light');
+});
