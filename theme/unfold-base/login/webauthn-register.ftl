@@ -132,47 +132,29 @@
             }
 
             function getPubKeyCredParams(signatureAlgorithmsList) {
-                let pubKeyCredParams = [];
-                if (signatureAlgorithmsList === []) {
-                    pubKeyCredParams.push({type: "public-key", alg: -7});
-                    return pubKeyCredParams;
+                if (signatureAlgorithmsList.length === 0) {
+                    return [{type: "public-key", alg: -7}];
                 }
 
-                for (let i = 0; i < signatureAlgorithmsList.length; i++) {
-                    pubKeyCredParams.push({
-                        type: "public-key",
-                        alg: signatureAlgorithmsList[i]
-                    });
-                }
-                return pubKeyCredParams;
+                return signatureAlgorithmsList.map(alg => ({
+                    type: "public-key",
+                    alg: alg
+                }));
             }
 
             function getExcludeCredentials(excludeCredentialIds) {
-                let excludeCredentials = [];
-                if (excludeCredentialIds === "") return excludeCredentials;
+                if (excludeCredentialIds === "") return [];
 
-                let excludeCredentialIdsList = excludeCredentialIds.split(',');
-
-                for (let i = 0; i < excludeCredentialIdsList.length; i++) {
-                    excludeCredentials.push({
-                        type: "public-key",
-                        id: base64url.decode(excludeCredentialIdsList[i],
-                        {loose: true})
-                    });
-                }
-                return excludeCredentials;
+                return excludeCredentialIds.split(',').map(id => ({
+                    type: "public-key",
+                    id: base64url.decode(id, {loose: true})
+                }));
             }
 
             function getTransportsAsString(transportsList) {
-                if (transportsList === '' || transportsList.constructor !== Array) return "";
+                if (!Array.isArray(transportsList)) return "";
 
-                let transportsString = "";
-
-                for (let i = 0; i < transportsList.length; i++) {
-                    transportsString += transportsList[i] + ",";
-                }
-
-                return transportsString.slice(0, -1);
+                return transportsList.join(',');
             }
         </script>
 
