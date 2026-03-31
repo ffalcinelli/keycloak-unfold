@@ -89,24 +89,18 @@
         }
 
         function checkAllowCredentials() {
-            let allowCredentials = [];
             let authn_use = document.forms['authn_select'].authn_use_chk;
-
-            if (authn_use !== undefined) {
-                if (authn_use.length === undefined) {
-                    allowCredentials.push({
-                        id: base64url.decode(authn_use.value, {loose: true}),
-                        type: 'public-key',
-                    });
-                } else {
-                    for (let i = 0; i < authn_use.length; i++) {
-                        allowCredentials.push({
-                            id: base64url.decode(authn_use[i].value, {loose: true}),
-                            type: 'public-key',
-                        });
-                    }
-                }
+            if (authn_use === undefined) {
+                doAuthenticate([]);
+                return;
             }
+
+            let authn_use_list = authn_use.length === undefined ? [authn_use] : Array.from(authn_use);
+            let allowCredentials = authn_use_list.map(el => ({
+                id: base64url.decode(el.value, {loose: true}),
+                type: 'public-key',
+            }));
+
             doAuthenticate(allowCredentials);
         }
 
