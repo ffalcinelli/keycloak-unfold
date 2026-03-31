@@ -112,8 +112,6 @@
                             if (transports) {
                                 $("#transports").val(getTransportsAsString(transports));
                             }
-                        } else {
-                            console.log("Your browser is not able to recognize supported transport media for the authenticator.");
                         }
 
                         let initLabel = "WebAuthn Authenticator (Default Label)";
