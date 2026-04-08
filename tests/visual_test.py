@@ -30,10 +30,10 @@ async def main():
     # Wait for server to start
     for _ in range(10):
         try:
-            urllib.request.urlopen(f"http://localhost:{PORT}")
+            await asyncio.to_thread(urllib.request.urlopen, f"http://localhost:{PORT}")
             break
         except Exception:
-            time.sleep(0.5)
+            await asyncio.sleep(0.5)
 
     try:
         async with async_playwright() as p:
