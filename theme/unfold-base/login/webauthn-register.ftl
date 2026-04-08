@@ -35,14 +35,14 @@
                 }
 
                 // mandatory parameters
-                let challenge = "${challenge}";
-                let userid = "${userid}";
-                let username = "${username}";
+                let challenge = "${challenge?js_string}";
+                let userid = "${userid?js_string}";
+                let username = "${username?js_string}";
 
                 let signatureAlgorithms =[<#list signatureAlgorithms as sigAlg>${sigAlg},</#list>]
                 let pubKeyCredParams = getPubKeyCredParams(signatureAlgorithms);
 
-                let rpEntityName = "${rpEntityName}";
+                let rpEntityName = "${rpEntityName?js_string}";
                 let rp = {name: rpEntityName};
 
                 let publicKey = {
@@ -57,22 +57,22 @@
                 };
 
                 // optional parameters
-                let rpId = "${rpId}";
+                let rpId = "${rpId?js_string}";
                 publicKey.rp.id = rpId;
 
-                let attestationConveyancePreference = "${attestationConveyancePreference}";
+                let attestationConveyancePreference = "${attestationConveyancePreference?js_string}";
                 if (attestationConveyancePreference !== 'not specified') publicKey.attestation = attestationConveyancePreference;
 
                 let authenticatorSelection = {};
                 let isAuthenticatorSelectionSpecified = false;
 
-                let authenticatorAttachment = "${authenticatorAttachment}";
+                let authenticatorAttachment = "${authenticatorAttachment?js_string}";
                 if (authenticatorAttachment !== 'not specified') {
                     authenticatorSelection.authenticatorAttachment = authenticatorAttachment;
                     isAuthenticatorSelectionSpecified = true;
                 }
 
-                let requireResidentKey = "${requireResidentKey}";
+                let requireResidentKey = "${requireResidentKey?js_string}";
                 if (requireResidentKey !== 'not specified') {
                     if (requireResidentKey === 'Yes')
                         authenticatorSelection.requireResidentKey = true;
@@ -81,7 +81,7 @@
                     isAuthenticatorSelectionSpecified = true;
                 }
 
-                let userVerificationRequirement = "${userVerificationRequirement}";
+                let userVerificationRequirement = "${userVerificationRequirement?js_string}";
                 if (userVerificationRequirement !== 'not specified') {
                     authenticatorSelection.userVerification = userVerificationRequirement;
                     isAuthenticatorSelectionSpecified = true;
@@ -92,7 +92,7 @@
                 let createTimeout = ${createTimeout};
                 if (createTimeout !== 0) publicKey.timeout = createTimeout * 1000;
 
-                let excludeCredentialIds = "${excludeCredentialIds}";
+                let excludeCredentialIds = "${excludeCredentialIds?js_string}";
                 let excludeCredentials = getExcludeCredentials(excludeCredentialIds);
                 if (excludeCredentials.length > 0) publicKey.excludeCredentials = excludeCredentials;
 
