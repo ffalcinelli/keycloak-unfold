@@ -114,9 +114,9 @@
             return;
         }
 
-        let challenge = "${challenge?js_string}";
-        let userVerification = "${userVerification?js_string}";
-        let rpId = "${rpId?js_string}";
+        let challenge = "${challenge}";
+        let userVerification = "${userVerification}";
+        let rpId = "${rpId}";
         let publicKey = {
             rpId : rpId,
             challenge: base64url.decode(challenge, { loose: true })

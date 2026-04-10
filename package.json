@@ -8,10 +8,9 @@
     "package": "npm run build && zip -r ${npm_package_name}-v${npm_package_version}.jar theme/ META-INF/"
   },
   "devDependencies": {
-    "@playwright/test": "^1.59.1",
+    "@playwright/test": "^1.58.2",
     "@tailwindcss/cli": "^4.2.1",
     "@tailwindcss/typography": "^0.5.19",
-    "jsdom": "^29.0.1",
     "playwright": "^1.58.2",
     "stylelint": "^17.4.0",
     "stylelint-config-standard": "^40.0.0",

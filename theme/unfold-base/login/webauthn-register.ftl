@@ -35,14 +35,14 @@
                 }
 
                 // mandatory parameters
-                let challenge = "${challenge?js_string}";
-                let userid = "${userid?js_string}";
-                let username = "${username?js_string}";
+                let challenge = "${challenge}";
+                let userid = "${userid}";
+                let username = "${username}";
 
                 let signatureAlgorithms =[<#list signatureAlgorithms as sigAlg>${sigAlg},</#list>]
                 let pubKeyCredParams = getPubKeyCredParams(signatureAlgorithms);
 
-                let rpEntityName = "${rpEntityName?js_string}";
+                let rpEntityName = "${rpEntityName}";
                 let rp = {name: rpEntityName};
 
                 let publicKey = {
@@ -57,22 +57,22 @@
                 };
 
                 // optional parameters
-                let rpId = "${rpId?js_string}";
+                let rpId = "${rpId}";
                 publicKey.rp.id = rpId;
 
-                let attestationConveyancePreference = "${attestationConveyancePreference?js_string}";
+                let attestationConveyancePreference = "${attestationConveyancePreference}";
                 if (attestationConveyancePreference !== 'not specified') publicKey.attestation = attestationConveyancePreference;
 
                 let authenticatorSelection = {};
                 let isAuthenticatorSelectionSpecified = false;
 
-                let authenticatorAttachment = "${authenticatorAttachment?js_string}";
+                let authenticatorAttachment = "${authenticatorAttachment}";
                 if (authenticatorAttachment !== 'not specified') {
                     authenticatorSelection.authenticatorAttachment = authenticatorAttachment;
                     isAuthenticatorSelectionSpecified = true;
                 }
 
-                let requireResidentKey = "${requireResidentKey?js_string}";
+                let requireResidentKey = "${requireResidentKey}";
                 if (requireResidentKey !== 'not specified') {
                     if (requireResidentKey === 'Yes')
                         authenticatorSelection.requireResidentKey = true;
@@ -81,7 +81,7 @@
                     isAuthenticatorSelectionSpecified = true;
                 }
 
-                let userVerificationRequirement = "${userVerificationRequirement?js_string}";
+                let userVerificationRequirement = "${userVerificationRequirement}";
                 if (userVerificationRequirement !== 'not specified') {
                     authenticatorSelection.userVerification = userVerificationRequirement;
                     isAuthenticatorSelectionSpecified = true;
@@ -92,7 +92,7 @@
                 let createTimeout = ${createTimeout};
                 if (createTimeout !== 0) publicKey.timeout = createTimeout * 1000;
 
-                let excludeCredentialIds = "${excludeCredentialIds?js_string}";
+                let excludeCredentialIds = "${excludeCredentialIds}";
                 let excludeCredentials = getExcludeCredentials(excludeCredentialIds);
                 if (excludeCredentials.length > 0) publicKey.excludeCredentials = excludeCredentials;
 
@@ -112,6 +112,8 @@
                             if (transports) {
                                 $("#transports").val(getTransportsAsString(transports));
                             }
+                        } else {
+                            console.log("Your browser is not able to recognize supported transport media for the authenticator.");
                         }
 
                         let initLabel = "WebAuthn Authenticator (Default Label)";
