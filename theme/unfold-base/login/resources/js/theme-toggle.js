@@ -3,23 +3,15 @@ const THEME_STORAGE_KEY = 'unfold-theme-preference';
 
 function applyTheme(isDark) {
     const { classList } = document.documentElement;
-    if (isDark) {
-        classList.add(DARK_MODE_CLASS, 'dark');
-    } else {
-        classList.remove(DARK_MODE_CLASS, 'dark');
-    }
+    classList.toggle(DARK_MODE_CLASS, isDark);
+    classList.toggle('dark', isDark);
 
     const sunIcon = document.getElementById('theme-toggle-sun');
     const moonIcon = document.getElementById('theme-toggle-moon');
 
     if (sunIcon && moonIcon) {
-        if (isDark) {
-            sunIcon.classList.remove('hidden');
-            moonIcon.classList.add('hidden');
-        } else {
-            sunIcon.classList.add('hidden');
-            moonIcon.classList.remove('hidden');
-        }
+        sunIcon.classList.toggle('hidden', !isDark);
+        moonIcon.classList.toggle('hidden', isDark);
     }
 }
 
