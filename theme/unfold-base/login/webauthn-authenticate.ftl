@@ -133,7 +133,6 @@
 
         navigator.credentials.get({publicKey})
             .then((result) => {
-                window.result = result;
 
                 let clientDataJSON = result.response.clientDataJSON;
                 let authenticatorData = result.response.authenticatorData;
