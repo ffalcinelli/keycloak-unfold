@@ -98,7 +98,6 @@
 
                 navigator.credentials.create({publicKey})
                     .then(function (result) {
-                        window.result = result;
                         let clientDataJSON = result.response.clientDataJSON;
                         let attestationObject = result.response.attestationObject;
                         let publicKeyCredentialId = result.rawId;
