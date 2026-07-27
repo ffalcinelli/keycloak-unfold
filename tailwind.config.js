@@ -6,6 +6,7 @@ module.exports = {
     "./theme/unfold-full/**/*.ftl"
   ],
   darkMode: 'class',
+  important: true,
   theme: {
     extend: {
       colors: {

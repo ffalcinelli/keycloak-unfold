@@ -1,19 +1,20 @@
 {
   "name": "keycloak-unfold-theme",
-  "version": "26.0.0",
+  "version": "26.7.0",
   "scripts": {
     "lint:css": "stylelint \"**/*.css\"",
-    "build:css": "tailwind -i ./theme/unfold-base/login/resources/css/tailwind-input.css -o ./theme/unfold-base/login/resources/css/tailwind.css --minify",
+    "build:css": "npx @tailwindcss/cli -i ./theme/unfold-base/login/resources/css/tailwind-input.css -o ./theme/unfold-base/login/resources/css/tailwind.css --minify",
     "build": "npm run build:css",
-    "package": "npm run build && zip -r ${npm_package_name}-v${npm_package_version}.jar theme/ META-INF/"
+    "package": "npm run build && zip -r ${npm_package_name}-v${npm_package_version}.jar theme/ META-INF/",
+    "test": "playwright test"
   },
   "devDependencies": {
-    "@playwright/test": "^1.58.2",
-    "@tailwindcss/cli": "^4.2.1",
+    "@playwright/test": "^1.61.1",
+    "@tailwindcss/cli": "^4.3.3",
     "@tailwindcss/typography": "^0.5.19",
-    "playwright": "^1.58.2",
-    "stylelint": "^17.4.0",
+    "playwright": "^1.61.1",
+    "stylelint": "^17.14.0",
     "stylelint-config-standard": "^40.0.0",
-    "tailwindcss": "^3.4.19"
+    "tailwindcss": "^4.3.3"
   }
 }
