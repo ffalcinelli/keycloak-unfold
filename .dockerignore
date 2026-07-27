@@ -23,7 +23,10 @@ kc-themes/
 *.jar
 *.zip
 *.tar.gz
+target/
 META-INF/
+!src/main/resources/META-INF/
+
 
 # Environment
 .env
