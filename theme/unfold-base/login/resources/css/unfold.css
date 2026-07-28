@@ -1,4 +1,5 @@
-:root, :where(:root) {
+:root,
+:where(:root) {
   /* Login Theme Mapping - Structural Colors Only */
   --pf-v5-global--BackgroundColor--100: var(--color-base-50);
   --pf-v5-global--BackgroundColor--200: #fff;
@@ -7,7 +8,8 @@
   --pf-v5-global--BorderColor--100: var(--color-base-200);
 }
 
-:root.pf-v5-theme-dark, :where(:root.pf-v5-theme-dark) {
+:root.pf-v5-theme-dark,
+:where(:root.pf-v5-theme-dark) {
   /* Login Theme Mapping - Dark Mode structural Colors */
   --pf-v5-global--BackgroundColor--100: var(--color-base-900);
   --pf-v5-global--BackgroundColor--200: var(--color-base-950);

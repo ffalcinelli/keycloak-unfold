@@ -2,28 +2,15 @@
   "themes": [
     {
       "name": "unfold-base",
-      "types": [
-        "login",
-        "account",
-        "admin",
-        "email"
-      ]
+      "types": ["login", "account", "admin", "email"]
     },
     {
       "name": "unfold-default",
-      "types": [
-        "login",
-        "account",
-        "admin"
-      ]
+      "types": ["login", "account", "admin"]
     },
     {
       "name": "unfold-full",
-      "types": [
-        "login",
-        "account",
-        "admin"
-      ]
+      "types": ["login", "account", "admin"]
     }
   ]
 }

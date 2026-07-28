@@ -1,5 +1,11 @@
-:root, :where(:root), .pf-v5-c-form-control, .pf-v5-c-button, a {
-  --pf-v5-global--FontFamily--sans-serif: "Inter", -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, sans-serif;
+:root,
+:where(:root),
+.pf-v5-c-form-control,
+.pf-v5-c-button,
+a {
+  --pf-v5-global--FontFamily--sans-serif:
+    'Inter', -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, 'Helvetica Neue', arial,
+    sans-serif;
 
   /* Base colors */
   --color-base-50: #f8fafc;
@@ -44,7 +50,8 @@
   --pf-v5-c-button--m-primary--focus--BackgroundColor: var(--color-primary-600) !important;
 }
 
-:root.pf-v5-theme-dark, :where(:root.pf-v5-theme-dark),
+:root.pf-v5-theme-dark,
+:where(:root.pf-v5-theme-dark),
 .pf-v5-theme-dark .pf-v5-c-form-control,
 .pf-v5-theme-dark .pf-v5-c-button,
 .pf-v5-theme-dark a {
