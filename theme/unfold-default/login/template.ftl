@@ -108,10 +108,17 @@
     <div class="w-full sm:max-w-md ${properties.kcLoginContainer!}">
         <div class="bg-white dark:bg-base-800 py-8 px-4 shadow-lg sm:rounded-xl sm:px-10 ${properties.kcLoginMain!} relative">
             <header id="kc-header" class="border-b border-base-200 mb-8 pb-6 dark:border-base-700">
-                <h1 class="font-semibold text-center">
-                    <span class="text-base-900 dark:text-base-100 text-base">Welcome back to</span>
-                    <span id="kc-header-wrapper" class="font-semibold text-primary-600 tracking-tight text-xl dark:text-primary-500 mt-1">${kcSanitize(msg("loginTitleHtml",(realm.displayNameHtml!'')))?no_esc}</span>
-                </h1>
+                <#if properties.unfoldLogoUrl?has_content>
+                    <div class="flex justify-center mb-2">
+                        <img src="${url.resourcesPath}/${properties.unfoldLogoUrl}" alt="Logo" class="h-10 max-w-full dark:hidden" id="kc-logo-light">
+                        <img src="${url.resourcesPath}/${properties.unfoldLogoUrlDark!properties.unfoldLogoUrl}" alt="Logo" class="h-10 max-w-full hidden dark:block" id="kc-logo-dark">
+                    </div>
+                <#else>
+                    <h1 class="font-semibold text-center">
+                        <span class="text-base-900 dark:text-base-100 text-base">Welcome back to</span>
+                        <span id="kc-header-wrapper" class="font-semibold text-primary-600 tracking-tight text-xl dark:text-primary-500 mt-1">${kcSanitize(msg("loginTitleHtml",(realm.displayNameHtml!'')))?no_esc}</span>
+                    </h1>
+                </#if>
             </header>
 
             <main>

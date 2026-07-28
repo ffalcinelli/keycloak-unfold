@@ -3,7 +3,7 @@ const { chromium } = require('playwright');
 (async () => {
   const browser = await chromium.launch({ args: ['--no-sandbox', '--disable-setuid-sandbox'] });
   const context = await browser.newContext({
-    viewport: { width: 1440, height: 900 }
+    viewport: { width: 1440, height: 900 },
   });
   const page = await context.newPage();
 

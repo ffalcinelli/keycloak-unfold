@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
 
-test('Keycloak Unfold Theme - Demo Login Page', async ({ page }) => {
+test('Keycloak Unfold - Demo Login Page', async ({ page }) => {
   // Go to Demo realm account console, which should redirect to demo realm login page
   // The demo realm is configured to use 'unfold' theme
   await page.goto('http://localhost:8080/realms/demo/account/');
@@ -10,7 +10,7 @@ test('Keycloak Unfold Theme - Demo Login Page', async ({ page }) => {
 
   // Verify custom CSS overrides applied to the main container
   const mainContainer = page.locator('.pf-v5-c-login__main');
-  const mainStyle = await mainContainer.evaluate(el => window.getComputedStyle(el));
+  const mainStyle = await mainContainer.evaluate((el) => window.getComputedStyle(el));
 
   // Check border-radius (0.75rem = 12px usually from sm:rounded-xl)
   expect(mainStyle.borderRadius).toMatch(/12px/);
@@ -19,20 +19,24 @@ test('Keycloak Unfold Theme - Demo Login Page', async ({ page }) => {
 
   // Check the primary button
   const loginButton = page.locator('#kc-login');
-  const buttonStyle = await loginButton.evaluate(el => window.getComputedStyle(el));
+  const buttonStyle = await loginButton.evaluate((el) => window.getComputedStyle(el));
 
   // Primary button color should be primary-600 -> rgb(152, 16, 250), oklch, or rgb(124, 58, 237)
-  expect(buttonStyle.backgroundColor).toMatch(/(oklch\(0\.558 0\.288 302\.321\)|rgb\(152, 16, 250\)|rgb\(124, 58, 237\))/);
+  expect(buttonStyle.backgroundColor).toMatch(
+    /(oklch\(0\.558 0\.288 302\.321\)|rgb\(152, 16, 250\)|rgb\(124, 58, 237\))/
+  );
   // Button border radius (0.375rem = 6px)
   expect(buttonStyle.borderRadius).toMatch(/6px/);
 
   // Verify body background
   const bodyStyle = await page.evaluate(() => window.getComputedStyle(document.body));
   // Background should be base-50 -> rgb(249, 250, 251) or oklch
-  expect(bodyStyle.backgroundColor).toMatch(/(oklch\(0\.985 0\.002 247\.839\)|rgb\(249, 250, 251\)|rgb\(248, 250, 252\))/);
+  expect(bodyStyle.backgroundColor).toMatch(
+    /(oklch\(0\.985 0\.002 247\.839\)|rgb\(249, 250, 251\)|rgb\(248, 250, 252\))/
+  );
 });
 
-test('Keycloak Unfold Theme - Demo Account Console', async ({ page }) => {
+test('Keycloak Unfold - Demo Account Console', async ({ page }) => {
   // Go to Demo realm account console
   await page.goto('http://localhost:8080/realms/demo/account/');
 
@@ -47,27 +51,35 @@ test('Keycloak Unfold Theme - Demo Account Console', async ({ page }) => {
 
   // Verify body background and font-family
   const bodyStyle = await page.evaluate(() => window.getComputedStyle(document.body));
-  expect(bodyStyle.backgroundColor).toMatch(/(oklch\(0\.985 0\.002 247\.839\)|rgb\(248, 250, 252\)|rgba\(0, 0, 0, 0\))/);
+  expect(bodyStyle.backgroundColor).toMatch(
+    /(oklch\(0\.985 0\.002 247\.839\)|rgb\(248, 250, 252\)|rgba\(0, 0, 0, 0\))/
+  );
   expect(bodyStyle.fontFamily).toMatch(/(Inter|RedHatText)/);
 
   // Verify main container background
   const mainContainer = page.locator('.pf-v5-c-page__main');
-  const mainStyle = await mainContainer.evaluate(el => window.getComputedStyle(el));
-  expect(mainStyle.backgroundColor).toMatch(/(oklch\(0\.985 0\.002 247\.839\)|rgb\(249, 250, 251\)|rgba\(0, 0, 0, 0\))/);
+  const mainStyle = await mainContainer.evaluate((el) => window.getComputedStyle(el));
+  expect(mainStyle.backgroundColor).toMatch(
+    /(oklch\(0\.985 0\.002 247\.839\)|rgb\(249, 250, 251\)|rgba\(0, 0, 0, 0\))/
+  );
 
   // Verify form-control background color
   const formControl = page.locator('.pf-v5-c-form-control').first();
-  const formControlStyle = await formControl.evaluate(el => window.getComputedStyle(el));
+  const formControlStyle = await formControl.evaluate((el) => window.getComputedStyle(el));
   // Form control background color could be white or standard patternfly gray/transparent
-  expect(formControlStyle.backgroundColor).toMatch(/(rgb\(255, 255, 255\)|rgb\(240, 240, 240\)|rgba\(0, 0, 0, 0\))/);
+  expect(formControlStyle.backgroundColor).toMatch(
+    /(rgb\(255, 255, 255\)|rgb\(240, 240, 240\)|rgba\(0, 0, 0, 0\))/
+  );
 
   // Verify primary button background
   const primaryButton = page.locator('.pf-v5-c-button.pf-m-primary').first();
-  const buttonStyle = await primaryButton.evaluate(el => window.getComputedStyle(el));
-  expect(buttonStyle.backgroundColor).toMatch(/(oklch\(0\.558 0\.288 302\.321\)|rgb\(124, 58, 237\)|rgb\(152, 16, 250\))/);
+  const buttonStyle = await primaryButton.evaluate((el) => window.getComputedStyle(el));
+  expect(buttonStyle.backgroundColor).toMatch(
+    /(oklch\(0\.558 0\.288 302\.321\)|rgb\(124, 58, 237\)|rgb\(152, 16, 250\))/
+  );
 });
 
-test('Keycloak Unfold Theme - Demo Registration Page', async ({ page }) => {
+test('Keycloak Unfold - Demo Registration Page', async ({ page }) => {
   // Go to Demo realm account console, which should redirect to demo realm login page
   await page.goto('http://localhost:8080/realms/demo/account/');
 
@@ -89,19 +101,21 @@ test('Keycloak Unfold Theme - Demo Registration Page', async ({ page }) => {
 
   // Verify custom CSS overrides applied to the main container
   const mainContainer = page.locator('.pf-v5-c-login__main');
-  const mainStyle = await mainContainer.evaluate(el => window.getComputedStyle(el));
+  const mainStyle = await mainContainer.evaluate((el) => window.getComputedStyle(el));
   expect(mainStyle.borderRadius).toMatch(/12px/);
 
   // Check the registration button
   const registerButton = page.locator('button[type="submit"]');
-  const buttonStyle = await registerButton.evaluate(el => window.getComputedStyle(el));
+  const buttonStyle = await registerButton.evaluate((el) => window.getComputedStyle(el));
 
   // Primary button color should match the theme
-  expect(buttonStyle.backgroundColor).toMatch(/(oklch\(0\.558 0\.288 302\.321\)|rgb\(152, 16, 250\)|rgb\(124, 58, 237\))/);
+  expect(buttonStyle.backgroundColor).toMatch(
+    /(oklch\(0\.558 0\.288 302\.321\)|rgb\(152, 16, 250\)|rgb\(124, 58, 237\))/
+  );
   expect(buttonStyle.borderRadius).toMatch(/6px/);
 });
 
-test('Keycloak Unfold Theme - Dark Mode Toggle', async ({ page }) => {
+test('Keycloak Unfold - Dark Mode Toggle', async ({ page }) => {
   // Go to Demo realm account console, which should redirect to demo realm login page
   await page.goto('http://localhost:8080/realms/demo/account/');
 
@@ -114,7 +128,7 @@ test('Keycloak Unfold Theme - Dark Mode Toggle', async ({ page }) => {
   const moonIcon = page.locator('#theme-toggle-moon');
 
   // 1. Ensure we start from a known state (Light Mode)
-  const isInitiallyDark = await html.evaluate(el => el.classList.contains('dark'));
+  const isInitiallyDark = await html.evaluate((el) => el.classList.contains('dark'));
   if (isInitiallyDark) {
     await toggleButton.click();
     await expect(html).not.toHaveClass(/\bdark\b/);
@@ -137,6 +151,52 @@ test('Keycloak Unfold Theme - Dark Mode Toggle', async ({ page }) => {
   await expect(sunIcon).toBeHidden();
   await expect(moonIcon).toBeVisible();
 
-  const lightPreference = await page.evaluate(() => localStorage.getItem('unfold-theme-preference'));
+  const lightPreference = await page.evaluate(() =>
+    localStorage.getItem('unfold-theme-preference')
+  );
   expect(lightPreference).toBe('light');
+});
+
+test('Keycloak Unfold - Reset Password Page', async ({ page }) => {
+  // Go to Demo realm account console, which should redirect to demo realm login page
+  await page.goto('http://localhost:8080/realms/demo/account/');
+
+  // Wait for login form to appear
+  await page.waitForSelector('#kc-form-login');
+
+  // Click on "Forgot Password?" link
+  await page.click('text=Forgot Password?');
+
+  // Wait for reset password form to appear
+  await page.waitForSelector('#kc-reset-password-form');
+
+  // Verify reset password field is present
+  await expect(page.locator('#username')).toBeVisible();
+
+  // Verify custom CSS overrides applied to the main container
+  const mainContainer = page.locator('.pf-v5-c-login__main');
+  const mainStyle = await mainContainer.evaluate((el) => window.getComputedStyle(el));
+  expect(mainStyle.borderRadius).toMatch(/12px/);
+});
+
+test('Keycloak Unfold - Brand Logo Integration', async ({ page }) => {
+  // Go to Demo realm account console, which should redirect to demo realm login page
+  await page.goto('http://localhost:8080/realms/demo/account/');
+
+  // Wait for login form to appear
+  await page.waitForSelector('#kc-form-login');
+
+  // Verify that the custom brand logo elements are present
+  const logoLight = page.locator('#kc-logo-light');
+  const logoDark = page.locator('#kc-logo-dark');
+
+  await expect(logoLight).toBeVisible();
+  await expect(logoDark).toBeHidden();
+
+  // Toggle to dark mode and check that dark mode logo becomes visible
+  const toggleButton = page.locator('#theme-toggle-button');
+  await toggleButton.click();
+
+  await expect(logoLight).toBeHidden();
+  await expect(logoDark).toBeVisible();
 });

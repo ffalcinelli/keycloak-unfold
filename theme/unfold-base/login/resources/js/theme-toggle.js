@@ -2,34 +2,34 @@ const DARK_MODE_CLASS = 'pf-v5-theme-dark';
 const THEME_STORAGE_KEY = 'unfold-theme-preference';
 
 function applyTheme(isDark) {
-    const { classList } = document.documentElement;
-    classList.toggle(DARK_MODE_CLASS, isDark);
-    classList.toggle('dark', isDark);
+  const { classList } = document.documentElement;
+  classList.toggle(DARK_MODE_CLASS, isDark);
+  classList.toggle('dark', isDark);
 
-    const sunIcon = document.getElementById('theme-toggle-sun');
-    const moonIcon = document.getElementById('theme-toggle-moon');
+  const sunIcon = document.getElementById('theme-toggle-sun');
+  const moonIcon = document.getElementById('theme-toggle-moon');
 
-    if (sunIcon && moonIcon) {
-        sunIcon.classList.toggle('hidden', !isDark);
-        moonIcon.classList.toggle('hidden', isDark);
-    }
+  if (sunIcon && moonIcon) {
+    sunIcon.classList.toggle('hidden', !isDark);
+    moonIcon.classList.toggle('hidden', isDark);
+  }
 }
 
 function initializeTheme() {
-    const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  const storedTheme = localStorage.getItem(THEME_STORAGE_KEY);
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    let isDark = false;
-    if (storedTheme === 'dark') {
-        isDark = true;
-    } else if (storedTheme === 'light') {
-        isDark = false;
-    } else {
-        isDark = prefersDark;
-    }
+  let isDark = false;
+  if (storedTheme === 'dark') {
+    isDark = true;
+  } else if (storedTheme === 'light') {
+    isDark = false;
+  } else {
+    isDark = prefersDark;
+  }
 
-    applyTheme(isDark);
-    return isDark;
+  applyTheme(isDark);
+  return isDark;
 }
 
 // Immediately invoke to prevent FOUC
@@ -37,23 +37,23 @@ let currentIsDark = initializeTheme();
 
 // Wait for DOM to attach event listeners
 document.addEventListener('DOMContentLoaded', () => {
-    // Re-apply to make sure icons are toggled correctly if they were rendered after script execution
-    applyTheme(currentIsDark);
+  // Re-apply to make sure icons are toggled correctly if they were rendered after script execution
+  applyTheme(currentIsDark);
 
-    const toggleButton = document.getElementById('theme-toggle-button');
-    if (toggleButton) {
-        toggleButton.addEventListener('click', () => {
-            currentIsDark = !currentIsDark;
-            localStorage.setItem(THEME_STORAGE_KEY, currentIsDark ? 'dark' : 'light');
-            applyTheme(currentIsDark);
-        });
-    }
-
-    // Listen to system changes if no preference is explicitly set
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-        if (!localStorage.getItem(THEME_STORAGE_KEY)) {
-            currentIsDark = e.matches;
-            applyTheme(currentIsDark);
-        }
+  const toggleButton = document.getElementById('theme-toggle-button');
+  if (toggleButton) {
+    toggleButton.addEventListener('click', () => {
+      currentIsDark = !currentIsDark;
+      localStorage.setItem(THEME_STORAGE_KEY, currentIsDark ? 'dark' : 'light');
+      applyTheme(currentIsDark);
     });
+  }
+
+  // Listen to system changes if no preference is explicitly set
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+    if (!localStorage.getItem(THEME_STORAGE_KEY)) {
+      currentIsDark = e.matches;
+      applyTheme(currentIsDark);
+    }
+  });
 });
