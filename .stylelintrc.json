@@ -36,7 +36,20 @@
     "comment-empty-line-before": null,
     "declaration-empty-line-before": null,
     "no-empty-source": null,
-    "at-rule-no-unknown": [true, {"ignoreAtRules": ["tailwind", "apply", "variants", "responsive", "screen", "layer"]}],
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": [
+          "tailwind",
+          "apply",
+          "variants",
+          "responsive",
+          "screen",
+          "layer",
+          "config"
+        ]
+      }
+    ],
     "no-duplicate-selectors": null
   }
 }

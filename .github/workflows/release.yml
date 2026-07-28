@@ -5,30 +5,67 @@ on:
     tags:
       - 'v*'
 
+permissions:
+  contents: read
+
 jobs:
   release:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+    env:
+      MAVEN_USERNAME: ${{ secrets.SONATYPE_PORTAL_TOKEN_USERNAME }}
+      MAVEN_PASSWORD: ${{ secrets.SONATYPE_PORTAL_TOKEN_PASSWORD }}
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Package Theme
-        run: npm run package
+      - name: Compile CSS
+        run: npm run build
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5.6.0
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          server-id: sonatype-central
+          server-username: MAVEN_USERNAME
+          server-password: MAVEN_PASSWORD
+
+      - name: Import GPG key
+        shell: bash
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+        run: |
+          # GnuPG exits with code 2 on minor warnings (like 'invalid armor header' caused by trailing newlines in secrets),
+          # even when the key is successfully imported. We pipe it from an env var to avoid escaping issues
+          # and append '|| true' to bypass the strict exit code check, then verify the import.
+          echo "$GPG_PRIVATE_KEY" | gpg --batch --import || echo "GPG import yielded warnings, but continuing..."
+          gpg --list-secret-keys
+
+      - name: Publish to Maven Central
+        shell: bash
+        env:
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
+        run: mvn --batch-mode deploy -P release -DskipTests
 
       - name: Create GitHub Release
-        uses: softprops/action-gh-release@v2
-        with:
-          files: keycloak-unfold-theme-v*.jar
-          generate_release_notes: true
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ github.ref_name }}" \
+            target/*.jar \
+            --repo="$GITHUB_REPOSITORY" \
+            --title="Release ${{ github.ref_name }}" \
+            --generate-notes

@@ -1,0 +1,5 @@
+node_modules/
+target/
+package-lock.json
+keycloak-unfold-*.jar
+theme/unfold-base/login/resources/css/tailwind.css

@@ -1,5 +1,11 @@
-:root, :where(:root), .pf-v5-c-form-control, .pf-v5-c-button, a {
-  --pf-v5-global--FontFamily--sans-serif: "Inter", -apple-system, blinkmacsystemfont, "Segoe UI", roboto, "Helvetica Neue", arial, sans-serif;
+:root,
+:where(:root),
+.pf-v5-c-form-control,
+.pf-v5-c-button,
+a {
+  --pf-v5-global--FontFamily--sans-serif:
+    'Inter', -apple-system, blinkmacsystemfont, 'Segoe UI', roboto, 'Helvetica Neue', arial,
+    sans-serif;
 
   /* Base colors */
   --color-base-50: #f8fafc;
@@ -44,7 +50,8 @@
   --pf-v5-c-button--m-primary--focus--BackgroundColor: var(--color-primary-600) !important;
 }
 
-:root.pf-v5-theme-dark, :where(:root.pf-v5-theme-dark),
+:root.pf-v5-theme-dark,
+:where(:root.pf-v5-theme-dark),
 .pf-v5-theme-dark .pf-v5-c-form-control,
 .pf-v5-theme-dark .pf-v5-c-button,
 .pf-v5-theme-dark a {
@@ -67,4 +74,33 @@
 
 body {
   font-family: var(--pf-v5-global--FontFamily--sans-serif);
+}
+
+/* Custom Slate Scrollbars - Aligned with Django Unfold */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-base-300);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-base-400);
+}
+
+.pf-v5-theme-dark ::-webkit-scrollbar-thumb,
+:root.pf-v5-theme-dark ::-webkit-scrollbar-thumb {
+  background: var(--color-base-700);
+}
+
+.pf-v5-theme-dark ::-webkit-scrollbar-thumb:hover,
+:root.pf-v5-theme-dark ::-webkit-scrollbar-thumb:hover {
+  background: var(--color-base-600);
 }

@@ -113,10 +113,17 @@
         </button>
         <div class="w-full max-w-md">
             <header id="kc-header" class="mb-8 self-start w-full">
-                <div class="text-sm font-semibold text-base-900 dark:text-base-100 mb-1">Welcome back to</div>
-                <h1 class="font-bold text-primary-600 dark:text-primary-500 text-2xl">
-                    <span id="kc-header-wrapper">${kcSanitize(msg("loginTitleHtml",(realm.displayNameHtml!'')))?no_esc}</span>
-                </h1>
+                <#if properties.unfoldLogoUrl?has_content>
+                    <div class="flex justify-start mb-2">
+                        <img src="${url.resourcesPath}/${properties.unfoldLogoUrl}" alt="Logo" class="h-10 max-w-full dark:hidden" id="kc-logo-light">
+                        <img src="${url.resourcesPath}/${properties.unfoldLogoUrlDark!properties.unfoldLogoUrl}" alt="Logo" class="h-10 max-w-full hidden dark:block" id="kc-logo-dark">
+                    </div>
+                <#else>
+                    <div class="text-sm font-semibold text-base-900 dark:text-base-100 mb-1">Welcome back to</div>
+                    <h1 class="font-bold text-primary-600 dark:text-primary-500 text-2xl">
+                        <span id="kc-header-wrapper">${kcSanitize(msg("loginTitleHtml",(realm.displayNameHtml!'')))?no_esc}</span>
+                    </h1>
+                </#if>
                 <hr class="mt-4 border-base-200 dark:border-base-700 w-full"/>
             </header>
             <div class="w-full relative">

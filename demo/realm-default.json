@@ -21,9 +21,7 @@
           "temporary": false
         }
       ],
-      "realmRoles": [
-        "default-roles-unfold-default-demo"
-      ]
+      "realmRoles": ["default-roles-unfold-default-demo"]
     }
   ],
   "clients": [
@@ -32,12 +30,8 @@
       "enabled": true,
       "publicClient": true,
       "directAccessGrantsEnabled": true,
-      "redirectUris": [
-        "*"
-      ],
-      "webOrigins": [
-        "*"
-      ]
+      "redirectUris": ["*"],
+      "webOrigins": ["*"]
     }
   ],
   "rememberMe": true,

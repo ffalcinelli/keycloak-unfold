@@ -1,11 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./theme/unfold-base/**/*.ftl",
-    "./theme/unfold-default/**/*.ftl",
-    "./theme/unfold-full/**/*.ftl"
+    './theme/unfold-base/**/*.ftl',
+    './theme/unfold-default/**/*.ftl',
+    './theme/unfold-full/**/*.ftl',
   ],
   darkMode: 'class',
+  important: true,
   theme: {
     extend: {
       colors: {
@@ -47,15 +48,13 @@ module.exports = {
           important: {
             light: 'var(--color-base-900)',
             dark: 'var(--color-base-100)',
-          }
-        }
+          },
+        },
       },
       borderRadius: {
-        'default': '0.375rem',
-      }
+        default: '0.375rem',
+      },
     },
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-  ],
-}
+  plugins: [require('@tailwindcss/typography')],
+};
