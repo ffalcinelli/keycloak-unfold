@@ -1,0 +1,62 @@
+name: CI
+
+on:
+  push:
+    branches: ['main', 'master']
+  pull_request:
+    branches: ['main', 'master']
+
+jobs:
+  ci:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Verify action pinning
+        uses: ffalcinelli/pinner/action@63b8e31e3ca2144f6298fcb0d4b676bb3f1d7be6 # v0.0.13
+        with:
+          command: 'verify'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install Node dependencies
+        run: npm ci
+
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run stylelint
+        run: npm run lint:css
+
+      - name: Build CSS
+        run: npm run build:css
+
+      - name: Start Keycloak
+        run: docker compose up -d
+
+      - name: Wait for Keycloak
+        run: |
+          echo "Waiting for Keycloak to start..."
+          for i in {1..30}; do
+            if curl -s -f http://localhost:8080/realms/demo/account/ > /dev/null; then
+              echo "Keycloak is ready!"
+              exit 0
+            fi
+            echo "Keycloak not ready yet, sleeping 2s..."
+            sleep 2
+          done
+          echo "Keycloak did not start in time"
+          exit 1
+
+      - name: Run visual and E2E tests
+        run: npm run test
+
+      - name: Stop Keycloak
+        if: always()
+        run: docker compose down
