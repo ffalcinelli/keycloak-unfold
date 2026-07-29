@@ -1,0 +1,586 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Keycloak Unfold — A Modern, Premium Keycloak Theme</title>
+    <meta
+      name="description"
+      content="A custom Keycloak theme designed to emulate the aesthetics of the Django Unfold Theme. Features centered & split-screen layouts, dark mode support, and Tailwind CSS integration."
+    />
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Keycloak Unfold — A Modern, Premium Keycloak Theme" />
+    <meta
+      property="og:description"
+      content="Bring the high-contrast slate & violet aesthetics of Django Unfold to your Keycloak instance. Features dark mode, multiple variants, and Tailwind CSS."
+    />
+    <meta property="og:image" content="img/login-screenshot.png" />
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:title" content="Keycloak Unfold — A Modern, Premium Keycloak Theme" />
+    <meta
+      property="twitter:description"
+      content="Bring the high-contrast slate & violet aesthetics of Django Unfold to your Keycloak instance. Features dark mode, multiple variants, and Tailwind CSS."
+    />
+    <meta property="twitter:image" content="img/login-screenshot.png" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body class="dark-theme">
+    <!-- Header / Navigation -->
+    <header class="navbar" id="site-header">
+      <div class="container navbar-container">
+        <a href="#" class="logo-link" id="nav-brand">
+          <img src="img/logo.svg" alt="Keycloak Unfold Logo" class="logo-icon" />
+          <span class="logo-text">Keycloak <span class="accent-text">Unfold</span></span>
+        </a>
+        <nav class="nav-menu" aria-label="Main Navigation">
+          <a href="#features" class="nav-item">Features</a>
+          <a href="#showcase" class="nav-item">Variants</a>
+          <a href="#architecture" class="nav-item">Architecture</a>
+          <a href="#installation" class="nav-item">Get Started</a>
+        </nav>
+        <div class="nav-actions">
+          <button id="theme-toggle-btn" class="theme-toggle" aria-label="Toggle dark mode">
+            <!-- Moon Icon -->
+            <svg
+              class="icon-moon"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+              />
+            </svg>
+            <!-- Sun Icon -->
+            <svg
+              class="icon-sun"
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m2.828 0l-.707-.707m12.728-12.728l-.707-.707M12 8a4 4 0 100 8 4 4 0 000-8z"
+              />
+            </svg>
+          </button>
+          <a
+            href="https://github.com/ffalcinelli/keycloak-unfold"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-secondary btn-icon-only"
+            aria-label="GitHub Repository"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              fill="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+              />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+      <!-- Hero Section -->
+      <section class="hero-section" id="hero">
+        <div class="container hero-container">
+          <div class="hero-content">
+            <div class="hero-badge animate-fade-in">
+              <span class="badge-dot"></span>
+              Keycloak 26+ Theme
+            </div>
+            <h1 class="hero-title animate-slide-up">
+              Keycloak, <span class="gradient-text">unfolded.</span>
+            </h1>
+            <p class="hero-subtitle animate-slide-up-delayed">
+              Bring the clean, high-contrast aesthetics of the Django Unfold theme to your Keycloak
+              identity and access management server. Seamless dark mode, customizable layouts, and
+              Tailwind CSS under the hood.
+            </p>
+            <div class="hero-cta animate-slide-up-delayed">
+              <a href="#installation" class="btn btn-primary">Get Started</a>
+              <a href="#showcase" class="btn btn-secondary">Explore Variants</a>
+            </div>
+          </div>
+
+          <!-- Quick Preview / Dashboard Mockup -->
+          <div class="hero-mockup-wrapper animate-fade-in-delayed" id="showcase">
+            <div class="browser-mockup">
+              <div class="browser-header">
+                <div class="browser-dots">
+                  <span class="dot dot-red"></span>
+                  <span class="dot dot-yellow"></span>
+                  <span class="dot dot-green"></span>
+                </div>
+                <div class="browser-address-bar" id="mock-address">
+                  http://localhost:8080/realms/unfold-default-demo/account/
+                </div>
+              </div>
+              <div class="browser-viewport">
+                <img
+                  id="showcase-img"
+                  src="img/unfold-default-login.png"
+                  alt="Keycloak Unfold Theme Preview"
+                  class="preview-img"
+                />
+              </div>
+            </div>
+
+            <!-- Mini Control Panel for Preview -->
+            <div class="mockup-controls">
+              <div class="control-group">
+                <span class="control-label">Variant:</span>
+                <div class="btn-group" role="group" aria-label="Theme Variant Selector">
+                  <button class="btn btn-sm btn-toggle active" data-variant="default">
+                    Centered
+                  </button>
+                  <button class="btn btn-sm btn-toggle" data-variant="full">Split-Screen</button>
+                </div>
+              </div>
+              <div class="control-group">
+                <span class="control-label">View:</span>
+                <div class="btn-group" role="group" aria-label="Page View Selector">
+                  <button class="btn btn-sm btn-toggle active" data-view="login">
+                    Login Screen
+                  </button>
+                  <button class="btn btn-sm btn-toggle" data-view="account">Account Console</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Features Section -->
+      <section id="features" class="features-section">
+        <div class="container">
+          <div class="section-header text-center">
+            <h2 class="section-title">Designed for developers. Loved by users.</h2>
+            <p class="section-subtitle">
+              A premium auth experience that matches modern dashboards. Built carefully on
+              Keycloak's v2 base structure.
+            </p>
+          </div>
+
+          <div class="features-grid">
+            <!-- Feature 1 -->
+            <div class="feature-card">
+              <div class="feature-icon-wrapper">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  class="feature-icon"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  />
+                </svg>
+              </div>
+              <h3 class="feature-title">Unfold Aesthetic</h3>
+              <p class="feature-description">
+                Clean spacing, premium typography (Inter), crisp high-contrast borders, and slate
+                neutral tones styled to perfection.
+              </p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="feature-card">
+              <div class="feature-icon-wrapper">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  class="feature-icon"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
+                  />
+                </svg>
+              </div>
+              <h3 class="feature-title">Smart Dark Mode</h3>
+              <p class="feature-description">
+                Includes seamless dark mode supporting browser system preference detection
+                (`prefers-color-scheme`) and an interactive manual override.
+              </p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="feature-card">
+              <div class="feature-icon-wrapper">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  class="feature-icon"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
+                  />
+                </svg>
+              </div>
+              <h3 class="feature-title">Tailwind CSS v4</h3>
+              <p class="feature-description">
+                Extend and customize layouts using standard Tailwind CSS classes directly within the
+                FreeMarker (.ftl) templates.
+              </p>
+            </div>
+
+            <!-- Feature 4 -->
+            <div class="feature-card">
+              <div class="feature-icon-wrapper">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  class="feature-icon"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                  />
+                </svg>
+              </div>
+              <h3 class="feature-title">Flexible Layouts</h3>
+              <p class="feature-description">
+                Switch variant configurations between standard centered cards and immersive
+                split-screen layout flows.
+              </p>
+            </div>
+
+            <!-- Feature 5 -->
+            <div class="feature-card">
+              <div class="feature-icon-wrapper">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  class="feature-icon"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                  />
+                </svg>
+              </div>
+              <h3 class="feature-title">Fully Tested E2E</h3>
+              <p class="feature-description">
+                Backed by a comprehensive Playwright test suite validating core authorization
+                screens, actions, and responsiveness.
+              </p>
+            </div>
+
+            <!-- Feature 6 -->
+            <div class="feature-card">
+              <div class="feature-icon-wrapper">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  class="feature-icon"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"
+                  />
+                </svg>
+              </div>
+              <h3 class="feature-title">Fast Local Setup</h3>
+              <p class="feature-description">
+                Run docker-compose locally out of the box with custom demo realms and users
+                preconfigured.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Architecture Section -->
+      <section id="architecture" class="architecture-section">
+        <div class="container">
+          <div class="section-header text-center">
+            <h2 class="section-title">Theme Inheritance Model</h2>
+            <p class="section-subtitle">
+              Designed with modular structure in mind, avoiding boilerplate and ensuring clean
+              updates.
+            </p>
+          </div>
+
+          <div class="architecture-flow-container">
+            <div class="flow-card base-level">
+              <span class="level-tag">Upstream Base</span>
+              <h4>Keycloak v2 Base Theme</h4>
+              <p>Keycloak's native default layout and core authorization templates.</p>
+            </div>
+
+            <div class="flow-arrow">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                width="24"
+                height="24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 14l-7 7m0 0l-7-7m7 7V3"
+                />
+              </svg>
+            </div>
+
+            <div class="flow-card core-level">
+              <span class="level-tag">Shared Core</span>
+              <h4>unfold-base</h4>
+              <p>
+                Core CSS variables, logos, and custom templates. Implements dark mode toggling,
+                typography overrides, and layout tokens.
+              </p>
+            </div>
+
+            <div class="flow-split">
+              <div class="split-branch left-branch">
+                <div class="flow-arrow-diagonal"></div>
+                <div class="flow-card variant-level">
+                  <span class="level-tag">Variant Default</span>
+                  <h4>unfold-default</h4>
+                  <p>A refined centered login card with native admin panels.</p>
+                </div>
+              </div>
+              <div class="split-branch right-branch">
+                <div class="flow-arrow-diagonal"></div>
+                <div class="flow-card variant-level">
+                  <span class="level-tag">Variant Full</span>
+                  <h4>unfold-full</h4>
+                  <p>Immersive split-screen visual layouts with hero images.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Installation / Terminal Section -->
+      <section id="installation" class="installation-section">
+        <div class="container">
+          <div class="section-header text-center">
+            <h2 class="section-title">Getting Started</h2>
+            <p class="section-subtitle">
+              Quick commands to start developing locally or package the theme for production
+              deployment.
+            </p>
+          </div>
+
+          <div class="terminal-container">
+            <div class="terminal-tabs">
+              <button class="terminal-tab active" data-tab="docker">Docker Compose</button>
+              <button class="terminal-tab" data-tab="npm">NPM Workflow</button>
+              <button class="terminal-tab" data-tab="maven">Maven Packaging</button>
+              <button class="terminal-tab" data-tab="prod">Production Setup</button>
+            </div>
+
+            <div class="terminal-body">
+              <div class="terminal-window-buttons">
+                <span class="window-dot dot-red"></span>
+                <span class="window-dot dot-yellow"></span>
+                <span class="window-dot dot-green"></span>
+              </div>
+
+              <!-- Terminal contents (Docker) -->
+              <div class="terminal-content active" id="tab-docker">
+                <div class="code-block-wrapper">
+                  <button class="copy-btn" aria-label="Copy code block">
+                    <svg
+                      class="icon-copy"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"
+                      />
+                    </svg>
+                    <span class="tooltip-text">Copy</span>
+                  </button>
+                  <pre><code><span class="comment"># 1. Spin up local Keycloak with demo realms preloaded</span>
+docker compose up
+
+<span class="comment"># 2. Keycloak dev instance will be available at:</span>
+<span class="comment">#    http://localhost:8080</span>
+<span class="comment">#    Admin Creds: admin / admin</span>
+<span class="comment">#    Demo User:  testuser / password</span></code></pre>
+                </div>
+              </div>
+
+              <!-- Terminal contents (NPM) -->
+              <div class="terminal-content" id="tab-npm">
+                <div class="code-block-wrapper">
+                  <button class="copy-btn" aria-label="Copy code block">
+                    <svg
+                      class="icon-copy"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"
+                      />
+                    </svg>
+                    <span class="tooltip-text">Copy</span>
+                  </button>
+                  <pre><code><span class="comment"># Install project development dependencies</span>
+npm install
+
+<span class="comment"># Build CSS utilities and package the theme as a JAR archive</span>
+npm run package</code></pre>
+                </div>
+              </div>
+
+              <!-- Terminal contents (Maven) -->
+              <div class="terminal-content" id="tab-maven">
+                <div class="code-block-wrapper">
+                  <button class="copy-btn" aria-label="Copy code block">
+                    <svg
+                      class="icon-copy"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"
+                      />
+                    </svg>
+                    <span class="tooltip-text">Copy</span>
+                  </button>
+                  <pre><code><span class="comment"># Compile, test, and package using Java maven pipelines</span>
+mvn clean package
+
+<span class="comment"># The built package is generated in the target directory:</span>
+<span class="comment"># target/keycloak-unfold-v26.7.0.jar</span></code></pre>
+                </div>
+              </div>
+
+              <!-- Terminal contents (Prod Deploy) -->
+              <div class="terminal-content" id="tab-prod">
+                <div class="code-block-wrapper">
+                  <button class="copy-btn" aria-label="Copy code block">
+                    <svg
+                      class="icon-copy"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"
+                      />
+                    </svg>
+                    <span class="tooltip-text">Copy</span>
+                  </button>
+                  <pre><code><span class="comment"># 1. Copy the packaged JAR file into your Keycloak providers folder</span>
+cp keycloak-unfold-v26.7.0.jar /opt/keycloak/providers/
+
+<span class="comment"># 2. Run keycloak build to register the theme provider</span>
+/opt/keycloak/bin/kc.sh build
+
+<span class="comment"># 3. Start Keycloak server in production mode</span>
+/opt/keycloak/bin/kc.sh start</code></pre>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container footer-container">
+        <div class="footer-brand">
+          <img src="img/logo.svg" alt="Keycloak Unfold Logo" class="footer-logo" />
+          <span>Keycloak Unfold</span>
+        </div>
+        <p class="footer-info">
+          Inspired by the excellent
+          <a
+            href="https://github.com/unfoldadmin/django-unfold"
+            target="_blank"
+            rel="noopener noreferrer"
+            >Django Unfold Theme</a
+          >. Distributed under the <a href="LICENSE" target="_blank">MIT License</a>.
+        </p>
+        <p class="footer-copy">
+          &copy; 2026 Keycloak Unfold. Built with ❤️ for styling excellence.
+        </p>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+  </body>
+</html>
