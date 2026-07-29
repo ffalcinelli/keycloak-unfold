@@ -3,6 +3,10 @@ const path = require('path');
 
 const rootDir = path.resolve(__dirname, '..');
 
+function escapeRegExp(value) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
 // Get new version from command line args
 const newVersion = process.argv[2];
 if (!newVersion) {
@@ -47,7 +51,7 @@ if (fs.existsSync(pkgLockPath)) {
 // 3. Update pom.xml
 const pomPath = path.join(rootDir, 'pom.xml');
 let pom = fs.readFileSync(pomPath, 'utf8');
-const oldPomVersionRegex = new RegExp(`<version>${oldVersion.replace(/\./g, '\\.')}</version>`);
+const oldPomVersionRegex = new RegExp(`<version>${escapeRegExp(oldVersion)}</version>`);
 if (oldPomVersionRegex.test(pom)) {
   pom = pom.replace(oldPomVersionRegex, `<version>${newVersion}</version>`);
   fs.writeFileSync(pomPath, pom);
@@ -60,7 +64,7 @@ if (oldPomVersionRegex.test(pom)) {
 const dockerComposePath = path.join(rootDir, 'docker-compose.yml');
 if (fs.existsSync(dockerComposePath)) {
   let dockerCompose = fs.readFileSync(dockerComposePath, 'utf8');
-  const oldImageRegex = new RegExp(`image: quay.io/keycloak/keycloak:${oldVersion.replace(/\./g, '\\.')}`);
+  const oldImageRegex = new RegExp(`image: quay.io/keycloak/keycloak:${escapeRegExp(oldVersion)}`);
   if (oldImageRegex.test(dockerCompose)) {
     dockerCompose = dockerCompose.replace(oldImageRegex, `image: quay.io/keycloak/keycloak:${newVersion}`);
     fs.writeFileSync(dockerComposePath, dockerCompose);
