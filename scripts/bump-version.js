@@ -3,8 +3,8 @@ const path = require('path');
 
 const rootDir = path.resolve(__dirname, '..');
 
-function escapeRegExp(value) {
-  return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+function escapeRegExp(string) {
+  return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }
 
 // Get new version from command line args
@@ -82,9 +82,9 @@ const readmePath = path.join(rootDir, 'README.md');
 if (fs.existsSync(readmePath)) {
   let readme = fs.readFileSync(readmePath, 'utf8');
   // Replace tested version
-  readme = readme.replace(new RegExp(`Tested and verified against \`v${oldVersion.replace(/\./g, '\\.')}\``, 'g'), `Tested and verified against \`v${newVersion}\``);
+  readme = readme.replace(new RegExp(`Tested and verified against \`v${escapeRegExp(oldVersion)}\``, 'g'), `Tested and verified against \`v${newVersion}\``);
   // Replace JAR filenames
-  readme = readme.replace(new RegExp(`keycloak-unfold-v${oldVersion.replace(/\./g, '\\.')}\\.jar`, 'g'), `keycloak-unfold-v${newVersion}.jar`);
+  readme = readme.replace(new RegExp(`keycloak-unfold-v${escapeRegExp(oldVersion)}\\.jar`, 'g'), `keycloak-unfold-v${newVersion}.jar`);
   fs.writeFileSync(readmePath, readme);
   console.log('✓ Updated README.md');
 }
@@ -93,7 +93,7 @@ if (fs.existsSync(readmePath)) {
 const docsIndexPath = path.join(rootDir, 'docs', 'index.html');
 if (fs.existsSync(docsIndexPath)) {
   let docsIndex = fs.readFileSync(docsIndexPath, 'utf8');
-  docsIndex = docsIndex.replace(new RegExp(`keycloak-unfold-v${oldVersion.replace(/\./g, '\\.')}\\.jar`, 'g'), `keycloak-unfold-v${newVersion}.jar`);
+  docsIndex = docsIndex.replace(new RegExp(`keycloak-unfold-v${escapeRegExp(oldVersion)}\\.jar`, 'g'), `keycloak-unfold-v${newVersion}.jar`);
   fs.writeFileSync(docsIndexPath, docsIndex);
   console.log('✓ Updated docs/index.html');
 }
