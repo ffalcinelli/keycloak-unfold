@@ -25,7 +25,9 @@ const pkgVersion = pkg.version;
 const pomVersion = pomVersionMatch[1];
 
 if (pkgVersion !== pomVersion) {
-  console.error(`Mismatch: package.json version is "${pkgVersion}" but pom.xml version is "${pomVersion}".`);
+  console.error(
+    `Mismatch: package.json version is "${pkgVersion}" but pom.xml version is "${pomVersion}".`
+  );
   process.exit(1);
 }
 

@@ -66,12 +66,18 @@ if (fs.existsSync(dockerComposePath)) {
   let dockerCompose = fs.readFileSync(dockerComposePath, 'utf8');
   const oldImageRegex = new RegExp(`image: quay.io/keycloak/keycloak:${escapeRegExp(oldVersion)}`);
   if (oldImageRegex.test(dockerCompose)) {
-    dockerCompose = dockerCompose.replace(oldImageRegex, `image: quay.io/keycloak/keycloak:${newVersion}`);
+    dockerCompose = dockerCompose.replace(
+      oldImageRegex,
+      `image: quay.io/keycloak/keycloak:${newVersion}`
+    );
     fs.writeFileSync(dockerComposePath, dockerCompose);
     console.log('✓ Updated docker-compose.yml');
   } else {
     // If not matching exact version, fallback to replacing the general tag
-    dockerCompose = dockerCompose.replace(/image: quay.io\/keycloak\/keycloak:\d+\.\d+\.\d+/, `image: quay.io/keycloak/keycloak:${newVersion}`);
+    dockerCompose = dockerCompose.replace(
+      /image: quay.io\/keycloak\/keycloak:\d+\.\d+\.\d+/,
+      `image: quay.io/keycloak/keycloak:${newVersion}`
+    );
     fs.writeFileSync(dockerComposePath, dockerCompose);
     console.log('✓ Updated docker-compose.yml (fallback replace)');
   }
@@ -82,9 +88,15 @@ const readmePath = path.join(rootDir, 'README.md');
 if (fs.existsSync(readmePath)) {
   let readme = fs.readFileSync(readmePath, 'utf8');
   // Replace tested version
-  readme = readme.replace(new RegExp(`Tested and verified against \`v${escapeRegExp(oldVersion)}\``, 'g'), `Tested and verified against \`v${newVersion}\``);
+  readme = readme.replace(
+    new RegExp(`Tested and verified against \`v${escapeRegExp(oldVersion)}\``, 'g'),
+    `Tested and verified against \`v${newVersion}\``
+  );
   // Replace JAR filenames
-  readme = readme.replace(new RegExp(`keycloak-unfold-v${escapeRegExp(oldVersion)}\\.jar`, 'g'), `keycloak-unfold-v${newVersion}.jar`);
+  readme = readme.replace(
+    new RegExp(`keycloak-unfold-v${escapeRegExp(oldVersion)}\\.jar`, 'g'),
+    `keycloak-unfold-v${newVersion}.jar`
+  );
   fs.writeFileSync(readmePath, readme);
   console.log('✓ Updated README.md');
 }
@@ -93,7 +105,10 @@ if (fs.existsSync(readmePath)) {
 const docsIndexPath = path.join(rootDir, 'docs', 'index.html');
 if (fs.existsSync(docsIndexPath)) {
   let docsIndex = fs.readFileSync(docsIndexPath, 'utf8');
-  docsIndex = docsIndex.replace(new RegExp(`keycloak-unfold-v${escapeRegExp(oldVersion)}\\.jar`, 'g'), `keycloak-unfold-v${newVersion}.jar`);
+  docsIndex = docsIndex.replace(
+    new RegExp(`keycloak-unfold-v${escapeRegExp(oldVersion)}\\.jar`, 'g'),
+    `keycloak-unfold-v${newVersion}.jar`
+  );
   fs.writeFileSync(docsIndexPath, docsIndex);
   console.log('✓ Updated docs/index.html');
 }
