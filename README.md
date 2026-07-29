@@ -208,5 +208,5 @@ The `unfold-full` variant provides a highly customized split-screen, premium vis
 ## Credits & License
 
 - Designed and inspired by the excellent [Django Unfold Theme](https://github.com/unfoldadmin/django-unfold).
-- Distributed under the [Apache License, Version 2.0](file:///home/fabio/Workspace/keycloak-unfold/LICENSE).
+- Distributed under the [MIT License](LICENSE).
 - For reporting security vulnerabilities, please refer to our guidelines in [SECURITY.md](file:///home/fabio/Workspace/keycloak-unfold/SECURITY.md).

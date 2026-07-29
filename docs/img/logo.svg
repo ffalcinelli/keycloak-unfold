@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" width="120" height="40">
+  <defs>
+    <linearGradient id="unfold-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#8b5cf6" />
+      <stop offset="100%" stop-color="#6d28d9" />
+    </linearGradient>
+  </defs>
+  <!-- Icon Part -->
+  <rect x="5" y="5" width="30" height="30" rx="8" fill="url(#unfold-grad)" />
+  <path d="M14 12 L20 28 L26 12" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none" />
+  <!-- Text Part -->
+  <text x="45" y="27" font-family="'Inter', -apple-system, sans-serif" font-size="20" font-weight="700" fill="currentColor">Unfold</text>
+</svg>
