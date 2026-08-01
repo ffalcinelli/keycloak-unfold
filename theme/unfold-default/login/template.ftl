@@ -34,7 +34,8 @@
 
     <#if properties.meta?has_content>
         <#list properties.meta?split(' ') as meta>
-            <meta name="${meta?split('==')[0]}" content="${meta?split('==')[1]}"/>
+            <#assign parts = meta?split('==')>
+            <meta name="${parts[0]}" content="${parts[1]}"/>
         </#list>
     </#if>
     <title>${msg("loginTitle",(realm.displayName!''))}</title>
