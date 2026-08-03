@@ -87,3 +87,39 @@ test('icon visibility is correctly toggled on initialization (light mode)', () =
     assert.ok(sunIcon.classList.contains('hidden'));
     assert.strictEqual(moonIcon.classList.contains('hidden'), false);
 });
+
+test('applyTheme directly toggles theme classes and icons correctly', () => {
+    const { window, document } = setupDOM('light', false);
+    const sunIcon = document.getElementById('theme-toggle-sun');
+    const moonIcon = document.getElementById('theme-toggle-moon');
+
+    // Apply dark theme
+    window.applyTheme(true);
+    assert.ok(document.documentElement.classList.contains('pf-v5-theme-dark'));
+    assert.ok(document.documentElement.classList.contains('dark'));
+    assert.strictEqual(sunIcon.classList.contains('hidden'), false);
+    assert.ok(moonIcon.classList.contains('hidden'));
+
+    // Apply light theme
+    window.applyTheme(false);
+    assert.strictEqual(document.documentElement.classList.contains('pf-v5-theme-dark'), false);
+    assert.strictEqual(document.documentElement.classList.contains('dark'), false);
+    assert.ok(sunIcon.classList.contains('hidden'));
+    assert.strictEqual(moonIcon.classList.contains('hidden'), false);
+});
+
+test('applyTheme works without throwing when icons are missing', () => {
+    const { window, document } = setupDOM('light', false);
+
+    // Remove icons
+    document.getElementById('theme-toggle-sun').remove();
+    document.getElementById('theme-toggle-moon').remove();
+
+    // Should not throw
+    assert.doesNotThrow(() => {
+        window.applyTheme(true);
+    });
+
+    assert.ok(document.documentElement.classList.contains('pf-v5-theme-dark'));
+    assert.ok(document.documentElement.classList.contains('dark'));
+});
