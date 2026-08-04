@@ -17,11 +17,17 @@
             <#if skipLink??>
             <#else>
                 <#if pageRedirectUri??>
-                    <p><a href="${pageRedirectUri}" class="font-semibold text-primary-600 hover:text-primary-700 dark:text-primary-500">${msg("backToApplication")}</a></p>
+                    <#if !pageRedirectUri?trim?lower_case?starts_with("javascript:") && !pageRedirectUri?trim?lower_case?starts_with("data:") && !pageRedirectUri?trim?lower_case?starts_with("vbscript:")>
+                        <p><a href="${pageRedirectUri}" class="font-semibold text-primary-600 hover:text-primary-700 dark:text-primary-500">${msg("backToApplication")}</a></p>
+                    </#if>
                 <#elseif actionUri??>
-                    <p><a href="${actionUri}" class="font-semibold text-primary-600 hover:text-primary-700 dark:text-primary-500">${msg("proceedWithAction")}</a></p>
+                    <#if !actionUri?trim?lower_case?starts_with("javascript:") && !actionUri?trim?lower_case?starts_with("data:") && !actionUri?trim?lower_case?starts_with("vbscript:")>
+                        <p><a href="${actionUri}" class="font-semibold text-primary-600 hover:text-primary-700 dark:text-primary-500">${msg("proceedWithAction")}</a></p>
+                    </#if>
                 <#elseif client?? && client.baseUrl?has_content>
-                    <p><a href="${client.baseUrl}" class="font-semibold text-primary-600 hover:text-primary-700 dark:text-primary-500">${msg("backToApplication")}</a></p>
+                    <#if !client.baseUrl?trim?lower_case?starts_with("javascript:") && !client.baseUrl?trim?lower_case?starts_with("data:") && !client.baseUrl?trim?lower_case?starts_with("vbscript:")>
+                        <p><a href="${client.baseUrl}" class="font-semibold text-primary-600 hover:text-primary-700 dark:text-primary-500">${msg("backToApplication")}</a></p>
+                    </#if>
                 </#if>
             </#if>
         </div>
