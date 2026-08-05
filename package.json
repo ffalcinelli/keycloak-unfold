@@ -8,7 +8,7 @@
     "lint": "npm run lint:css && npm run lint:js && npm run check-version",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "build:css": "npx @tailwindcss/cli -i ./theme/unfold-base/login/resources/css/tailwind-input.css -o ./theme/unfold-base/login/resources/css/tailwind.css --minify",
+    "build:css": "npx tailwindcss@3.4.19 -i ./theme/unfold-base/login/resources/css/tailwind-input.css -o ./theme/unfold-base/login/resources/css/tailwind.css -c tailwind.config.js --minify",
     "build": "npm run build:css",
     "package": "npm run build && mkdir -p META-INF && cp src/main/resources/META-INF/keycloak-themes.json META-INF/ && zip -r ${npm_package_name}-v${npm_package_version}.jar theme/ META-INF/ && rm -rf META-INF",
     "test": "playwright test",
