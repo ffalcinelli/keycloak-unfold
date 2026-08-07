@@ -1,5 +1,6 @@
 <#import "field.ftl" as field>
 <#import "footer.ftl" as loginFooter>
+<#import "scripts.ftl" as scriptMacro>
 <#macro username>
   <#assign label>
     <#if !realm.loginWithEmailAllowed>${msg("username")}<#elseif !realm.registrationEmailAsUsername>${msg("usernameOrEmail")}<#else>${msg("email")}</#if>
@@ -60,37 +61,7 @@
     <#if properties.darkMode?has_content>
         <script src="${url.resourcesPath}/js/theme-toggle.js" async blocking="render"></script>
     </#if>
-    <#if properties.scripts?has_content>
-        <#list properties.scripts?split(' ') as script>
-            <script src="${url.resourcesPath}/${script}" type="text/javascript"></script>
-        </#list>
-    </#if>
-    <#if scripts??>
-        <#list scripts as script>
-            <script src="${script}" type="text/javascript"></script>
-        </#list>
-    </#if>
-    <script type="module" src="${url.resourcesPath}/js/passwordVisibility.js"></script>
-    <script type="module">
-        import { startSessionPolling } from "${url.resourcesPath}/js/authChecker.js";
-
-        startSessionPolling(
-            "${url.ssoLoginInOtherTabsUrl?no_esc}"
-        );
-    </script>
-    <#if authenticationSession?? && authenticationSession.authSessionIdHash??>
-        <script type="module">
-            import { checkAuthSession } from "${url.resourcesPath}/js/authChecker.js";
-
-            checkAuthSession(
-                "${authenticationSession.authSessionIdHash}"
-            );
-        </script>
-    </#if>
-    <script>
-      // Workaround for https://bugzilla.mozilla.org/show_bug.cgi?id=1404468
-      const isFirefox = true;
-    </script>
+    <@scriptMacro.kwScripts/>
 </head>
 
 <body id="keycloak-bg" class="antialiased bg-base-50 font-sans text-font-default-light text-sm dark:bg-base-900 dark:text-font-default-dark bg-base-50 login dark:bg-base-900 ${properties.kcBodyClass!}">
