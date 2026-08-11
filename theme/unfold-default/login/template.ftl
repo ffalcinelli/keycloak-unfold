@@ -34,19 +34,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <#if properties.meta?has_content>
-        <#list properties.meta?split(' ') as meta>
-            <meta name="${meta?split('==')[0]}" content="${meta?split('==')[1]}"/>
+        <#assign metaList = properties.meta?split(' ')>
+        <#list metaList as meta>
+            <#assign metaParts = meta?split('==')>
+            <meta name="${metaParts[0]}" content="${metaParts[1]}"/>
         </#list>
     </#if>
     <title>${msg("loginTitle",(realm.displayName!''))}</title>
     <link rel="icon" type="image/svg+xml" href="${url.resourcesPath}/img/favicon.svg" />
     <#if properties.stylesCommon?has_content>
-        <#list properties.stylesCommon?split(' ') as style>
+        <#assign stylesCommonList = properties.stylesCommon?split(' ')>
+        <#list stylesCommonList as style>
             <link href="${url.resourcesCommonPath}/${style}" rel="stylesheet" />
         </#list>
     </#if>
     <#if properties.styles?has_content>
-        <#list properties.styles?split(' ') as style>
+        <#assign stylesList = properties.styles?split(' ')>
+        <#list stylesList as style>
             <link href="${url.resourcesPath}/${style}" rel="stylesheet" />
         </#list>
     </#if>
