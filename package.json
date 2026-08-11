@@ -16,7 +16,7 @@
     "check-version": "node scripts/check-version-sync.js"
   },
   "devDependencies": {
-    "@playwright/test": "^1.61.1",
+    "@playwright/test": "^1.62.1",
     "@tailwindcss/cli": "^4.3.3",
     "@tailwindcss/typography": "^0.5.19",
     "eslint": "^9.16.0",
