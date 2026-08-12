@@ -6,14 +6,14 @@ test('Keycloak Unfold - Demo Login Page', async ({ page }) => {
   await page.goto('http://localhost:8080/realms/demo/account/');
 
   // Wait for login form to appear
-  await page.waitForSelector('#kc-form-login', { timeout: 60000 });
+  await page.waitForSelector('#kc-form-login');
 
   // Verify custom CSS overrides applied to the main container
   const mainContainer = page.locator('.pf-v5-c-login__main');
   const mainStyle = await mainContainer.evaluate((el) => window.getComputedStyle(el));
 
   // Check border-radius (0.75rem = 12px usually from sm:rounded-xl)
-  expect(mainStyle.borderRadius).toMatch(/(12px|0\.75rem|0px)/);
+  expect(mainStyle.borderRadius).toMatch(/12px/);
   // Check background color (white)
   expect(mainStyle.backgroundColor).toMatch(/rgb\(255, 255, 255\)/);
 
@@ -26,7 +26,7 @@ test('Keycloak Unfold - Demo Login Page', async ({ page }) => {
     /(oklch\(0\.558 0\.288 302\.321\)|rgb\(152, 16, 250\)|rgb\(124, 58, 237\))/
   );
   // Button border radius (0.375rem = 6px)
-  expect(buttonStyle.borderRadius).toMatch(/(6px|0\.375rem|0px|3px)/);
+  expect(buttonStyle.borderRadius).toMatch(/6px/);
 
   // Verify body background
   const bodyStyle = await page.evaluate(() => window.getComputedStyle(document.body));
@@ -41,7 +41,7 @@ test('Keycloak Unfold - Demo Account Console', async ({ page }) => {
   await page.goto('http://localhost:8080/realms/demo/account/');
 
   // Login
-  await page.waitForSelector('#kc-form-login', { timeout: 60000 });
+  await page.waitForSelector('#kc-form-login');
   await page.fill('#username', 'testuser');
   await page.fill('#password', 'password');
   await page.click('#kc-login');
@@ -75,7 +75,7 @@ test('Keycloak Unfold - Demo Account Console', async ({ page }) => {
   const primaryButton = page.locator('.pf-v5-c-button.pf-m-primary').first();
   const buttonStyle = await primaryButton.evaluate((el) => window.getComputedStyle(el));
   expect(buttonStyle.backgroundColor).toMatch(
-    /(oklch\(0\.558 0\.288 302\.321\)|rgb\(124, 58, 237\)|rgb\(152, 16, 250\)|rgb\(0, 102, 204\))/
+    /(oklch\(0\.558 0\.288 302\.321\)|rgb\(124, 58, 237\)|rgb\(152, 16, 250\))/
   );
 });
 
@@ -84,7 +84,7 @@ test('Keycloak Unfold - Demo Registration Page', async ({ page }) => {
   await page.goto('http://localhost:8080/realms/demo/account/');
 
   // Wait for login form to appear
-  await page.waitForSelector('#kc-form-login', { timeout: 60000 });
+  await page.waitForSelector('#kc-form-login');
 
   // Click on register link
   await page.click('#kc-registration a');
@@ -102,7 +102,7 @@ test('Keycloak Unfold - Demo Registration Page', async ({ page }) => {
   // Verify custom CSS overrides applied to the main container
   const mainContainer = page.locator('.pf-v5-c-login__main');
   const mainStyle = await mainContainer.evaluate((el) => window.getComputedStyle(el));
-  expect(mainStyle.borderRadius).toMatch(/(12px|0\.75rem|0px)/);
+  expect(mainStyle.borderRadius).toMatch(/12px/);
 
   // Check the registration button
   const registerButton = page.locator('button[type="submit"]');
@@ -110,9 +110,9 @@ test('Keycloak Unfold - Demo Registration Page', async ({ page }) => {
 
   // Primary button color should match the theme
   expect(buttonStyle.backgroundColor).toMatch(
-    /(oklch\(0\.558 0\.288 302\.321\)|rgb\(152, 16, 250\)|rgb\(124, 58, 237\)|rgb\(0, 102, 204\))/
+    /(oklch\(0\.558 0\.288 302\.321\)|rgb\(152, 16, 250\)|rgb\(124, 58, 237\))/
   );
-  expect(buttonStyle.borderRadius).toMatch(/(6px|0\.375rem|0px|3px)/);
+  expect(buttonStyle.borderRadius).toMatch(/6px/);
 });
 
 test('Keycloak Unfold - Dark Mode Toggle', async ({ page }) => {
@@ -120,7 +120,7 @@ test('Keycloak Unfold - Dark Mode Toggle', async ({ page }) => {
   await page.goto('http://localhost:8080/realms/demo/account/');
 
   // Wait for toggle button to appear
-  await page.waitForSelector('#theme-toggle-button', { timeout: 60000 });
+  await page.waitForSelector('#theme-toggle-button');
 
   const html = page.locator('html');
   const toggleButton = page.locator('#theme-toggle-button');
@@ -162,7 +162,7 @@ test('Keycloak Unfold - Reset Password Page', async ({ page }) => {
   await page.goto('http://localhost:8080/realms/demo/account/');
 
   // Wait for login form to appear
-  await page.waitForSelector('#kc-form-login', { timeout: 60000 });
+  await page.waitForSelector('#kc-form-login');
 
   // Click on "Forgot Password?" link
   await page.click('text=Forgot Password?');
@@ -176,7 +176,7 @@ test('Keycloak Unfold - Reset Password Page', async ({ page }) => {
   // Verify custom CSS overrides applied to the main container
   const mainContainer = page.locator('.pf-v5-c-login__main');
   const mainStyle = await mainContainer.evaluate((el) => window.getComputedStyle(el));
-  expect(mainStyle.borderRadius).toMatch(/(12px|0\.75rem|0px)/);
+  expect(mainStyle.borderRadius).toMatch(/12px/);
 });
 
 test('Keycloak Unfold - Brand Logo Integration', async ({ page }) => {
@@ -184,7 +184,7 @@ test('Keycloak Unfold - Brand Logo Integration', async ({ page }) => {
   await page.goto('http://localhost:8080/realms/demo/account/');
 
   // Wait for login form to appear
-  await page.waitForSelector('#kc-form-login', { timeout: 60000 });
+  await page.waitForSelector('#kc-form-login');
 
   // Verify that the custom brand logo elements are present
   const logoLight = page.locator('#kc-logo-light');
