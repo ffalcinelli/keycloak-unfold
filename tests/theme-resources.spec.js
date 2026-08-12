@@ -16,7 +16,7 @@ test('Keycloak Unfold - Verify all resources are available', async ({ page }) =>
   });
 
   // Navigate to login page
-  await page.goto('http://localhost:8080/realms/demo/account/', { waitUntil: 'networkidle' });
+  await page.goto('http://localhost:8080/realms/demo/account/', { waitUntil: 'domcontentloaded' });
 
   // Filter out authChecker.js as per user's prompt (it might be missing locally but present in production)
   const actualFailedResources = failedResources.filter(res => !res.url.includes('authChecker.js'));

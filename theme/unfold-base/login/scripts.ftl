@@ -1,6 +1,7 @@
 <#macro kwScripts>
     <#if properties.scripts?has_content>
-        <#list properties.scripts?split(' ') as script>
+        <#assign scriptsList = properties.scripts?split(' ')>
+        <#list scriptsList as script>
             <script src="${url.resourcesPath}/${script}" type="text/javascript"></script>
         </#list>
     </#if>
