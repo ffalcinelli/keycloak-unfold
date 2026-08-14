@@ -15,7 +15,7 @@
         import { startSessionPolling } from "${url.resourcesPath}/js/authChecker.js";
 
         startSessionPolling(
-            "${url.ssoLoginInOtherTabsUrl?no_esc}"
+            "${url.ssoLoginInOtherTabsUrl?js_string}"
         );
     </script>
     <#if authenticationSession?? && authenticationSession.authSessionIdHash??>
@@ -23,7 +23,7 @@
             import { checkAuthSession } from "${url.resourcesPath}/js/authChecker.js";
 
             checkAuthSession(
-                "${authenticationSession.authSessionIdHash}"
+                "${authenticationSession.authSessionIdHash?js_string}"
             );
         </script>
     </#if>
