@@ -167,6 +167,80 @@ This compiles the output JAR into the `target/` directory: `target/keycloak-unfo
 
 ---
 
+## Post-Install Customization
+
+Once the JAR is installed you can override any asset or property **without rebuilding the JAR**. Keycloak resolves theme resources with filesystem-first priority:
+
+```
+/opt/keycloak/themes/<theme-name>/   ← your overrides (WINS)
+JAR: theme/<theme-name>/...          ← packaged defaults (fallback)
+```
+
+Place only the files you want to change in `/opt/keycloak/themes/`. Everything else loads from the JAR automatically. A fully annotated set of example override files is provided in the [`customization/`](customization/) directory.
+
+### Logo
+
+Drop your SVG files into `themes/unfold-base/login/resources/img/` keeping the default names — no config change required:
+
+| File | Mode |
+|---|---|
+| `logo-light.svg` | Light mode |
+| `logo-dark.svg` | Dark mode (falls back to light if absent) |
+| `favicon.svg` | Browser tab icon |
+
+If you prefer different filenames, set these in `themes/unfold-base/login/theme.properties`:
+
+```properties
+unfoldLogoUrl=img/my-logo.svg
+unfoldLogoUrlDark=img/my-logo-dark.svg
+```
+
+### Background Image (`unfold-full` only)
+
+Replace the file at `themes/unfold-full/login/resources/img/login-bg.jpg` — or set a custom path:
+
+```properties
+# themes/unfold-full/login/theme.properties
+bgImage=img/my-hero.jpg
+```
+
+### All Configurable Properties
+
+| Property | Theme | Default | Description |
+|---|---|---|---|
+| `unfoldLogoUrl` | `unfold-base/login` | `img/logo-light.svg` | Light mode logo path |
+| `unfoldLogoUrlDark` | `unfold-base/login` | *(same as light)* | Dark mode logo path |
+| `termsUrl` | `unfold-base/login` | `https://example.com/terms` | Terms of service link URL |
+| `darkMode` | `unfold-base/login` | *(unset)* | Set any value to enable the dark/light toggle button |
+| `bgImage` | `unfold-full/login` | `img/login-bg.jpg` | Split-screen background image |
+| `kcLogoLink` | `unfold-full/login` | `#` | URL for the "Return to site" back-link |
+| `unfoldQuote` | `unfold-full/login` | *(built-in text)* | Marketing quote shown over the background |
+| `unfoldQuoteSubtext` | `unfold-full/login` | *(built-in text)* | Subtext below the quote |
+
+### Brand Color Override
+
+To change the primary accent color without editing CSS inside the JAR, add a small override stylesheet. Copy [`customization/unfold-base/login/resources/css/my-brand.css`](customization/unfold-base/login/resources/css/my-brand.css) to your themes directory, edit the `--color-primary-*` values, then reference it in `themes/unfold-base/login/theme.properties`:
+
+```properties
+styles=css/unfold-common.css css/unfold.css css/login-widgets.css css/tailwind.css css/my-brand.css
+```
+
+### Docker Compose Example
+
+```yaml
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.7.0
+    volumes:
+      - ./keycloak-unfold-v0.0.1.jar:/opt/keycloak/providers/keycloak-unfold.jar:ro
+      - ./my-overrides:/opt/keycloak/themes:ro
+    command: start-dev
+```
+
+Where `my-overrides/` contains only the files you actually changed, mirroring the structure of the `customization/` directory.
+
+---
+
 ## Testing & Quality Assurance
 
 ### Run Playwright E2E Tests
