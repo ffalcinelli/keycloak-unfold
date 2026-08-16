@@ -133,6 +133,7 @@
                                         <arg>--pinentry-mode</arg>
                                         <arg>loopback</arg>
                                     </gpgArguments>
+                                    <passphraseEnvName>GPG_PASSPHRASE</passphraseEnvName>
                                 </configuration>
                             </execution>
                         </executions>

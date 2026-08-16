@@ -14,8 +14,8 @@ jobs:
     permissions:
       contents: write
     env:
-      MAVEN_USERNAME: ${{ secrets.SONATYPE_PORTAL_TOKEN_USERNAME }}
-      MAVEN_PASSWORD: ${{ secrets.SONATYPE_PORTAL_TOKEN_PASSWORD }}
+      SONATYPE_PORTAL_TOKEN_USERNAME: ${{ secrets.SONATYPE_PORTAL_TOKEN_USERNAME }}
+      SONATYPE_PORTAL_TOKEN_PASSWORD: ${{ secrets.SONATYPE_PORTAL_TOKEN_PASSWORD }}
 
     steps:
       - name: Checkout repository
@@ -39,8 +39,8 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           server-id: sonatype-central
-          server-username: MAVEN_USERNAME
-          server-password: MAVEN_PASSWORD
+          server-username: SONATYPE_PORTAL_TOKEN_USERNAME
+          server-password: SONATYPE_PORTAL_TOKEN_PASSWORD
 
       - name: Import GPG key
         shell: bash
@@ -56,6 +56,7 @@ jobs:
       - name: Publish to Maven Central
         shell: bash
         env:
+          GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
           MAVEN_GPG_PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
         run: mvn --batch-mode deploy -P release -DskipTests
 
