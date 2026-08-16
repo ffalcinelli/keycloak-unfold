@@ -18,12 +18,21 @@ Keycloak Unfold is a modular custom theme for Keycloak designed to emulate the c
 
 ---
 
-## Keycloak Compatibility
+## Compatibility Matrix
 
-- **Keycloak Version**: 26+ (Tested and verified against `v26.7.0`)
-- **Base Theme Dependency**: Keycloak's default `v2` theme.
+Keycloak Unfold is versioned independently using [Semantic Versioning (SemVer)](https://semver.org/) starting from `0.0.1`.
 
-For detailed version alignments, see [UNFOLD_VERSION.md](file:///home/fabio/Workspace/keycloak-unfold/UNFOLD_VERSION.md).
+| Theme Version              | Supported Keycloak | Tested Keycloak | Base Theme | PatternFly Version         | Django Unfold Alignment | Support Status |
+| :------------------------- | :----------------- | :-------------- | :--------- | :------------------------- | :---------------------- | :------------- |
+| `0.0.x` (current: `0.0.1`) | `26.x` (26.0.0+)   | `v26.7.0`       | `v2`       | PatternFly 5 (`--pf-v5-*`) | `v0.101.0`              | 🟢 Active      |
+
+### Versioning Strategy
+
+- **Major (`X.0.0`)**: Breaking template architecture redesigns or major Keycloak base theme upgrades.
+- **Minor (`0.X.0`)**: New theme variants, feature additions, or layout enhancements.
+- **Patch (`0.0.X`)**: Bug fixes, CSS refinements, and compatibility updates for Keycloak point releases.
+
+For detailed design system and upstream version alignments, see [UNFOLD_VERSION.md](file:///home/fabio/Workspace/keycloak-unfold/UNFOLD_VERSION.md).
 
 ---
 
@@ -132,7 +141,7 @@ Run the NPM packager script:
 npm run package
 ```
 
-This builds CSS, prepares the `META-INF` files, and generates a packaged archive (e.g., `keycloak-unfold-v26.7.0.jar`) in the root directory.
+This builds CSS, prepares the `META-INF` files, and generates a packaged archive (e.g., `keycloak-unfold-v0.0.1.jar`) in the root directory.
 
 ### Option B: Pack using Maven (Recommended for Java/DevOps Pipelines)
 
@@ -142,7 +151,7 @@ Compile using Maven (builds and runs tests under `/target`):
 mvn clean package
 ```
 
-This compiles the output JAR into the `target/` directory: `target/keycloak-unfold-v26.7.0.jar`.
+This compiles the output JAR into the `target/` directory: `target/keycloak-unfold-v0.0.1.jar`.
 
 ### Production Installation Steps
 

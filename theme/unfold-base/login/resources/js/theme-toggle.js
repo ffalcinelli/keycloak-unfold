@@ -57,3 +57,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+// Export for Node.js testing environments (no-op in browsers where `module` is undefined)
+if (typeof module !== 'undefined') {
+  module.exports = { applyTheme, initializeTheme };
+}

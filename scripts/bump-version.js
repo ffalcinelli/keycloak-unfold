@@ -10,7 +10,7 @@ function escapeRegExp(string) {
 // Get new version from command line args
 const newVersion = process.argv[2];
 if (!newVersion) {
-  console.error('Error: Please specify a version (e.g. npm run bump -- 26.7.1)');
+  console.error('Error: Please specify a version (e.g. npm run bump -- 0.0.2)');
   process.exit(1);
 }
 
@@ -60,38 +60,10 @@ if (oldPomVersionRegex.test(pom)) {
   console.warn('Warning: Could not find matching old version in pom.xml to replace.');
 }
 
-// 4. Update docker-compose.yml (Keycloak image version)
-const dockerComposePath = path.join(rootDir, 'docker-compose.yml');
-if (fs.existsSync(dockerComposePath)) {
-  let dockerCompose = fs.readFileSync(dockerComposePath, 'utf8');
-  const oldImageRegex = new RegExp(`image: quay.io/keycloak/keycloak:${escapeRegExp(oldVersion)}`);
-  if (oldImageRegex.test(dockerCompose)) {
-    dockerCompose = dockerCompose.replace(
-      oldImageRegex,
-      `image: quay.io/keycloak/keycloak:${newVersion}`
-    );
-    fs.writeFileSync(dockerComposePath, dockerCompose);
-    console.log('✓ Updated docker-compose.yml');
-  } else {
-    // If not matching exact version, fallback to replacing the general tag
-    dockerCompose = dockerCompose.replace(
-      /image: quay.io\/keycloak\/keycloak:\d+\.\d+\.\d+/,
-      `image: quay.io/keycloak/keycloak:${newVersion}`
-    );
-    fs.writeFileSync(dockerComposePath, dockerCompose);
-    console.log('✓ Updated docker-compose.yml (fallback replace)');
-  }
-}
-
-// 5. Update README.md
+// 4. Update README.md
 const readmePath = path.join(rootDir, 'README.md');
 if (fs.existsSync(readmePath)) {
   let readme = fs.readFileSync(readmePath, 'utf8');
-  // Replace tested version
-  readme = readme.replace(
-    new RegExp(`Tested and verified against \`v${escapeRegExp(oldVersion)}\``, 'g'),
-    `Tested and verified against \`v${newVersion}\``
-  );
   // Replace JAR filenames
   readme = readme.replace(
     new RegExp(`keycloak-unfold-v${escapeRegExp(oldVersion)}\\.jar`, 'g'),
@@ -101,7 +73,7 @@ if (fs.existsSync(readmePath)) {
   console.log('✓ Updated README.md');
 }
 
-// 6. Update docs/index.html
+// 5. Update docs/index.html
 const docsIndexPath = path.join(rootDir, 'docs', 'index.html');
 if (fs.existsSync(docsIndexPath)) {
   let docsIndex = fs.readFileSync(docsIndexPath, 'utf8');

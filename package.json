@@ -1,6 +1,6 @@
 {
   "name": "keycloak-unfold",
-  "version": "26.7.0",
+  "version": "0.0.1",
   "license": "MIT",
   "scripts": {
     "lint:css": "stylelint \"**/*.css\"",
@@ -11,6 +11,8 @@
     "build:css": "npx @tailwindcss/cli -i ./theme/unfold-base/login/resources/css/tailwind-input.css -o ./theme/unfold-base/login/resources/css/tailwind.css --minify",
     "build": "npm run build:css",
     "package": "npm run build && mkdir -p META-INF && cp src/main/resources/META-INF/keycloak-themes.json META-INF/ && zip -r ${npm_package_name}-v${npm_package_version}.jar theme/ META-INF/ && rm -rf META-INF",
+    "test:unit": "node --experimental-test-coverage --test-coverage-include='theme/**/*.js' --test tests/*.test.js",
+    "test:unit:ci": "node --experimental-test-coverage --test-coverage-include='theme/**/*.js' --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=coverage/lcov.info --test tests/*.test.js",
     "test": "playwright test",
     "bump": "node scripts/bump-version.js",
     "check-version": "node scripts/check-version-sync.js"
@@ -19,6 +21,7 @@
     "@playwright/test": "^1.62.1",
     "@tailwindcss/cli": "^4.3.3",
     "@tailwindcss/typography": "^0.5.19",
+    "c8": "^12.0.0",
     "eslint": "^9.16.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-playwright": "^2.1.0",
