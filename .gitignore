@@ -11,6 +11,7 @@ playwright-report/
 blob-report/
 playwright/.cache/
 tests/visual/
+coverage/
 
 # Keycloak / Java
 keycloak-*/

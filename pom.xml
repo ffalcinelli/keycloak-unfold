@@ -6,7 +6,7 @@
 
     <groupId>io.github.ffalcinelli</groupId>
     <artifactId>keycloak-unfold</artifactId>
-    <version>26.7.0</version>
+    <version>0.0.1</version>
     <packaging>jar</packaging>
 
     <name>Keycloak Unfold</name>

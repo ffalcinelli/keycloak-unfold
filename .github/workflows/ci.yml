@@ -40,26 +40,16 @@ jobs:
       - name: Build CSS
         run: npm run build:css
 
-      - name: Start Keycloak
-        run: docker compose up -d
+      - name: Run unit tests with coverage
+        run: mkdir -p coverage && npm run test:unit:ci
 
-      - name: Wait for Keycloak
-        run: |
-          echo "Waiting for Keycloak to start..."
-          for i in {1..30}; do
-            if curl -s -f http://localhost:8080/realms/demo/account/ > /dev/null; then
-              echo "Keycloak is ready!"
-              exit 0
-            fi
-            echo "Keycloak not ready yet, sleeping 2s..."
-            sleep 2
-          done
-          echo "Keycloak did not start in time"
-          exit 1
+      - name: Upload unit test coverage to Codecov
+        uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: ./coverage/lcov.info
+          flags: unit
+          fail_ci_if_error: true
 
       - name: Run visual and E2E tests
         run: npm run test
-
-      - name: Stop Keycloak
-        if: always()
-        run: docker compose down

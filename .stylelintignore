@@ -1,3 +1,4 @@
 **/tailwind.css
 **/node_modules/**
 **/test-results/**
+**/coverage/**

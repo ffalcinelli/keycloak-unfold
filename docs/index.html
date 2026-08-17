@@ -49,6 +49,7 @@
           <a href="#features" class="nav-item">Features</a>
           <a href="#showcase" class="nav-item">Variants</a>
           <a href="#architecture" class="nav-item">Architecture</a>
+          <a href="#compatibility" class="nav-item">Compatibility</a>
           <a href="#installation" class="nav-item">Get Started</a>
         </nav>
         <div class="nav-actions">
@@ -115,7 +116,7 @@
           <div class="hero-content">
             <div class="hero-badge animate-fade-in">
               <span class="badge-dot"></span>
-              Keycloak 26+ Theme
+              Keycloak 26+ Theme • v0.0.1
             </div>
             <h1 class="hero-title animate-slide-up">
               Keycloak, <span class="gradient-text">unfolded.</span>
@@ -411,6 +412,92 @@
         </div>
       </section>
 
+      <!-- Compatibility Matrix Section -->
+      <section id="compatibility" class="compatibility-section">
+        <div class="container">
+          <div class="section-header text-center">
+            <h2 class="section-title">Compatibility Matrix</h2>
+            <p class="section-subtitle">
+              Keycloak Unfold is versioned independently using Semantic Versioning (SemVer) starting
+              from <code>v0.0.1</code> to guarantee predictable upgrades alongside upstream Keycloak
+              releases.
+            </p>
+          </div>
+
+          <div class="compatibility-matrix-wrapper">
+            <div class="table-card">
+              <div class="table-responsive">
+                <table class="compatibility-table">
+                  <thead>
+                    <tr>
+                      <th>Theme Version</th>
+                      <th>Keycloak Target</th>
+                      <th>Tested Keycloak</th>
+                      <th>Base Theme</th>
+                      <th>Django Unfold</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>
+                        <span class="version-badge">0.0.1</span>
+                        <span class="version-sub">0.0.x</span>
+                      </td>
+                      <td><code>26.x (26.0.0+)</code></td>
+                      <td><code>v26.7.0</code></td>
+                      <td><code>v2 (PatternFly 5)</code></td>
+                      <td><code>v0.101.0</code></td>
+                      <td>
+                        <span class="status-badge status-active">
+                          <span class="status-dot"></span> Active
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- SemVer Breakdown Cards -->
+            <div class="semver-grid">
+              <div class="semver-card">
+                <div class="semver-header">
+                  <span class="semver-type">Major</span>
+                  <span class="semver-code">X.0.0</span>
+                </div>
+                <p class="semver-desc">
+                  Breaking template architecture redesigns or upstream Keycloak major base theme
+                  revisions.
+                </p>
+              </div>
+
+              <div class="semver-card">
+                <div class="semver-header">
+                  <span class="semver-type">Minor</span>
+                  <span class="semver-code">0.X.0</span>
+                </div>
+                <p class="semver-desc">
+                  New theme variants, feature additions, or layout enhancements maintaining
+                  backwards compatibility.
+                </p>
+              </div>
+
+              <div class="semver-card">
+                <div class="semver-header">
+                  <span class="semver-type">Patch</span>
+                  <span class="semver-code">0.0.X</span>
+                </div>
+                <p class="semver-desc">
+                  Bug fixes, CSS refinements, and compatibility adjustments for minor Keycloak point
+                  releases.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Installation / Terminal Section -->
       <section id="installation" class="installation-section">
         <div class="container">
@@ -519,7 +606,7 @@ npm run package</code></pre>
 mvn clean package
 
 <span class="comment"># The built package is generated in the target directory:</span>
-<span class="comment"># target/keycloak-unfold-v26.7.0.jar</span></code></pre>
+<span class="comment"># target/keycloak-unfold-v0.0.1.jar</span></code></pre>
                 </div>
               </div>
 
@@ -544,7 +631,7 @@ mvn clean package
                     <span class="tooltip-text">Copy</span>
                   </button>
                   <pre><code><span class="comment"># 1. Copy the packaged JAR file into your Keycloak providers folder</span>
-cp keycloak-unfold-v26.7.0.jar /opt/keycloak/providers/
+cp keycloak-unfold-v0.0.1.jar /opt/keycloak/providers/
 
 <span class="comment"># 2. Run keycloak build to register the theme provider</span>
 /opt/keycloak/bin/kc.sh build

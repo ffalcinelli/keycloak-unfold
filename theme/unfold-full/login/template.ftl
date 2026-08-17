@@ -147,8 +147,16 @@
     <div class="hidden lg:flex lg:flex-col lg:justify-between lg:relative bg-cover bg-center bg-no-repeat" style="background-image: url('${url.resourcesPath}/${properties.bgImage}');">
         <div class="absolute inset-0 bg-base-900/40 mix-blend-multiply"></div>
         <div class="relative z-10 p-12 text-white mt-auto">
-            <blockquote class="text-2xl font-semibold mb-4">Start building your next great application.</blockquote>
-            <p class="text-base-300">Join thousands of developers using our platform.</p>
+            <#if properties.unfoldQuote?has_content>
+                <blockquote class="text-2xl font-semibold mb-4">${properties.unfoldQuote}</blockquote>
+            <#else>
+                <blockquote class="text-2xl font-semibold mb-4">Start building your next great application.</blockquote>
+            </#if>
+            <#if properties.unfoldQuoteSubtext?has_content>
+                <p class="text-base-300">${properties.unfoldQuoteSubtext}</p>
+            <#else>
+                <p class="text-base-300">Join thousands of developers using our platform.</p>
+            </#if>
         </div>
     </div>
 </div>

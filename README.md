@@ -18,12 +18,21 @@ Keycloak Unfold is a modular custom theme for Keycloak designed to emulate the c
 
 ---
 
-## Keycloak Compatibility
+## Compatibility Matrix
 
-- **Keycloak Version**: 26+ (Tested and verified against `v26.7.0`)
-- **Base Theme Dependency**: Keycloak's default `v2` theme.
+Keycloak Unfold is versioned independently using [Semantic Versioning (SemVer)](https://semver.org/) starting from `0.0.1`.
 
-For detailed version alignments, see [UNFOLD_VERSION.md](file:///home/fabio/Workspace/keycloak-unfold/UNFOLD_VERSION.md).
+| Theme Version              | Supported Keycloak | Tested Keycloak | Base Theme | PatternFly Version         | Django Unfold Alignment | Support Status |
+| :------------------------- | :----------------- | :-------------- | :--------- | :------------------------- | :---------------------- | :------------- |
+| `0.0.x` (current: `0.0.1`) | `26.x` (26.0.0+)   | `v26.7.0`       | `v2`       | PatternFly 5 (`--pf-v5-*`) | `v0.101.0`              | 🟢 Active      |
+
+### Versioning Strategy
+
+- **Major (`X.0.0`)**: Breaking template architecture redesigns or major Keycloak base theme upgrades.
+- **Minor (`0.X.0`)**: New theme variants, feature additions, or layout enhancements.
+- **Patch (`0.0.X`)**: Bug fixes, CSS refinements, and compatibility updates for Keycloak point releases.
+
+For detailed design system and upstream version alignments, see [UNFOLD_VERSION.md](file:///home/fabio/Workspace/keycloak-unfold/UNFOLD_VERSION.md).
 
 ---
 
@@ -132,7 +141,7 @@ Run the NPM packager script:
 npm run package
 ```
 
-This builds CSS, prepares the `META-INF` files, and generates a packaged archive (e.g., `keycloak-unfold-v26.7.0.jar`) in the root directory.
+This builds CSS, prepares the `META-INF` files, and generates a packaged archive (e.g., `keycloak-unfold-v0.0.1.jar`) in the root directory.
 
 ### Option B: Pack using Maven (Recommended for Java/DevOps Pipelines)
 
@@ -142,7 +151,7 @@ Compile using Maven (builds and runs tests under `/target`):
 mvn clean package
 ```
 
-This compiles the output JAR into the `target/` directory: `target/keycloak-unfold-v26.7.0.jar`.
+This compiles the output JAR into the `target/` directory: `target/keycloak-unfold-v0.0.1.jar`.
 
 ### Production Installation Steps
 
@@ -155,6 +164,80 @@ This compiles the output JAR into the `target/` directory: `target/keycloak-unfo
    ```bash
    bin/kc.sh start
    ```
+
+---
+
+## Post-Install Customization
+
+Once the JAR is installed you can override any asset or property **without rebuilding the JAR**. Keycloak resolves theme resources with filesystem-first priority:
+
+```
+/opt/keycloak/themes/<theme-name>/   ← your overrides (WINS)
+JAR: theme/<theme-name>/...          ← packaged defaults (fallback)
+```
+
+Place only the files you want to change in `/opt/keycloak/themes/`. Everything else loads from the JAR automatically. A fully annotated set of example override files is provided in the [`customization/`](customization/) directory.
+
+### Logo
+
+Drop your SVG files into `themes/unfold-base/login/resources/img/` keeping the default names — no config change required:
+
+| File | Mode |
+|---|---|
+| `logo-light.svg` | Light mode |
+| `logo-dark.svg` | Dark mode (falls back to light if absent) |
+| `favicon.svg` | Browser tab icon |
+
+If you prefer different filenames, set these in `themes/unfold-base/login/theme.properties`:
+
+```properties
+unfoldLogoUrl=img/my-logo.svg
+unfoldLogoUrlDark=img/my-logo-dark.svg
+```
+
+### Background Image (`unfold-full` only)
+
+Replace the file at `themes/unfold-full/login/resources/img/login-bg.jpg` — or set a custom path:
+
+```properties
+# themes/unfold-full/login/theme.properties
+bgImage=img/my-hero.jpg
+```
+
+### All Configurable Properties
+
+| Property | Theme | Default | Description |
+|---|---|---|---|
+| `unfoldLogoUrl` | `unfold-base/login` | `img/logo-light.svg` | Light mode logo path |
+| `unfoldLogoUrlDark` | `unfold-base/login` | *(same as light)* | Dark mode logo path |
+| `termsUrl` | `unfold-base/login` | `https://example.com/terms` | Terms of service link URL |
+| `darkMode` | `unfold-base/login` | *(unset)* | Set any value to enable the dark/light toggle button |
+| `bgImage` | `unfold-full/login` | `img/login-bg.jpg` | Split-screen background image |
+| `kcLogoLink` | `unfold-full/login` | `#` | URL for the "Return to site" back-link |
+| `unfoldQuote` | `unfold-full/login` | *(built-in text)* | Marketing quote shown over the background |
+| `unfoldQuoteSubtext` | `unfold-full/login` | *(built-in text)* | Subtext below the quote |
+
+### Brand Color Override
+
+To change the primary accent color without editing CSS inside the JAR, add a small override stylesheet. Copy [`customization/unfold-base/login/resources/css/my-brand.css`](customization/unfold-base/login/resources/css/my-brand.css) to your themes directory, edit the `--color-primary-*` values, then reference it in `themes/unfold-base/login/theme.properties`:
+
+```properties
+styles=css/unfold-common.css css/unfold.css css/login-widgets.css css/tailwind.css css/my-brand.css
+```
+
+### Docker Compose Example
+
+```yaml
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:26.7.0
+    volumes:
+      - ./keycloak-unfold-v0.0.1.jar:/opt/keycloak/providers/keycloak-unfold.jar:ro
+      - ./my-overrides:/opt/keycloak/themes:ro
+    command: start-dev
+```
+
+Where `my-overrides/` contains only the files you actually changed, mirroring the structure of the `customization/` directory.
 
 ---
 

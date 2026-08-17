@@ -2,6 +2,9 @@ const playwright = require('eslint-plugin-playwright');
 
 module.exports = [
   {
+    ignores: ['coverage/**'],
+  },
+  {
     files: ['**/*.js'],
     languageOptions: {
       ecmaVersion: 'latest',
@@ -24,7 +27,7 @@ module.exports = [
     },
   },
   {
-    files: ['tests/**/*.spec.js', 'tests/**/*.test.js'],
+    files: ['tests/**/*.spec.js'],
     plugins: {
       playwright: playwright,
     },

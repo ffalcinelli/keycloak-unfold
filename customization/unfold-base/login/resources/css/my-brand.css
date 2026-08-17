@@ -1,0 +1,54 @@
+/* ================================================================
+ * keycloak-unfold — Brand Color Override
+ * ================================================================
+ *
+ * USAGE
+ * -----
+ * 1. Place this file at:
+ *      /opt/keycloak/themes/unfold-base/login/resources/css/my-brand.css
+ *
+ * 2. Add it to the styles list in your theme.properties override:
+ *      styles=css/unfold-common.css css/unfold.css css/login-widgets.css css/tailwind.css css/my-brand.css
+ *
+ * Only override the values you need — everything else inherits from
+ * unfold-common.css inside the JAR.
+ * ================================================================ */
+
+:root,
+:where(:root),
+.pf-v5-c-form-control,
+.pf-v5-c-button,
+a {
+  /* ---------------------------------------------------------------
+   * PRIMARY ACCENT (buttons, links, focus rings)
+   * Replace with your brand color palette.
+   * --------------------------------------------------------------- */
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-200: #bfdbfe;
+  --color-primary-300: #93c5fd;
+  --color-primary-400: #60a5fa;
+  --color-primary-500: #3b82f6; /* dark mode accent */
+  --color-primary-600: #2563eb; /* light mode accent / buttons */
+  --color-primary-700: #1d4ed8; /* hover */
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8a;
+  --color-primary-950: #172554;
+
+  /* ---------------------------------------------------------------
+   * NEUTRAL BASE (backgrounds, borders, text)
+   * Only change these if you want a non-slate neutral palette.
+   * --------------------------------------------------------------- */
+  /* --color-base-50: #f8fafc; */
+  /* --color-base-900: #0f172a; */
+}
+
+/* Dark mode accent overrides */
+:root.pf-v5-theme-dark,
+:where(:root.pf-v5-theme-dark),
+.pf-v5-theme-dark .pf-v5-c-form-control,
+.pf-v5-theme-dark .pf-v5-c-button,
+.pf-v5-theme-dark a {
+  --color-primary-500: #3b82f6; /* dark mode accent */
+  --color-primary-600: #2563eb;
+}
