@@ -21,6 +21,23 @@
         }
       ],
       "realmRoles": ["default-roles-demo"]
+    },
+    {
+      "username": "otpuser",
+      "enabled": true,
+      "emailVerified": true,
+      "firstName": "Otp",
+      "lastName": "User",
+      "email": "otp@example.com",
+      "credentials": [
+        {
+          "type": "password",
+          "value": "password",
+          "temporary": false
+        }
+      ],
+      "realmRoles": ["default-roles-demo"],
+      "requiredActions": ["CONFIGURE_TOTP"]
     }
   ],
   "clients": [

@@ -12,7 +12,7 @@
                         <div class="flex flex-col gap-2">
                             <label for="password" class="${field.labelClass}">${msg("password")}</label>
                             <div class="relative w-full">
-                                <input tabindex="2" id="password" name="password" type="password" autocomplete="current-password" class="${field.inputClass}"
+                                <input id="password" name="password" type="password" autocomplete="current-password" class="${field.inputClass}"
                                        aria-invalid="<#if messagesPerField.existsError('password')>true</#if>"
                                        autofocus
                                 />
@@ -34,7 +34,7 @@
 
                     <div class="flex flex-col gap-3 mt-2">
                         <input type="hidden" id="id-hidden-input" name="credentialId" <#if auth.selectedCredential?has_content>value="${auth.selectedCredential}"</#if>/>
-                        <button tabindex="4" class="${field.primaryButtonClass}" name="login" id="kc-login" type="submit">
+                        <button class="${field.primaryButtonClass}" name="login" id="kc-login" type="submit">
                             ${msg("doLogIn")}
                         </button>
                     </div>

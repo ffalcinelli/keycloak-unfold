@@ -36,5 +36,8 @@
   ],
   "rememberMe": true,
   "resetPasswordAllowed": true,
-  "registrationAllowed": true
+  "registrationAllowed": true,
+  "internationalizationEnabled": true,
+  "supportedLocales": ["en", "it"],
+  "defaultLocale": "en"
 }

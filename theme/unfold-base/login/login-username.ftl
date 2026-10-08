@@ -17,7 +17,7 @@
                                 <div class="flex flex-col gap-2">
                                     <label for="username" class="${field.labelClass}">${label}</label>
 
-                                    <input tabindex="1" id="username" class="${field.inputClass}" name="username"
+                                    <input id="username" class="${field.inputClass}" name="username"
                                            value="${(login.username!'')}"
                                            type="text" autofocus autocomplete="username"
                                            aria-invalid="<#if messagesPerField.existsError('username')>true</#if>"
@@ -35,7 +35,7 @@
                         <div class="flex flex-row items-center justify-between mb-2">
                             <#if realm.rememberMe && !usernameHidden??>
                                 <div class="flex items-center">
-                                    <input tabindex="3" id="rememberMe" name="rememberMe" type="checkbox" class="h-4 w-4 rounded border-base-300 text-primary-600 focus:ring-primary-600"
+                                    <input id="rememberMe" name="rememberMe" type="checkbox" class="h-4 w-4 rounded border-base-300 text-primary-600 focus:ring-primary-600"
                                            <#if login.rememberMe??>checked</#if>>
                                     <label for="rememberMe" class="ml-2 block text-sm text-font-default-light dark:text-font-default-dark">${msg("rememberMe")}</label>
                                 </div>
@@ -43,7 +43,7 @@
                         </div>
 
                         <div class="flex flex-col gap-3 mt-2">
-                            <button tabindex="4" class="${field.primaryButtonClass}" name="login" id="kc-login" type="submit">
+                            <button class="${field.primaryButtonClass}" name="login" id="kc-login" type="submit">
                                 ${msg("doLogIn")}
                             </button>
                         </div>
@@ -56,7 +56,7 @@
         <#if realm.password && realm.registrationAllowed && !registrationDisabled??>
             <div id="kc-registration-container">
                 <div id="kc-registration">
-                    <span>${msg("noAccount")} <a tabindex="6"
+                    <span>${msg("noAccount")} <a
                                                  href="${url.registrationUrl}" class="font-semibold text-primary-600 hover:text-primary-700 dark:text-primary-500">${msg("doRegister")}</a></span>
                 </div>
             </div>

@@ -12,7 +12,7 @@
 
             <div class="flex flex-col group mb-5">
                 <div class="flex flex-col gap-2">
-                    <label for="password-new" class="${field.labelClass}">${msg("passwordNew")}<span class="text-red-600">*</span></label>
+                    <label for="password-new" class="${field.labelClass}">${msg("passwordNew")}<span class="text-red-600" aria-hidden="true">*</span></label>
                     <div class="relative w-full">
                         <input type="password" id="password-new" name="password-new" class="${field.inputClass}"
                                autofocus autocomplete="new-password"
@@ -36,7 +36,7 @@
 
             <div class="flex flex-col group mb-5">
                 <div class="flex flex-col gap-2">
-                    <label for="password-confirm" class="${field.labelClass}">${msg("passwordConfirm")}<span class="text-red-600">*</span></label>
+                    <label for="password-confirm" class="${field.labelClass}">${msg("passwordConfirm")}<span class="text-red-600" aria-hidden="true">*</span></label>
                     <div class="relative w-full">
                         <input type="password" id="password-confirm" name="password-confirm" class="${field.inputClass}"
                                autocomplete="new-password"

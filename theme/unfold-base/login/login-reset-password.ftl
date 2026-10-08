@@ -9,7 +9,7 @@
                 <div class="flex flex-col gap-2">
                     <label for="username" class="${field.labelClass}">
                         <#if !realm.loginWithEmailAllowed>${msg("username")}<#elseif !realm.registrationEmailAsUsername>${msg("usernameOrEmail")}<#else>${msg("email")}</#if>
-                        <span class="text-red-600">*</span>
+                        <span class="text-red-600" aria-hidden="true">*</span>
                     </label>
                     <input type="text" id="username" name="username" class="${field.inputClass}" autofocus value="${kcSanitize(auth.attemptedUsername!'')}" aria-invalid="<#if messagesPerField.existsError('username')>true</#if>"/>
 
