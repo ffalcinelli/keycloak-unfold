@@ -182,11 +182,11 @@ Place only the files you want to change in `/opt/keycloak/themes/`. Everything e
 
 Drop your SVG files into `themes/unfold-base/login/resources/img/` keeping the default names — no config change required:
 
-| File | Mode |
-|---|---|
-| `logo-light.svg` | Light mode |
-| `logo-dark.svg` | Dark mode (falls back to light if absent) |
-| `favicon.svg` | Browser tab icon |
+| File             | Mode                                      |
+| ---------------- | ----------------------------------------- |
+| `logo-light.svg` | Light mode                                |
+| `logo-dark.svg`  | Dark mode (falls back to light if absent) |
+| `favicon.svg`    | Browser tab icon                          |
 
 If you prefer different filenames, set these in `themes/unfold-base/login/theme.properties`:
 
@@ -206,16 +206,16 @@ bgImage=img/my-hero.jpg
 
 ### All Configurable Properties
 
-| Property | Theme | Default | Description |
-|---|---|---|---|
-| `unfoldLogoUrl` | `unfold-base/login` | `img/logo-light.svg` | Light mode logo path |
-| `unfoldLogoUrlDark` | `unfold-base/login` | *(same as light)* | Dark mode logo path |
-| `termsUrl` | `unfold-base/login` | `https://example.com/terms` | Terms of service link URL |
-| `darkMode` | `unfold-base/login` | *(unset)* | Set any value to enable the dark/light toggle button |
-| `bgImage` | `unfold-full/login` | `img/login-bg.jpg` | Split-screen background image |
-| `kcLogoLink` | `unfold-full/login` | `#` | URL for the "Return to site" back-link |
-| `unfoldQuote` | `unfold-full/login` | *(built-in text)* | Marketing quote shown over the background |
-| `unfoldQuoteSubtext` | `unfold-full/login` | *(built-in text)* | Subtext below the quote |
+| Property             | Theme               | Default                     | Description                                          |
+| -------------------- | ------------------- | --------------------------- | ---------------------------------------------------- |
+| `unfoldLogoUrl`      | `unfold-base/login` | `img/logo-light.svg`        | Light mode logo path                                 |
+| `unfoldLogoUrlDark`  | `unfold-base/login` | _(same as light)_           | Dark mode logo path                                  |
+| `termsUrl`           | `unfold-base/login` | `https://example.com/terms` | Terms of service link URL                            |
+| `darkMode`           | `unfold-base/login` | _(unset)_                   | Set any value to enable the dark/light toggle button |
+| `bgImage`            | `unfold-full/login` | `img/login-bg.jpg`          | Split-screen background image                        |
+| `kcLogoLink`         | `unfold-full/login` | `#`                         | URL for the "Return to site" back-link               |
+| `unfoldQuote`        | `unfold-full/login` | _(built-in text)_           | Marketing quote shown over the background            |
+| `unfoldQuoteSubtext` | `unfold-full/login` | _(built-in text)_           | Subtext below the quote                              |
 
 ### Brand Color Override
 

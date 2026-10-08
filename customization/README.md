@@ -154,16 +154,16 @@ In production, restart Keycloak after changing theme files.
 
 ## All Configurable Properties
 
-| Property | Theme | Default | Description |
-|---|---|---|---|
-| `unfoldLogoUrl` | `unfold-base/login` | `img/logo-light.svg` | Light mode logo (relative to resources/) |
-| `unfoldLogoUrlDark` | `unfold-base/login` | *(same as light)* | Dark mode logo (falls back to `unfoldLogoUrl`) |
-| `termsUrl` | `unfold-base/login` | `https://example.com/terms` | Terms of service link URL |
-| `darkMode` | `unfold-base/login` | *(unset)* | Set any value to enable the dark/light toggle button |
-| `bgImage` | `unfold-full/login` | `img/login-bg.jpg` | Split-screen background image (relative to resources/) |
-| `kcLogoLink` | `unfold-full/login` | `#` | URL for the "Return to site" back-link |
-| `unfoldQuote` | `unfold-full/login` | *(hardcoded fallback)* | Marketing quote shown over the background image |
-| `unfoldQuoteSubtext` | `unfold-full/login` | *(hardcoded fallback)* | Subtext below the quote |
+| Property             | Theme               | Default                     | Description                                            |
+| -------------------- | ------------------- | --------------------------- | ------------------------------------------------------ |
+| `unfoldLogoUrl`      | `unfold-base/login` | `img/logo-light.svg`        | Light mode logo (relative to resources/)               |
+| `unfoldLogoUrlDark`  | `unfold-base/login` | _(same as light)_           | Dark mode logo (falls back to `unfoldLogoUrl`)         |
+| `termsUrl`           | `unfold-base/login` | `https://example.com/terms` | Terms of service link URL                              |
+| `darkMode`           | `unfold-base/login` | _(unset)_                   | Set any value to enable the dark/light toggle button   |
+| `bgImage`            | `unfold-full/login` | `img/login-bg.jpg`          | Split-screen background image (relative to resources/) |
+| `kcLogoLink`         | `unfold-full/login` | `#`                         | URL for the "Return to site" back-link                 |
+| `unfoldQuote`        | `unfold-full/login` | _(hardcoded fallback)_      | Marketing quote shown over the background image        |
+| `unfoldQuoteSubtext` | `unfold-full/login` | _(hardcoded fallback)_      | Subtext below the quote                                |
 
 > **Favicon**: The path `img/favicon.svg` is hardcoded in `template.ftl`. To override it,
 > simply replace the file — no property change needed.
