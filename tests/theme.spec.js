@@ -22,6 +22,16 @@ function computed(locator, property) {
   return locator.evaluate((el, prop) => getComputedStyle(el)[prop], property);
 }
 
+/** True once a self-hosted Inter face has actually been downloaded and applied. */
+function interLoaded(page) {
+  return page.evaluate(async () => {
+    await document.fonts.ready;
+    return [...document.fonts].some(
+      (face) => face.family.replace(/"/g, '') === 'Inter' && face.status === 'loaded'
+    );
+  });
+}
+
 async function login(page, realmPath, username = 'testuser') {
   await page.goto(realmPath);
   await page.locator('#username').fill(username);
@@ -51,13 +61,16 @@ test.describe('unfold-default (demo realm)', () => {
     expect(await computed(page.locator('body'), 'backgroundColor')).toBe(
       await resolveColor(page, 'var(--color-base-50)')
     );
+
+    expect(await interLoaded(page)).toBe(true);
   });
 
   test('account console is themed', async ({ page }) => {
     await login(page, DEFAULT_REALM);
     await expect(page.locator('.pf-v5-c-page__main')).toBeVisible();
 
-    expect(await computed(page.locator('body'), 'fontFamily')).toMatch(/(Inter|RedHatText)/);
+    expect(await computed(page.locator('body'), 'fontFamily')).toMatch(/^"?Inter/);
+    expect(await interLoaded(page)).toBe(true);
 
     const primaryButton = page.locator('.pf-v5-c-button.pf-m-primary').first();
     await expect(primaryButton).toBeVisible();

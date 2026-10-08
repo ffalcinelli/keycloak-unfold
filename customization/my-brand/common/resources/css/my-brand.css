@@ -1,17 +1,14 @@
 /* ================================================================
- * keycloak-unfold — Brand Color Override
+ * keycloak-unfold: brand color override (child theme "my-brand")
  * ================================================================
  *
- * USAGE
- * -----
- * 1. Place this file at:
- *      /opt/keycloak/themes/unfold-base/login/resources/css/my-brand.css
+ * Lives in my-brand/common so login, account and admin share it:
+ * each of their theme.properties has `import=common/my-brand` and
+ * lists css/my-brand.css last in `styles`.
  *
- * 2. Add it to the styles list in your theme.properties override:
- *      styles=css/unfold-common.css css/unfold.css css/login-widgets.css css/tailwind.css css/my-brand.css
- *
- * Only override the values you need — everything else inherits from
- * unfold-common.css inside the JAR.
+ * Only override the values you need; everything else inherits from
+ * unfold-common.css inside the JAR. The selector list mirrors
+ * unfold-common.css so these values win on buttons and links too.
  * ================================================================ */
 
 :root,
@@ -41,14 +38,4 @@ a {
    * --------------------------------------------------------------- */
   /* --color-base-50: #f8fafc; */
   /* --color-base-900: #0f172a; */
-}
-
-/* Dark mode accent overrides */
-:root.pf-v5-theme-dark,
-:where(:root.pf-v5-theme-dark),
-.pf-v5-theme-dark .pf-v5-c-form-control,
-.pf-v5-theme-dark .pf-v5-c-button,
-.pf-v5-theme-dark a {
-  --color-primary-500: #3b82f6; /* dark mode accent */
-  --color-primary-600: #2563eb;
 }

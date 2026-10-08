@@ -1,107 +1,85 @@
 # Post-Install Customization Guide
 
-This directory contains ready-to-use override templates for customizing `keycloak-unfold`
-after it has been installed as a JAR file.
+`my-brand/` is a ready-to-copy **child theme** for an installed `keycloak-unfold` JAR. It
+changes only what you put in it (colors, logos, properties) and inherits everything else.
 
 ---
 
-## How Keycloak Theme Layering Works
+## How It Works
 
-Keycloak resolves theme resources with a **filesystem-first** priority:
+Keycloak does **not** merge a folder theme with a JAR theme of the same name. A folder called
+`unfold-base` in `/opt/keycloak/themes/` would replace the packaged one entirely. Its
+`parent=unfold-base` would then point at itself, which makes login requests hang.
+
+Use a theme with its own name that extends the packaged one instead:
 
 ```
-/opt/keycloak/themes/<theme-name>/   ← your overrides (WINS)
-JAR: theme/<theme-name>/...          ← packaged defaults (fallback)
+/opt/keycloak/themes/my-brand/login/theme.properties   parent=unfold-default (or unfold-full)
+                     my-brand/...                      only the files you change
+providers/keycloak-unfold.jar                          unfold-base, unfold-default, unfold-full
 ```
 
-You only need to provide the **files you want to change**. Everything else
-continues to load from the JAR transparently.
+Resources (CSS, images, templates, messages) are looked up in `my-brand` first, then along
+the parent chain into the JAR.
 
 ---
 
 ## Directory Structure
 
 ```
-customization/
-├── unfold-base/
-│   └── login/
-│       ├── theme.properties              ← Logo, terms URL, dark mode toggle, accent color
-│       └── resources/
-│           ├── img/
-│           │   ├── PLACE_LOGOS_HERE.md   ← Drop logo-light.svg / logo-dark.svg / favicon.svg here
-│           │   ├── logo-light.svg        ← (your file)
-│           │   └── logo-dark.svg         ← (your file, optional)
-│           └── css/
-│               └── my-brand.css          ← Optional: brand color override stylesheet
-└── unfold-full/
-    └── login/
-        ├── theme.properties              ← Background image, back-link URL, quote text
-        └── resources/
-            └── img/
-                ├── PLACE_BACKGROUND_HERE.md   ← Drop login-bg.jpg here
-                └── login-bg.jpg               ← (your file)
+my-brand/
+├── common/
+│   ├── theme.properties                 ← empty; makes common/my-brand importable
+│   └── resources/css/my-brand.css       ← brand colors, shared by login/account/admin
+├── login/
+│   ├── theme.properties                 ← parent variant, logo, terms URL, dark mode, unfold-full options
+│   └── resources/img/                   ← logo-light.svg, logo-dark.svg, favicon.svg, login-bg.jpg
+├── account/theme.properties             ← account console colors
+└── admin/theme.properties               ← admin console colors
 ```
+
+Delete the `account/` or `admin/` folders if you only want a custom login.
 
 ---
 
 ## Quickstart
 
-### 1. Logo (both variants)
+1. Copy `my-brand/` to `/opt/keycloak/themes/my-brand/`. You can rename it; the folder name is the theme name.
+2. Pick the variant in `login/theme.properties`: `parent=unfold-default` (centered card) or
+   `parent=unfold-full` (split screen).
+3. Edit the `--color-primary-*` values in `common/resources/css/my-brand.css`.
+4. Drop your images into `login/resources/img/`, keeping the default file names:
 
-Drop your SVG logo files into `unfold-base/login/resources/img/` keeping the default names:
+   | File             | Used for                                          |
+   | ---------------- | ------------------------------------------------- |
+   | `logo-light.svg` | Logo in light mode (displayed 40px high)          |
+   | `logo-dark.svg`  | Logo in dark mode                                 |
+   | `favicon.svg`    | Browser tab icon                                  |
+   | `login-bg.jpg`   | `unfold-full` hero image (portrait, ~1280px wide) |
 
-```
-logo-light.svg   ← used in light mode
-logo-dark.svg    ← used in dark mode (falls back to logo-light.svg if absent)
-favicon.svg      ← browser tab icon (optional)
-```
+5. In the admin console, open **Realm settings → Themes** and select `my-brand` for Login, Account and Admin.
 
-No `theme.properties` edit is needed if you keep the filenames. If you rename them,
-set `unfoldLogoUrl` and `unfoldLogoUrlDark` in `unfold-base/login/theme.properties`.
-
-### 2. Background Image (`unfold-full` only)
-
-Drop your image into `unfold-full/login/resources/img/` keeping the name `login-bg.jpg`.
-
-If you want a different filename, update `bgImage` in `unfold-full/login/theme.properties`:
+### Other Options (`login/theme.properties`)
 
 ```properties
+termsUrl=https://yoursite.com/terms      # terms link below the login form (hidden when unset)
+darkMode=false                           # hide the dark mode toggle
+unfoldLogoUrl=img/my-logo.svg            # other logo file names
+unfoldLogoUrlDark=img/my-logo-dark.svg
+
+# unfold-full only
 bgImage=img/my-hero.jpg
-```
-
-### 3. Brand Colors
-
-Copy `unfold-base/login/resources/css/my-brand.css` to your overrides directory,
-edit the `--color-primary-*` values, then add the filename to your `theme.properties`:
-
-```properties
-styles=css/unfold-common.css css/unfold.css css/login-widgets.css css/tailwind.css css/my-brand.css
-```
-
-### 4. Split-Screen Quote Text (`unfold-full` only)
-
-Add to `unfold-full/login/theme.properties`:
-
-```properties
-unfoldQuote=Secure. Simple. Yours.
+kcLogoLink=https://yoursite.com          # shows the "Return to site" link
+unfoldQuote=Secure. Simple. Yours.       # fixed text instead of the translatable default
 unfoldQuoteSubtext=Powered by your company platform.
 ```
 
-### 5. "Return to Site" Link (`unfold-full` only)
+### Texts and Translations
 
-Add to `unfold-full/login/theme.properties`:
-
-```properties
-kcLogoLink=https://yoursite.com
-```
-
-### 6. Enable Dark Mode Toggle
-
-Add to `unfold-base/login/theme.properties`:
-
-```properties
-darkMode=true
-```
+Theme strings are message keys (`unfoldWelcomeBackTo`, `unfoldReturnToSite`, `unfoldToggleTheme`,
+`unfoldTermsPrefix`, `unfoldTermsSuffix`, `unfoldQuote`, `unfoldQuoteSubtext`). To override them,
+add `login/messages/messages_<lang>.properties` to your child theme, or edit them per realm under
+**Realm settings → Localization → Realm overrides**.
 
 ---
 
@@ -109,61 +87,36 @@ darkMode=true
 
 ### Docker / Docker Compose
 
-Mount your customization directory as the Keycloak themes volume alongside the JAR:
-
 ```yaml
 services:
   keycloak:
     image: quay.io/keycloak/keycloak:26.8.0
     volumes:
       - ./keycloak-unfold-v0.0.1.jar:/opt/keycloak/providers/keycloak-unfold.jar:ro
-      - ./my-overrides:/opt/keycloak/themes:ro
+      - ./my-brand:/opt/keycloak/themes/my-brand:ro
     command: start-dev
 ```
 
-Where `my-overrides/` contains only the files from this `customization/` directory
-that you have actually changed.
-
 ### Kubernetes
 
-Use a `ConfigMap` for small text files (theme.properties) and an `initContainer`
-or persistent volume for binary assets (images):
+Mount `theme.properties` and `my-brand.css` from a `ConfigMap`. Bake binary assets (images)
+into a derived image, or provide them from a volume:
 
 ```yaml
 volumes:
-  - name: theme-overrides
+  - name: my-brand-login
     configMap:
-      name: keycloak-unfold-overrides
-  - name: theme-images
+      name: keycloak-my-brand-login # theme.properties
+  - name: my-brand-images
     persistentVolumeClaim:
       claimName: keycloak-brand-images
 ```
 
 ### Bare-metal / VM
 
-Copy your override files directly to the Keycloak installation:
-
 ```bash
-cp -r my-overrides/* /opt/keycloak/themes/
+cp -r my-brand /opt/keycloak/themes/
 ```
 
-No build step or restart is required when `KC_THEME_CACHEATTRIBUTE=false` (dev mode).
-In production, restart Keycloak after changing theme files.
-
----
-
-## All Configurable Properties
-
-| Property             | Theme               | Default                     | Description                                            |
-| -------------------- | ------------------- | --------------------------- | ------------------------------------------------------ |
-| `unfoldLogoUrl`      | `unfold-base/login` | `img/logo-light.svg`        | Light mode logo (relative to resources/)               |
-| `unfoldLogoUrlDark`  | `unfold-base/login` | _(same as light)_           | Dark mode logo (falls back to `unfoldLogoUrl`)         |
-| `termsUrl`           | `unfold-base/login` | `https://example.com/terms` | Terms of service link URL                              |
-| `darkMode`           | `unfold-base/login` | _(unset)_                   | Set any value to enable the dark/light toggle button   |
-| `bgImage`            | `unfold-full/login` | `img/login-bg.jpg`          | Split-screen background image (relative to resources/) |
-| `kcLogoLink`         | `unfold-full/login` | `#`                         | URL for the "Return to site" back-link                 |
-| `unfoldQuote`        | `unfold-full/login` | _(hardcoded fallback)_      | Marketing quote shown over the background image        |
-| `unfoldQuoteSubtext` | `unfold-full/login` | _(hardcoded fallback)_      | Subtext below the quote                                |
-
-> **Favicon**: The path `img/favicon.svg` is hardcoded in `template.ftl`. To override it,
-> simply replace the file — no property change needed.
+In production mode Keycloak caches themes, so restart it after changing theme files. In dev mode
+(`start-dev`) changes show up on reload.
