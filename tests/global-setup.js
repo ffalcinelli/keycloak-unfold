@@ -1,46 +1,56 @@
-const { execSync, spawn } = require('child_process');
+const { execSync } = require('child_process');
+const { KEYCLOAK_URL } = require('./keycloak-url');
 
-const KEYCLOAK_URL = 'http://localhost:8080/realms/demo/account/';
-const MAX_WAIT_MS = 120_000;
-const POLL_INTERVAL_MS = 2_000;
+const DISCOVERY_URL = `${KEYCLOAK_URL}/realms/demo/.well-known/openid-configuration`;
 
-async function waitForKeycloak() {
-  const start = Date.now();
-  process.stdout.write('Waiting for Keycloak');
-
-  while (Date.now() - start < MAX_WAIT_MS) {
-    try {
-      const res = await fetch(KEYCLOAK_URL, { signal: AbortSignal.timeout(2_000) });
-      if (res.ok || res.status === 401 || res.redirected) {
-        process.stdout.write(' ready!\n');
-        return;
-      }
-    } catch {
-      // not ready yet
-    }
-    process.stdout.write('.');
-    await new Promise((r) => setTimeout(r, POLL_INTERVAL_MS));
+/**
+ * Returns 'keycloak' when the demo realm answers with a matching OIDC discovery document,
+ * 'other' when something else is listening on the port, and 'down' when nothing answers.
+ */
+async function probeKeycloak() {
+  let res;
+  try {
+    res = await fetch(DISCOVERY_URL, { signal: AbortSignal.timeout(2_000) });
+  } catch {
+    return 'down';
   }
 
-  throw new Error(`Keycloak did not become ready within ${MAX_WAIT_MS / 1000}s`);
+  try {
+    const { issuer } = await res.json();
+    if (res.ok && typeof issuer === 'string' && issuer.endsWith('/realms/demo')) {
+      return 'keycloak';
+    }
+  } catch {
+    // not JSON: some other service
+  }
+  return 'other';
 }
 
 module.exports = async function globalSetup() {
-  // Check if Keycloak is already running (e.g. the developer started it manually)
-  try {
-    const res = await fetch(KEYCLOAK_URL, { signal: AbortSignal.timeout(1_000) });
-    if (res.ok || res.status === 401 || res.redirected) {
-      console.log('Keycloak already running, skipping docker compose up.');
-      process.env.KEYCLOAK_STARTED_BY_PLAYWRIGHT = '0';
-      return;
-    }
-  } catch {
-    // not running, start it
+  const state = await probeKeycloak();
+
+  if (state === 'keycloak') {
+    console.log(`Keycloak already running at ${KEYCLOAK_URL}, skipping docker compose up.`);
+    process.env.KEYCLOAK_STARTED_BY_PLAYWRIGHT = '0';
+    return;
+  }
+
+  if (state === 'other') {
+    throw new Error(
+      `${KEYCLOAK_URL} is answering but is not a Keycloak instance with the "demo" realm. ` +
+        'Free the port or set KC_PORT and KEYCLOAK_URL (e.g. KC_PORT=8180 KEYCLOAK_URL=http://localhost:8180).'
+    );
   }
 
   console.log('Starting Keycloak via docker compose...');
-  execSync('docker compose up -d', { stdio: 'inherit' });
+  // --wait blocks until the container healthcheck (/health/ready) reports healthy
+  execSync('docker compose up -d --wait', { stdio: 'inherit' });
   process.env.KEYCLOAK_STARTED_BY_PLAYWRIGHT = '1';
 
-  await waitForKeycloak();
+  if ((await probeKeycloak()) !== 'keycloak') {
+    throw new Error(
+      `Keycloak container is healthy but ${DISCOVERY_URL} is not reachable. ` +
+        'Check that KEYCLOAK_URL matches the published KC_PORT.'
+    );
+  }
 };

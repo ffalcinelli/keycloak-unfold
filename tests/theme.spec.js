@@ -3,7 +3,7 @@ const { test, expect } = require('@playwright/test');
 test('Keycloak Unfold - Demo Login Page', async ({ page }) => {
   // Go to Demo realm account console, which should redirect to demo realm login page
   // The demo realm is configured to use 'unfold' theme
-  await page.goto('http://localhost:8080/realms/demo/account/');
+  await page.goto('/realms/demo/account/');
 
   // Wait for login form to appear
   await page.waitForSelector('#kc-form-login');
@@ -38,7 +38,7 @@ test('Keycloak Unfold - Demo Login Page', async ({ page }) => {
 
 test('Keycloak Unfold - Demo Account Console', async ({ page }) => {
   // Go to Demo realm account console
-  await page.goto('http://localhost:8080/realms/demo/account/');
+  await page.goto('/realms/demo/account/');
 
   // Login
   await page.waitForSelector('#kc-form-login');
@@ -81,7 +81,7 @@ test('Keycloak Unfold - Demo Account Console', async ({ page }) => {
 
 test('Keycloak Unfold - Demo Registration Page', async ({ page }) => {
   // Go to Demo realm account console, which should redirect to demo realm login page
-  await page.goto('http://localhost:8080/realms/demo/account/');
+  await page.goto('/realms/demo/account/');
 
   // Wait for login form to appear
   await page.waitForSelector('#kc-form-login');
@@ -117,7 +117,7 @@ test('Keycloak Unfold - Demo Registration Page', async ({ page }) => {
 
 test('Keycloak Unfold - Dark Mode Toggle', async ({ page }) => {
   // Go to Demo realm account console, which should redirect to demo realm login page
-  await page.goto('http://localhost:8080/realms/demo/account/');
+  await page.goto('/realms/demo/account/');
 
   // Wait for toggle button to appear
   await page.waitForSelector('#theme-toggle-button');
@@ -159,7 +159,7 @@ test('Keycloak Unfold - Dark Mode Toggle', async ({ page }) => {
 
 test('Keycloak Unfold - Reset Password Page', async ({ page }) => {
   // Go to Demo realm account console, which should redirect to demo realm login page
-  await page.goto('http://localhost:8080/realms/demo/account/');
+  await page.goto('/realms/demo/account/');
 
   // Wait for login form to appear
   await page.waitForSelector('#kc-form-login');
@@ -181,7 +181,7 @@ test('Keycloak Unfold - Reset Password Page', async ({ page }) => {
 
 test('Keycloak Unfold - Brand Logo Integration', async ({ page }) => {
   // Go to Demo realm account console, which should redirect to demo realm login page
-  await page.goto('http://localhost:8080/realms/demo/account/');
+  await page.goto('/realms/demo/account/');
 
   // Wait for login form to appear
   await page.waitForSelector('#kc-form-login');
