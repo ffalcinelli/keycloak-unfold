@@ -114,7 +114,7 @@ Mount your customization directory as the Keycloak themes volume alongside the J
 ```yaml
 services:
   keycloak:
-    image: quay.io/keycloak/keycloak:26.7.0
+    image: quay.io/keycloak/keycloak:26.8.0
     volumes:
       - ./keycloak-unfold-v0.0.1.jar:/opt/keycloak/providers/keycloak-unfold.jar:ro
       - ./my-overrides:/opt/keycloak/themes:ro

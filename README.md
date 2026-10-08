@@ -24,7 +24,7 @@ Keycloak Unfold is versioned independently using [Semantic Versioning (SemVer)](
 
 | Theme Version              | Supported Keycloak | Tested Keycloak | Base Theme | PatternFly Version         | Django Unfold Alignment | Support Status |
 | :------------------------- | :----------------- | :-------------- | :--------- | :------------------------- | :---------------------- | :------------- |
-| `0.0.x` (current: `0.0.1`) | `26.x` (26.0.0+)   | `v26.7.0`       | `v2`       | PatternFly 5 (`--pf-v5-*`) | `v0.101.0`              | 🟢 Active      |
+| `0.0.x` (current: `0.0.1`) | `26.x` (26.0.0+)   | `v26.8.0`       | `v2`       | PatternFly 5 (`--pf-v5-*`) | `v0.101.0`              | 🟢 Active      |
 
 ### Versioning Strategy
 
@@ -230,7 +230,7 @@ styles=css/unfold-common.css css/unfold.css css/login-widgets.css css/tailwind.c
 ```yaml
 services:
   keycloak:
-    image: quay.io/keycloak/keycloak:26.7.0
+    image: quay.io/keycloak/keycloak:26.8.0
     volumes:
       - ./keycloak-unfold-v0.0.1.jar:/opt/keycloak/providers/keycloak-unfold.jar:ro
       - ./my-overrides:/opt/keycloak/themes:ro
