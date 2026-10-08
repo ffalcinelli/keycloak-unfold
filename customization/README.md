@@ -2,6 +2,7 @@
 
 `my-brand/` is a ready-to-copy **child theme** for an installed `keycloak-unfold` JAR. It
 changes only what you put in it (colors, logos, properties) and inherits everything else.
+Requires Keycloak 26.8.0 or newer.
 
 ---
 

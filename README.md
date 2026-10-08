@@ -24,7 +24,7 @@ Keycloak Unfold is versioned independently using [Semantic Versioning (SemVer)](
 
 | Theme Version              | Supported Keycloak | Tested Keycloak | Base Theme | PatternFly Version         | Django Unfold Alignment | Support Status |
 | :------------------------- | :----------------- | :-------------- | :--------- | :------------------------- | :---------------------- | :------------- |
-| `0.0.x` (current: `0.0.1`) | `26.x` (26.0.0+)   | `v26.8.0`       | `v2`       | PatternFly 5 (`--pf-v5-*`) | `v0.101.0`              | 🟢 Active      |
+| `0.0.x` (current: `0.0.1`) | `>= 26.8.0`        | `v26.8.0`       | `v2`       | PatternFly 5 (`--pf-v5-*`) | `v0.101.0`              | 🟢 Active      |
 
 ### Versioning Strategy
 
@@ -148,6 +148,8 @@ mvn clean package
 This writes the JAR to `target/keycloak-unfold-v<version>.jar`. Maven only packages the files. Build the CSS first with `npm run build`; the tests run through npm (see below).
 
 ### Production Installation Steps
+
+Requires **Keycloak 26.8.0 or newer**.
 
 1. Copy the compiled `.jar` file to the `providers/` directory of your Keycloak installation.
 2. Run the Keycloak build step to register the new theme provider:

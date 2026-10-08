@@ -4,9 +4,10 @@
 <#--
   Shared login layout for every unfold variant. The variant picks its shell with the
   `unfoldLayout` theme property: "centered" (default, unfold-default) or "split" (unfold-full).
-  Structure follows Keycloak's keycloak.v2 template.ftl; keep the two in sync on upgrades.
+  Targets Keycloak >= 26.8 and follows its keycloak.v2 template.ftl; keep the two in sync on upgrades.
 -->
-<#assign unfoldDarkMode = darkMode!(properties.darkMode! == 'true')>
+<#-- darkMode: theme property darkMode=true AND the realm's "Dark mode" switch (computed by Keycloak) -->
+<#assign unfoldDarkMode = darkMode>
 <#assign unfoldSplit = (properties.unfoldLayout!'centered') == 'split'>
 
 <#macro username>
@@ -84,7 +85,7 @@
 
 <#macro registrationLayout bodyClass="" displayInfo=false displayMessage=true displayRequiredFields=false>
 <!DOCTYPE html>
-<html class="${properties.kcHtmlClass!}" lang="${lang!(properties.kcHtmlLang!'en')}"<#if realm.internationalizationEnabled> dir="${(locale.rtl)?then('rtl','ltr')}"</#if>>
+<html class="${properties.kcHtmlClass!}" lang="${lang}"<#if realm.internationalizationEnabled> dir="${(locale.rtl)?then('rtl','ltr')}"</#if>>
 
 <head>
     <meta charset="utf-8">
@@ -128,7 +129,7 @@
     <@scriptMacro.kwScripts/>
 </head>
 
-<body id="keycloak-bg" class="antialiased bg-base-50 font-sans text-font-default-light text-sm dark:bg-base-900 dark:text-font-default-dark login ${unfoldSplit?then('m-0 p-0', '')} ${properties.kcBodyClass!} ${bodyClass}" data-page-id="login-${pageId!}">
+<body id="keycloak-bg" class="antialiased bg-base-50 font-sans text-font-default-light text-sm dark:bg-base-900 dark:text-font-default-dark login ${unfoldSplit?then('m-0 p-0', '')} ${properties.kcBodyClass!} ${bodyClass}" data-page-id="login-${pageId}">
 
 <#if unfoldSplit>
 <div id="page" class="min-h-screen grid grid-cols-1 lg:grid-cols-2 w-full">

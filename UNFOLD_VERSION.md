@@ -5,7 +5,7 @@ This theme mirrors the design system and styling patterns of [Django Unfold Them
 ## Alignment Reference
 
 - **Keycloak Unfold Theme Version**: `0.0.1` (SemVer `0.0.x`)
-- **Supported Keycloak Target**: `26.x` (Tested on `26.8.0`)
+- **Supported Keycloak Target**: `>= 26.8.0` (Tested on `26.8.0`)
 - **Django Unfold Target Version**: `v0.101.0` (Released July 17, 2026)
 - **Tailwind Version**: Tailwind CSS v4
 

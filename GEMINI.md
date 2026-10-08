@@ -9,7 +9,7 @@ This repository provides a custom Keycloak theme designed to emulate the aesthet
   - `unfold-default`: Centered login card (`unfoldLayout=centered`, the default).
   - `unfold-full`: Split-screen login with a hero image (`unfoldLayout=split`).
 - **Key Technologies**:
-  - **Keycloak 26.x** (tested on 26.8.0): the target platform.
+  - **Keycloak >= 26.8.0** (the minimum; dev and CI are pinned to 26.8.0): the target platform.
   - **Tailwind CSS v4**: utility classes in `.ftl` templates, compiled into the committed `tailwind.css`.
   - **PatternFly 5**: the underlying CSS framework, customized via variable overrides (`--pf-v5-*`).
   - **Playwright** for end-to-end tests; `node:test` + jsdom for unit tests.
