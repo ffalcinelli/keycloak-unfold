@@ -43,7 +43,7 @@
 			<#nested "beforeField" attribute>
 			<div class="flex flex-col group mb-5">
 				<div class="flex flex-col gap-2">
-					<label for="${attribute.name}" class="${field.labelClass}">${advancedMsg(attribute.displayName!'')}<#if attribute.required><span class="text-red-600">*</span></#if></label>
+					<label for="${attribute.name}" class="${field.labelClass}">${advancedMsg(attribute.displayName!'')}<#if attribute.required><span class="text-red-600" aria-hidden="true">*</span></#if></label>
 
 					<#if attribute.annotations.inputHelperTextBefore??>
 						<div class="text-sm text-base-500 mb-1" id="form-help-text-before-${attribute.name}" aria-live="polite">${kcSanitize(advancedMsg(attribute.annotations.inputHelperTextBefore))?no_esc}</div>

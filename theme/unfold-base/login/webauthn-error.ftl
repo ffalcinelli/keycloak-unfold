@@ -18,7 +18,7 @@
             <input type="hidden" id="isSetRetry" name="isSetRetry"/>
         </form>
 
-        <input tabindex="4" onclick="refreshPage()" type="button"
+        <input onclick="refreshPage()" type="button"
                class="font-medium flex group items-center gap-2 px-3 py-2 relative rounded-default justify-center whitespace-nowrap cursor-pointer border border-base-200 bg-primary-600 border-transparent text-white w-full hover:bg-primary-700 transition-colors mt-4"
                name="try-again" id="kc-try-again" value="${kcSanitize(msg("doTryAgain"))?no_esc}"
         />

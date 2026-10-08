@@ -24,7 +24,7 @@ Keycloak Unfold is versioned independently using [Semantic Versioning (SemVer)](
 
 | Theme Version              | Supported Keycloak | Tested Keycloak | Base Theme | PatternFly Version         | Django Unfold Alignment | Support Status |
 | :------------------------- | :----------------- | :-------------- | :--------- | :------------------------- | :---------------------- | :------------- |
-| `0.0.x` (current: `0.0.1`) | `26.x` (26.0.0+)   | `v26.7.0`       | `v2`       | PatternFly 5 (`--pf-v5-*`) | `v0.101.0`              | 🟢 Active      |
+| `0.0.x` (current: `0.0.1`) | `>= 26.8.0`        | `v26.8.0`       | `v2`       | PatternFly 5 (`--pf-v5-*`) | `v0.101.0`              | 🟢 Active      |
 
 ### Versioning Strategy
 
@@ -32,87 +32,87 @@ Keycloak Unfold is versioned independently using [Semantic Versioning (SemVer)](
 - **Minor (`0.X.0`)**: New theme variants, feature additions, or layout enhancements.
 - **Patch (`0.0.X`)**: Bug fixes, CSS refinements, and compatibility updates for Keycloak point releases.
 
-For detailed design system and upstream version alignments, see [UNFOLD_VERSION.md](file:///home/fabio/Workspace/keycloak-unfold/UNFOLD_VERSION.md).
+For detailed design system and upstream version alignments, see [UNFOLD_VERSION.md](UNFOLD_VERSION.md).
 
 ---
 
 ## Theme Architecture
 
-The theme registration is defined in the [keycloak-themes.json](file:///home/fabio/Workspace/keycloak-unfold/src/main/resources/META-INF/keycloak-themes.json) configuration. The codebase follows a modular inheritance-based architecture:
+The themes are registered in [keycloak-themes.json](src/main/resources/META-INF/keycloak-themes.json) and follow an inheritance chain:
 
 ```mermaid
 graph TD
-    A[Keycloak v2 Base Theme] --> B[unfold-base]
+    A[Keycloak keycloak.v2 / keycloak.v3] --> B[unfold-base]
     B --> C[unfold-default]
     B --> D[unfold-full]
+    C -.-> E[your child theme]
+    D -.-> E
 ```
 
-1. **`unfold-base`**: The core theme. It contains all modified FreeMarker templates (`.ftl`) for login, account, admin, and email modules, as well as shared CSS files, logos, and scripts (like dark mode logic).
-2. **`unfold-default`**: Inherits from `unfold-base`. Delivers a clean, centered login layout. Keeps the Admin and Account consoles visually aligned with default Keycloak layout patterns, overriding only colors and typography.
-3. **`unfold-full`**: Inherits from `unfold-base`. Delivers a premium split-screen layout with a configurable hero image background on the left and login actions on the right.
+1. **`unfold-base`**: the core theme. It holds every FreeMarker template (`.ftl`), including the single shared login layout `login/template.ftl`. It also holds the shared CSS, the self-hosted Inter font, logos, the dark mode script and the `messages_*.properties` bundles. The `common/unfold-base` type is imported by login, account and admin.
+2. **`unfold-default`**: the centered card login. The account and admin consoles keep the default Keycloak layout and only change colors and typography.
+3. **`unfold-full`**: the split-screen login, with the form on the left and a configurable hero image on the right (`unfoldLayout=split`). It also applies extra widget styling to the account and admin consoles.
+
+Login pages that the theme does not override (OTP, TOTP setup, device code, and so on) fall back to upstream `keycloak.v2` and render inside the Unfold layout.
 
 ---
 
 ## Configuration & Customization Guide
 
-### CSS Overrides & Design System
+### Design Tokens
 
-All key styling variables are defined in the central [unfold-common.css](file:///home/fabio/Workspace/keycloak-unfold/theme/unfold-base/common/resources/css/unfold-common.css) file. You can adjust colors, fonts, and border-radii by editing the custom properties:
+All key styling variables live in [unfold-common.css](theme/unfold-base/common/resources/css/unfold-common.css):
 
 ```css
 :root {
-  /* Font Family */
-  --pf-v5-global--FontFamily--sans-serif: 'Inter', sans-serif;
+  /* Font family (Inter is bundled; no external font requests) */
+  --pf-v5-global--FontFamily--sans-serif: 'Inter', -apple-system, ..., sans-serif;
 
-  /* Primary Theme Accent */
-  --color-primary-600: #7c3aed; /* Light Mode Accent */
-  --color-primary-500: #8b5cf6; /* Dark Mode Accent */
+  /* Primary theme accent */
+  --color-primary-600: #7c3aed; /* light mode accent */
+  --color-primary-500: #8b5cf6; /* dark mode accent */
 
-  /* Neutral Slates */
+  /* Neutral slates */
   --color-base-50: #f8fafc;
   --color-base-900: #0f172a;
 }
 ```
 
-### Customizing Variant Assets & Metadata
+To change them after installation, use a child theme ([Post-Install Customization](#post-install-customization)). Do not edit the JAR.
 
-You can customize the background image or resources for specific variants using `theme.properties` configuration files:
+### Translations
 
-- **`unfold-full` Background**: You can customize the split-screen image by modifying `bgImage=img/login-bg.jpg` in [theme/unfold-full/login/theme.properties](file:///home/fabio/Workspace/keycloak-unfold/theme/unfold-full/login/theme.properties).
-- **Logos**: Place your custom SVG logo at `theme/unfold-base/login/resources/img/logo.svg`. The header leverages CSS classes to support light/dark variants (`#kc-logo-light` and `#kc-logo-dark`).
+Theme-specific strings ("Welcome back to", "Return to site", the terms sentence, the hero quote, and so on) are message keys prefixed with `unfold`, in [`theme/unfold-base/login/messages/`](theme/unfold-base/login/messages/). English and Italian ship with the theme. Add a `messages_<lang>.properties` file, or override single keys under **Realm settings → Localization**. When the realm has internationalization enabled, a language selector appears above the form.
 
 ---
 
 ## Local Development
 
-Ensure you have **Docker**, **Docker Compose**, and **Node.js** (v18+) installed.
+Ensure you have **Docker**, **Docker Compose** and **Node.js** (v20+) installed.
 
 ### 1. Spin up Keycloak Dev Instance
-
-Run the following command to start Keycloak:
 
 ```bash
 docker compose up
 ```
 
-This mounts local theme folders directly and imports the demo realm configurations from the [demo/](file:///home/fabio/Workspace/keycloak-unfold/demo/) directory. Keycloak is available at `http://localhost:8080`.
+This mounts `theme/` directly, with theme caching off in dev mode, and imports the demo realms from [demo/](demo/). Keycloak is available at `http://localhost:8080`. If that port is taken, publish another one with `KC_PORT=8180 docker compose up`.
 
 - **Admin Console Login**: `admin` / `admin`
 - **Demo User Login**: `testuser` / `password`
+- **OTP setup demo** (`demo` realm): `otpuser` / `password`. It shows the upstream TOTP page inside the Unfold layout.
 
 ### 2. Live Testing URLs
 
-Three pre-configured demo realms are imported for verification:
-
 - **Default Theme (Centered Login)**: [Default Account Console Demo](http://localhost:8080/realms/unfold-default-demo/account/)
-- **Full Theme (Split-Screen Login)**: [Full Account Console Demo](http://localhost:8080/realms/unfold-full-demo/account/)
+- **Full Theme (Split-Screen Login, English/Italian)**: [Full Account Console Demo](http://localhost:8080/realms/unfold-full-demo/account/)
 - **Standard Base Demo**: [Demo Realm Account](http://localhost:8080/realms/demo/account/)
 
 ---
 
 ## Tailwind CSS Build Pipeline
 
-The project uses **Tailwind CSS v4** to build utilities. If you modify `.ftl` templates and add custom classes, you must compile the CSS.
+The project uses **Tailwind CSS v4**. The compiled `tailwind.css` is committed, because Keycloak serves it as-is. If you add utility classes to `.ftl` templates, rebuild it. CI fails when the committed file is stale.
 
 - **Build CSS**:
 
@@ -120,9 +120,7 @@ The project uses **Tailwind CSS v4** to build utilities. If you modify `.ftl` te
   npm run build
   ```
 
-  This runs `npx @tailwindcss/cli` minifying the output stylesheet.
-
-- **Watch and Auto-compile (Recommended for development)**:
+- **Watch and auto-compile (recommended for development)**:
   ```bash
   npx @tailwindcss/cli -i ./theme/unfold-base/login/resources/css/tailwind-input.css -o ./theme/unfold-base/login/resources/css/tailwind.css --watch
   ```
@@ -131,29 +129,27 @@ The project uses **Tailwind CSS v4** to build utilities. If you modify `.ftl` te
 
 ## Packaging & Production Deployment
 
-To deploy this theme on a production Keycloak cluster, package it as a JAR file (Keycloak best practice).
+To deploy this theme on a production Keycloak cluster, package it as a JAR file (Keycloak best practice). Tagged releases attach the JAR to the GitHub release and publish it to Maven Central as `io.github.ffalcinelli:keycloak-unfold`.
 
 ### Option A: Pack using NPM (Recommended for Frontend Devs)
-
-Run the NPM packager script:
 
 ```bash
 npm run package
 ```
 
-This builds CSS, prepares the `META-INF` files, and generates a packaged archive (e.g., `keycloak-unfold-v0.0.1.jar`) in the root directory.
+This builds the CSS, prepares the `META-INF` files and writes `keycloak-unfold-v<version>.jar` to the repository root (requires `zip`).
 
 ### Option B: Pack using Maven (Recommended for Java/DevOps Pipelines)
-
-Compile using Maven (builds and runs tests under `/target`):
 
 ```bash
 mvn clean package
 ```
 
-This compiles the output JAR into the `target/` directory: `target/keycloak-unfold-v0.0.1.jar`.
+This writes the JAR to `target/keycloak-unfold-v<version>.jar`. Maven only packages the files. Build the CSS first with `npm run build`; the tests run through npm (see below).
 
 ### Production Installation Steps
+
+Requires **Keycloak 26.8.0 or newer**.
 
 1. Copy the compiled `.jar` file to the `providers/` directory of your Keycloak installation.
 2. Run the Keycloak build step to register the new theme provider:
@@ -169,75 +165,55 @@ This compiles the output JAR into the `target/` directory: `target/keycloak-unfo
 
 ## Post-Install Customization
 
-Once the JAR is installed you can override any asset or property **without rebuilding the JAR**. Keycloak resolves theme resources with filesystem-first priority:
+Customize the installed theme through a **child theme**: a small folder in `/opt/keycloak/themes/` that sets `parent=unfold-default` (or `unfold-full`) and contains only what you change. Everything else is inherited from the JAR, so upgrades only mean swapping the JAR.
+
+> [!IMPORTANT]
+> Do not create a folder named `unfold-base`, `unfold-default` or `unfold-full` in `/opt/keycloak/themes/`. A folder theme with the same name replaces the JAR theme entirely rather than merging with it. With `parent=<same name>` it makes login requests hang.
+
+A ready-to-copy child theme is provided in [`customization/my-brand/`](customization/my-brand/):
 
 ```
-/opt/keycloak/themes/<theme-name>/   ← your overrides (WINS)
-JAR: theme/<theme-name>/...          ← packaged defaults (fallback)
+my-brand/
+├── common/resources/css/my-brand.css   ← brand colors, shared by login/account/admin
+├── login/theme.properties              ← parent, logo, terms URL, dark mode, unfold-full options
+├── login/resources/img/                ← logo-light.svg, logo-dark.svg, favicon.svg, login-bg.jpg
+├── account/theme.properties
+└── admin/theme.properties
 ```
 
-Place only the files you want to change in `/opt/keycloak/themes/`. Everything else loads from the JAR automatically. A fully annotated set of example override files is provided in the [`customization/`](customization/) directory.
+1. Copy `customization/my-brand` to `/opt/keycloak/themes/my-brand`. You can rename it.
+2. Edit `my-brand.css` and `login/theme.properties`, and drop your images into `login/resources/img/`.
+3. In the admin console, select `my-brand` as the realm's Login/Account/Admin theme.
 
-### Logo
-
-Drop your SVG files into `themes/unfold-base/login/resources/img/` keeping the default names — no config change required:
-
-| File | Mode |
-|---|---|
-| `logo-light.svg` | Light mode |
-| `logo-dark.svg` | Dark mode (falls back to light if absent) |
-| `favicon.svg` | Browser tab icon |
-
-If you prefer different filenames, set these in `themes/unfold-base/login/theme.properties`:
-
-```properties
-unfoldLogoUrl=img/my-logo.svg
-unfoldLogoUrlDark=img/my-logo-dark.svg
-```
-
-### Background Image (`unfold-full` only)
-
-Replace the file at `themes/unfold-full/login/resources/img/login-bg.jpg` — or set a custom path:
-
-```properties
-# themes/unfold-full/login/theme.properties
-bgImage=img/my-hero.jpg
-```
+See [customization/README.md](customization/README.md) for details and deployment patterns.
 
 ### All Configurable Properties
 
-| Property | Theme | Default | Description |
-|---|---|---|---|
-| `unfoldLogoUrl` | `unfold-base/login` | `img/logo-light.svg` | Light mode logo path |
-| `unfoldLogoUrlDark` | `unfold-base/login` | *(same as light)* | Dark mode logo path |
-| `termsUrl` | `unfold-base/login` | `https://example.com/terms` | Terms of service link URL |
-| `darkMode` | `unfold-base/login` | *(unset)* | Set any value to enable the dark/light toggle button |
-| `bgImage` | `unfold-full/login` | `img/login-bg.jpg` | Split-screen background image |
-| `kcLogoLink` | `unfold-full/login` | `#` | URL for the "Return to site" back-link |
-| `unfoldQuote` | `unfold-full/login` | *(built-in text)* | Marketing quote shown over the background |
-| `unfoldQuoteSubtext` | `unfold-full/login` | *(built-in text)* | Subtext below the quote |
+Set these in your child theme's `login/theme.properties`:
 
-### Brand Color Override
-
-To change the primary accent color without editing CSS inside the JAR, add a small override stylesheet. Copy [`customization/unfold-base/login/resources/css/my-brand.css`](customization/unfold-base/login/resources/css/my-brand.css) to your themes directory, edit the `--color-primary-*` values, then reference it in `themes/unfold-base/login/theme.properties`:
-
-```properties
-styles=css/unfold-common.css css/unfold.css css/login-widgets.css css/tailwind.css css/my-brand.css
-```
+| Property             | Applies to    | Default                               | Description                                                                             |
+| -------------------- | ------------- | ------------------------------------- | --------------------------------------------------------------------------------------- |
+| `unfoldLogoUrl`      | all variants  | `img/logo-light.svg`                  | Light mode logo path (relative to `login/resources/`)                                   |
+| `unfoldLogoUrlDark`  | all variants  | `img/logo-dark.svg`                   | Dark mode logo path                                                                     |
+| `termsUrl`           | all variants  | _(unset: no terms link)_              | Terms of service link shown below the login form                                        |
+| `darkMode`           | all variants  | `true`                                | `false` hides the toggle and ignores the OS dark preference (realm switch also applies) |
+| `unfoldLayout`       | all variants  | `centered` (`split` in `unfold-full`) | Login shell: centered card or split screen                                              |
+| `bgImage`            | `unfold-full` | `img/login-bg.jpg`                    | Split-screen hero image                                                                 |
+| `kcLogoLink`         | `unfold-full` | _(unset: link hidden)_                | URL for the "Return to site" back-link                                                  |
+| `unfoldQuote`        | `unfold-full` | `unfoldQuote` message key             | Fixed quote over the hero image (overrides the translatable default)                    |
+| `unfoldQuoteSubtext` | `unfold-full` | `unfoldQuoteSubtext` key              | Fixed subtext below the quote                                                           |
 
 ### Docker Compose Example
 
 ```yaml
 services:
   keycloak:
-    image: quay.io/keycloak/keycloak:26.7.0
+    image: quay.io/keycloak/keycloak:26.8.0
     volumes:
       - ./keycloak-unfold-v0.0.1.jar:/opt/keycloak/providers/keycloak-unfold.jar:ro
-      - ./my-overrides:/opt/keycloak/themes:ro
+      - ./my-brand:/opt/keycloak/themes/my-brand:ro
     command: start-dev
 ```
-
-Where `my-overrides/` contains only the files you actually changed, mirroring the structure of the `customization/` directory.
 
 ---
 
@@ -245,26 +221,31 @@ Where `my-overrides/` contains only the files you actually changed, mirroring th
 
 ### Run Playwright E2E Tests
 
-To install dependencies and execute the E2E verification test suite (which validates layout styling, button behaviors, and dark mode toggles):
-
 ```bash
 npm install
 npm run test
 ```
 
-For interactive test debugging, run:
+The suite starts Keycloak with `docker compose up -d --wait` and stops it afterwards. If Keycloak is already running, the suite reuses it. It refuses to run against a port that answers but is not Keycloak. To use another port:
 
 ```bash
-npx playwright test --ui
+KC_PORT=8180 KEYCLOAK_URL=http://localhost:8180 npm run test
 ```
+
+To test the packaged JAR instead of the `theme/` folder (CI does both):
+
+```bash
+mvn package
+THEME_JAR=target/keycloak-unfold-v0.0.1.jar COMPOSE_FILE=docker-compose.jar.yml npm run test
+```
+
+Unit tests for the dark mode script run without Keycloak: `npm run test:unit`. For interactive test debugging, use `npx playwright test --ui`. To refresh the README screenshots, run `npm run screenshots` against a running instance.
 
 ### Linters & Formatters
 
-Keep the code base clean by running validation scripts before submitting pull requests:
-
-- **Lint all files**: `npm run lint` (validates JavaScript with ESLint and CSS with Stylelint).
-- **Check formatting**: `npm run format:check` (verifies compliance with Prettier formatting rules).
-- **Auto-format code**: `npm run format` (formats all workspace stylesheets, templates, and scripts).
+- **Lint all files**: `npm run lint` (ESLint, Stylelint and the package.json/pom.xml version sync check).
+- **Check formatting**: `npm run format:check` (Prettier).
+- **Auto-format code**: `npm run format`.
 
 ---
 
@@ -292,4 +273,4 @@ The `unfold-full` variant provides a highly customized split-screen, premium vis
 
 - Designed and inspired by the excellent [Django Unfold Theme](https://github.com/unfoldadmin/django-unfold).
 - Distributed under the [MIT License](LICENSE).
-- For reporting security vulnerabilities, please refer to our guidelines in [SECURITY.md](file:///home/fabio/Workspace/keycloak-unfold/SECURITY.md).
+- For reporting security vulnerabilities, please refer to our guidelines in [SECURITY.md](SECURITY.md).

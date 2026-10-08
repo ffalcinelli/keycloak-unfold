@@ -1,202 +1,201 @@
 const { test, expect } = require('@playwright/test');
 
-test('Keycloak Unfold - Demo Login Page', async ({ page }) => {
-  // Go to Demo realm account console, which should redirect to demo realm login page
-  // The demo realm is configured to use 'unfold' theme
-  await page.goto('http://localhost:8080/realms/demo/account/');
+const DEFAULT_REALM = '/realms/demo/account/';
+const FULL_REALM = '/realms/unfold-full-demo/account/';
 
-  // Wait for login form to appear
-  await page.waitForSelector('#kc-form-login');
+/**
+ * Resolve a CSS color expression (e.g. `var(--color-primary-600)`) in the page context,
+ * so assertions compare against the theme's own tokens instead of hardcoded rgb/oklch values.
+ */
+function resolveColor(page, cssColor) {
+  return page.evaluate((value) => {
+    const probe = document.createElement('div');
+    probe.style.color = value;
+    document.body.appendChild(probe);
+    const resolved = getComputedStyle(probe).color;
+    probe.remove();
+    return resolved;
+  }, cssColor);
+}
 
-  // Verify custom CSS overrides applied to the main container
-  const mainContainer = page.locator('.pf-v5-c-login__main');
-  const mainStyle = await mainContainer.evaluate((el) => window.getComputedStyle(el));
+function computed(locator, property) {
+  return locator.evaluate((el, prop) => getComputedStyle(el)[prop], property);
+}
 
-  // Check border-radius (0.75rem = 12px usually from sm:rounded-xl)
-  expect(mainStyle.borderRadius).toMatch(/12px/);
-  // Check background color (white)
-  expect(mainStyle.backgroundColor).toMatch(/rgb\(255, 255, 255\)/);
+/** True once a self-hosted Inter face has actually been downloaded and applied. */
+function interLoaded(page) {
+  return page.evaluate(async () => {
+    await document.fonts.ready;
+    return [...document.fonts].some(
+      (face) => face.family.replace(/"/g, '') === 'Inter' && face.status === 'loaded'
+    );
+  });
+}
 
-  // Check the primary button
-  const loginButton = page.locator('#kc-login');
-  const buttonStyle = await loginButton.evaluate((el) => window.getComputedStyle(el));
+async function login(page, realmPath, username = 'testuser') {
+  await page.goto(realmPath);
+  await page.locator('#username').fill(username);
+  await page.locator('#password').fill('password');
+  await page.locator('#kc-login').click();
+}
 
-  // Primary button color should be primary-600 -> rgb(152, 16, 250), oklch, or rgb(124, 58, 237)
-  expect(buttonStyle.backgroundColor).toMatch(
-    /(oklch\(0\.558 0\.288 302\.321\)|rgb\(152, 16, 250\)|rgb\(124, 58, 237\))/
-  );
-  // Button border radius (0.375rem = 6px)
-  expect(buttonStyle.borderRadius).toMatch(/6px/);
+test.describe('unfold-default (demo realm)', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.emulateMedia({ colorScheme: 'light' });
+  });
 
-  // Verify body background
-  const bodyStyle = await page.evaluate(() => window.getComputedStyle(document.body));
-  // Background should be base-50 -> rgb(249, 250, 251) or oklch
-  expect(bodyStyle.backgroundColor).toMatch(
-    /(oklch\(0\.985 0\.002 247\.839\)|rgb\(249, 250, 251\)|rgb\(248, 250, 252\))/
-  );
-});
+  test('login page uses the Unfold design tokens', async ({ page }) => {
+    await page.goto(DEFAULT_REALM);
+    await expect(page.locator('#kc-form-login')).toBeVisible();
 
-test('Keycloak Unfold - Demo Account Console', async ({ page }) => {
-  // Go to Demo realm account console
-  await page.goto('http://localhost:8080/realms/demo/account/');
+    const card = page.locator('.pf-v5-c-login__main');
+    expect(await computed(card, 'borderRadius')).toBe('12px');
+    expect(await computed(card, 'backgroundColor')).toBe('rgb(255, 255, 255)');
 
-  // Login
-  await page.waitForSelector('#kc-form-login');
-  await page.fill('#username', 'testuser');
-  await page.fill('#password', 'password');
-  await page.click('#kc-login');
+    const loginButton = page.locator('#kc-login');
+    expect(await computed(loginButton, 'backgroundColor')).toBe(
+      await resolveColor(page, 'var(--color-primary-600)')
+    );
+    expect(await computed(loginButton, 'borderRadius')).toBe('6px');
 
-  // Wait for Account Console to load
-  await page.waitForSelector('.pf-v5-c-page__main');
+    expect(await computed(page.locator('body'), 'backgroundColor')).toBe(
+      await resolveColor(page, 'var(--color-base-50)')
+    );
 
-  // Verify body background and font-family
-  const bodyStyle = await page.evaluate(() => window.getComputedStyle(document.body));
-  expect(bodyStyle.backgroundColor).toMatch(
-    /(oklch\(0\.985 0\.002 247\.839\)|rgb\(248, 250, 252\)|rgba\(0, 0, 0, 0\))/
-  );
-  expect(bodyStyle.fontFamily).toMatch(/(Inter|RedHatText)/);
+    expect(await interLoaded(page)).toBe(true);
+  });
 
-  // Verify main container background
-  const mainContainer = page.locator('.pf-v5-c-page__main');
-  const mainStyle = await mainContainer.evaluate((el) => window.getComputedStyle(el));
-  expect(mainStyle.backgroundColor).toMatch(
-    /(oklch\(0\.985 0\.002 247\.839\)|rgb\(249, 250, 251\)|rgba\(0, 0, 0, 0\))/
-  );
+  test('account console is themed', async ({ page }) => {
+    await login(page, DEFAULT_REALM);
+    await expect(page.locator('.pf-v5-c-page__main')).toBeVisible();
 
-  // Verify form-control background color
-  const formControl = page.locator('.pf-v5-c-form-control').first();
-  const formControlStyle = await formControl.evaluate((el) => window.getComputedStyle(el));
-  // Form control background color could be white or standard patternfly gray/transparent
-  expect(formControlStyle.backgroundColor).toMatch(
-    /(rgb\(255, 255, 255\)|rgb\(240, 240, 240\)|rgba\(0, 0, 0, 0\))/
-  );
+    expect(await computed(page.locator('body'), 'fontFamily')).toMatch(/^"?Inter/);
+    expect(await interLoaded(page)).toBe(true);
 
-  // Verify primary button background
-  const primaryButton = page.locator('.pf-v5-c-button.pf-m-primary').first();
-  const buttonStyle = await primaryButton.evaluate((el) => window.getComputedStyle(el));
-  expect(buttonStyle.backgroundColor).toMatch(
-    /(oklch\(0\.558 0\.288 302\.321\)|rgb\(124, 58, 237\)|rgb\(152, 16, 250\))/
-  );
-});
+    const primaryButton = page.locator('.pf-v5-c-button.pf-m-primary').first();
+    await expect(primaryButton).toBeVisible();
+    expect(await computed(primaryButton, 'backgroundColor')).toBe(
+      await resolveColor(page, 'var(--color-primary-600)')
+    );
+  });
 
-test('Keycloak Unfold - Demo Registration Page', async ({ page }) => {
-  // Go to Demo realm account console, which should redirect to demo realm login page
-  await page.goto('http://localhost:8080/realms/demo/account/');
+  test('registration page', async ({ page }) => {
+    await page.goto(DEFAULT_REALM);
+    await page.locator('#kc-registration a').click();
+    await expect(page.locator('#kc-register-form')).toBeVisible();
 
-  // Wait for login form to appear
-  await page.waitForSelector('#kc-form-login');
+    for (const id of ['#firstName', '#lastName', '#email', '#password', '#password-confirm']) {
+      await expect(page.locator(id)).toBeVisible();
+    }
 
-  // Click on register link
-  await page.click('#kc-registration a');
+    expect(await computed(page.locator('.pf-v5-c-login__main'), 'borderRadius')).toBe('12px');
+    const registerButton = page.locator('#kc-register-form button[type="submit"]');
+    expect(await computed(registerButton, 'backgroundColor')).toBe(
+      await resolveColor(page, 'var(--color-primary-600)')
+    );
+  });
 
-  // Wait for registration form to appear
-  await page.waitForSelector('#kc-register-form');
+  test('reset password page', async ({ page }) => {
+    await page.goto(DEFAULT_REALM);
+    await page.getByRole('link', { name: 'Forgot Password?' }).click();
+    await expect(page.locator('#kc-reset-password-form')).toBeVisible();
+    await expect(page.locator('#username')).toBeVisible();
+  });
 
-  // Verify registration fields are present
-  await expect(page.locator('#firstName')).toBeVisible();
-  await expect(page.locator('#lastName')).toBeVisible();
-  await expect(page.locator('#email')).toBeVisible();
-  await expect(page.locator('#password')).toBeVisible();
-  await expect(page.locator('#password-confirm')).toBeVisible();
+  test('dark mode toggle switches theme, icons and persists the choice', async ({ page }) => {
+    await page.goto(DEFAULT_REALM);
 
-  // Verify custom CSS overrides applied to the main container
-  const mainContainer = page.locator('.pf-v5-c-login__main');
-  const mainStyle = await mainContainer.evaluate((el) => window.getComputedStyle(el));
-  expect(mainStyle.borderRadius).toMatch(/12px/);
+    const html = page.locator('html');
+    const toggleButton = page.locator('#theme-toggle-button');
+    const sunIcon = page.locator('#theme-toggle-sun');
+    const moonIcon = page.locator('#theme-toggle-moon');
 
-  // Check the registration button
-  const registerButton = page.locator('button[type="submit"]');
-  const buttonStyle = await registerButton.evaluate((el) => window.getComputedStyle(el));
+    await expect(html).not.toHaveClass(/\bdark\b/);
+    await expect(toggleButton).toHaveAttribute('aria-pressed', 'false');
 
-  // Primary button color should match the theme
-  expect(buttonStyle.backgroundColor).toMatch(
-    /(oklch\(0\.558 0\.288 302\.321\)|rgb\(152, 16, 250\)|rgb\(124, 58, 237\))/
-  );
-  expect(buttonStyle.borderRadius).toMatch(/6px/);
-});
+    await toggleButton.click();
+    await expect(html).toHaveClass(/\bdark\b/);
+    await expect(html).toHaveClass(/\bpf-v5-theme-dark\b/);
+    await expect(toggleButton).toHaveAttribute('aria-pressed', 'true');
+    await expect(sunIcon).toBeVisible();
+    await expect(moonIcon).toBeHidden();
+    expect(await page.evaluate(() => localStorage.getItem('unfold-theme-preference'))).toBe('dark');
 
-test('Keycloak Unfold - Dark Mode Toggle', async ({ page }) => {
-  // Go to Demo realm account console, which should redirect to demo realm login page
-  await page.goto('http://localhost:8080/realms/demo/account/');
+    // the stored preference survives a reload and wins over the (light) system setting
+    await page.reload();
+    await expect(html).toHaveClass(/\bdark\b/);
 
-  // Wait for toggle button to appear
-  await page.waitForSelector('#theme-toggle-button');
-
-  const html = page.locator('html');
-  const toggleButton = page.locator('#theme-toggle-button');
-  const sunIcon = page.locator('#theme-toggle-sun');
-  const moonIcon = page.locator('#theme-toggle-moon');
-
-  // 1. Ensure we start from a known state (Light Mode)
-  const isInitiallyDark = await html.evaluate((el) => el.classList.contains('dark'));
-  if (isInitiallyDark) {
     await toggleButton.click();
     await expect(html).not.toHaveClass(/\bdark\b/);
-  }
+    await expect(sunIcon).toBeHidden();
+    await expect(moonIcon).toBeVisible();
+    expect(await page.evaluate(() => localStorage.getItem('unfold-theme-preference'))).toBe(
+      'light'
+    );
+  });
 
-  // 2. Toggle to Dark Mode
-  await toggleButton.click();
-  await expect(html).toHaveClass(/\bdark\b/);
-  await expect(html).toHaveClass(/\bpf-v5-theme-dark\b/);
-  await expect(sunIcon).toBeVisible();
-  await expect(moonIcon).toBeHidden();
+  test('system dark preference is applied without a stored choice', async ({ page }) => {
+    await page.emulateMedia({ colorScheme: 'dark' });
+    await page.goto(DEFAULT_REALM);
+    await expect(page.locator('html')).toHaveClass(/\bdark\b/);
+  });
 
-  const darkPreference = await page.evaluate(() => localStorage.getItem('unfold-theme-preference'));
-  expect(darkPreference).toBe('dark');
+  test('brand logo follows the theme', async ({ page }) => {
+    await page.goto(DEFAULT_REALM);
 
-  // 3. Toggle back to Light Mode
-  await toggleButton.click();
-  await expect(html).not.toHaveClass(/\bdark\b/);
-  await expect(html).not.toHaveClass(/\bpf-v5-theme-dark\b/);
-  await expect(sunIcon).toBeHidden();
-  await expect(moonIcon).toBeVisible();
+    const logoLight = page.locator('#kc-logo-light');
+    const logoDark = page.locator('#kc-logo-dark');
+    await expect(logoLight).toBeVisible();
+    await expect(logoDark).toBeHidden();
 
-  const lightPreference = await page.evaluate(() =>
-    localStorage.getItem('unfold-theme-preference')
-  );
-  expect(lightPreference).toBe('light');
+    await page.locator('#theme-toggle-button').click();
+    await expect(logoLight).toBeHidden();
+    await expect(logoDark).toBeVisible();
+  });
+
+  test('upstream pages not overridden by the theme still render (OTP setup)', async ({ page }) => {
+    await login(page, DEFAULT_REALM, 'otpuser');
+    await expect(page.locator('#kc-totp-settings-form')).toBeVisible();
+    await expect(page.locator('#kc-header')).toBeVisible();
+  });
 });
 
-test('Keycloak Unfold - Reset Password Page', async ({ page }) => {
-  // Go to Demo realm account console, which should redirect to demo realm login page
-  await page.goto('http://localhost:8080/realms/demo/account/');
+test.describe('unfold-full (unfold-full-demo realm)', () => {
+  test.use({ viewport: { width: 1440, height: 900 } });
 
-  // Wait for login form to appear
-  await page.waitForSelector('#kc-form-login');
+  test('split layout with hero image', async ({ page }) => {
+    await page.goto(FULL_REALM);
+    await expect(page.locator('#kc-form-login')).toBeVisible();
 
-  // Click on "Forgot Password?" link
-  await page.click('text=Forgot Password?');
+    const hero = page.locator('#kc-hero');
+    await expect(hero).toBeVisible();
+    expect(await computed(hero, 'backgroundImage')).toContain('login-bg.jpg');
+    await expect(hero.locator('blockquote')).not.toBeEmpty();
 
-  // Wait for reset password form to appear
-  await page.waitForSelector('#kc-reset-password-form');
+    // the back-link is opt-in through kcLogoLink
+    await expect(page.locator('#kc-back-link')).toHaveCount(0);
+  });
 
-  // Verify reset password field is present
-  await expect(page.locator('#username')).toBeVisible();
+  test('hero is hidden on small screens', async ({ page }) => {
+    await page.setViewportSize({ width: 390, height: 844 });
+    await page.goto(FULL_REALM);
+    await expect(page.locator('#kc-form-login')).toBeVisible();
+    await expect(page.locator('#kc-hero')).toBeHidden();
+  });
 
-  // Verify custom CSS overrides applied to the main container
-  const mainContainer = page.locator('.pf-v5-c-login__main');
-  const mainStyle = await mainContainer.evaluate((el) => window.getComputedStyle(el));
-  expect(mainStyle.borderRadius).toMatch(/12px/);
-});
+  test('locale switcher translates core and theme strings', async ({ page }) => {
+    await page.goto(FULL_REALM);
+    const select = page.locator('#login-select-toggle');
+    await expect(select).toBeVisible();
 
-test('Keycloak Unfold - Brand Logo Integration', async ({ page }) => {
-  // Go to Demo realm account console, which should redirect to demo realm login page
-  await page.goto('http://localhost:8080/realms/demo/account/');
+    const italian = await select.locator('option', { hasText: 'Italiano' }).getAttribute('value');
+    await select.selectOption(italian);
 
-  // Wait for login form to appear
-  await page.waitForSelector('#kc-form-login');
-
-  // Verify that the custom brand logo elements are present
-  const logoLight = page.locator('#kc-logo-light');
-  const logoDark = page.locator('#kc-logo-dark');
-
-  await expect(logoLight).toBeVisible();
-  await expect(logoDark).toBeHidden();
-
-  // Toggle to dark mode and check that dark mode logo becomes visible
-  const toggleButton = page.locator('#theme-toggle-button');
-  await toggleButton.click();
-
-  await expect(logoLight).toBeHidden();
-  await expect(logoDark).toBeVisible();
+    await expect(page.locator('html')).toHaveAttribute('lang', 'it');
+    await expect(page.locator('#kc-login')).toHaveText('Accedi');
+    await expect(page.locator('#theme-toggle-button')).toHaveAttribute(
+      'aria-label',
+      'Attiva/disattiva tema scuro'
+    );
+  });
 });

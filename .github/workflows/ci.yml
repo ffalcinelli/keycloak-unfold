@@ -34,11 +34,19 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
-      - name: Run stylelint
-        run: npm run lint:css
+      - name: Lint (CSS, JS, version sync)
+        run: npm run lint
+
+      - name: Check formatting
+        run: npm run format:check
 
       - name: Build CSS
         run: npm run build:css
+
+      - name: Verify committed tailwind.css is up to date
+        run: |
+          git diff --exit-code -- theme/unfold-base/login/resources/css/tailwind.css \
+            || { echo "::error::tailwind.css is stale: run 'npm run build:css' and commit the result"; exit 1; }
 
       - name: Run unit tests with coverage
         run: mkdir -p coverage && npm run test:unit:ci
@@ -53,3 +61,18 @@ jobs:
 
       - name: Run visual and E2E tests
         run: npm run test
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@03ad4de0992f5dab5e18fcb136590ce7c4a0ac95 # v5.6.0
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Package theme JAR
+        run: mvn --batch-mode package
+
+      - name: Run E2E tests against the packaged JAR
+        run: |
+          THEME_JAR=$(ls target/keycloak-unfold-v*.jar | grep -v -e '-sources' -e '-javadoc')
+          THEME_JAR="$THEME_JAR" COMPOSE_FILE=docker-compose.jar.yml npm run test

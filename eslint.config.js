@@ -1,8 +1,10 @@
+const globals = require('globals');
 const playwright = require('eslint-plugin-playwright');
+const prettier = require('eslint-config-prettier');
 
 module.exports = [
   {
-    ignores: ['coverage/**'],
+    ignores: ['coverage/**', 'playwright-report/**', 'test-results/**'],
   },
   {
     files: ['**/*.js'],
@@ -10,20 +12,23 @@ module.exports = [
       ecmaVersion: 'latest',
       sourceType: 'commonjs',
       globals: {
-        browser: 'readonly',
-        window: 'readonly',
-        document: 'readonly',
-        localStorage: 'readonly',
-        expect: 'readonly',
-        require: 'readonly',
-        process: 'readonly',
-        __dirname: 'readonly',
-        module: 'readonly',
+        ...globals.node,
       },
     },
     rules: {
       'no-unused-vars': 'warn',
       'no-console': 'off',
+    },
+  },
+  {
+    // Browser scripts: theme resources and the landing page
+    files: ['theme/**/*.js', 'docs/**/*.js'],
+    languageOptions: {
+      sourceType: 'script',
+      globals: {
+        ...globals.browser,
+        module: 'readonly',
+      },
     },
   },
   {
@@ -35,4 +40,6 @@ module.exports = [
       ...playwright.configs['recommended'].rules,
     },
   },
+  // Must stay last: turns off stylistic rules that conflict with Prettier
+  prettier,
 ];

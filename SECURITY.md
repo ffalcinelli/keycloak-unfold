@@ -6,7 +6,7 @@ Currently, the following versions of `keycloak-unfold` are supported with securi
 
 | Version | Keycloak Version | Status                       |
 | ------- | ---------------- | ---------------------------- |
-| 0.0.x   | 26.x             | :white_check_mark: Supported |
+| 0.0.x   | >= 26.8.0        | :white_check_mark: Supported |
 
 ## Reporting a Vulnerability
 

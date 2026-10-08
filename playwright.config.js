@@ -1,4 +1,5 @@
 const { defineConfig, devices } = require('@playwright/test');
+const { KEYCLOAK_URL } = require('./tests/keycloak-url');
 
 module.exports = defineConfig({
   testDir: './tests',
@@ -10,6 +11,7 @@ module.exports = defineConfig({
   workers: 1,
   reporter: 'list',
   use: {
+    baseURL: KEYCLOAK_URL,
     trace: 'on-first-retry',
   },
   projects: [

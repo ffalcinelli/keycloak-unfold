@@ -2,6 +2,9 @@
   "name": "keycloak-unfold",
   "version": "0.0.1",
   "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "lint:css": "stylelint \"**/*.css\"",
     "lint:js": "eslint .",
@@ -15,18 +18,18 @@
     "test:unit:ci": "node --experimental-test-coverage --test-coverage-include='theme/**/*.js' --test-reporter=spec --test-reporter-destination=stdout --test-reporter=lcov --test-reporter-destination=coverage/lcov.info --test tests/*.test.js",
     "test": "playwright test",
     "bump": "node scripts/bump-version.js",
-    "check-version": "node scripts/check-version-sync.js"
+    "check-version": "node scripts/check-version-sync.js",
+    "screenshots": "node scripts/screenshots.js"
   },
   "devDependencies": {
     "@playwright/test": "^1.62.1",
     "@tailwindcss/cli": "^4.3.3",
     "@tailwindcss/typography": "^0.5.19",
-    "c8": "^12.0.0",
     "eslint": "^9.16.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-playwright": "^2.1.0",
+    "globals": "^14.0.0",
     "jsdom": "^29.1.1",
-    "playwright": "^1.61.1",
     "prettier": "^3.4.2",
     "stylelint": "^17.14.0",
     "stylelint-config-standard": "^40.0.0",

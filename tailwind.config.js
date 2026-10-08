@@ -54,6 +54,10 @@ module.exports = {
       borderRadius: {
         default: '0.375rem',
       },
+      fontFamily: {
+        // Single source of truth: the font stack defined in common/resources/css/unfold-common.css
+        sans: ['var(--pf-v5-global--FontFamily--sans-serif)'],
+      },
     },
   },
   plugins: [require('@tailwindcss/typography')],

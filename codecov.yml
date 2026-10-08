@@ -1,7 +1,7 @@
 coverage:
   precision: 2
   round: down
-  range: "70...100"
+  range: '70...100'
 
   status:
     project:
@@ -14,7 +14,7 @@ coverage:
         threshold: 1%
 
 comment:
-  layout: "reach,diff,flags,files"
+  layout: 'reach,diff,flags,files'
   behavior: default
   require_changes: false
 

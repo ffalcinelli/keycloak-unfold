@@ -9,7 +9,7 @@
             <#if user.editUsernameAllowed>
                 <div class="flex flex-col group mb-5">
                     <div class="flex flex-col gap-2">
-                        <label for="username" class="${field.labelClass}">${msg("username")}<span class="text-red-600">*</span></label>
+                        <label for="username" class="${field.labelClass}">${msg("username")}<span class="text-red-600" aria-hidden="true">*</span></label>
                         <input type="text" id="username" name="username" value="${(user.username!'')}"
                                class="${field.inputClass}"
                                aria-invalid="<#if messagesPerField.existsError('username')>true</#if>"

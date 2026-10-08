@@ -18,9 +18,9 @@
                             <div class="flex flex-col gap-2">
                                 <label for="username" class="${field.labelClass}">
                                     ${label}
-                                    <span class="text-red-600">*</span>
+                                    <span class="text-red-600" aria-hidden="true">*</span>
                                 </label>
-                                <input tabindex="1" id="username" class="${field.inputClass}" name="username" value="${kcSanitize(login.username!'')}" type="text" autofocus autocomplete="username"
+                                <input id="username" class="${field.inputClass}" name="username" value="${kcSanitize(login.username!'')}" type="text" autofocus autocomplete="username"
                                        aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
                                 />
                                 <#if messagesPerField.existsError('username','password')>
@@ -36,11 +36,11 @@
                         <div class="flex flex-col gap-2">
                             <label for="password" class="${field.labelClass}">
                                 ${msg("password")}
-                                <span class="text-red-600">*</span>
+                                <span class="text-red-600" aria-hidden="true">*</span>
                             </label>
 
                             <div class="relative w-full">
-                                <input tabindex="2" id="password" class="${field.inputClass}" name="password" type="password" autocomplete="current-password"
+                                <input id="password" class="${field.inputClass}" name="password" type="password" autocomplete="current-password"
                                        aria-invalid="<#if messagesPerField.existsError('username','password')>true</#if>"
                                 />
                                 <button class="absolute inset-y-0 right-0 flex items-center px-3 text-base-400 hover:text-base-600" type="button" aria-label="${msg('showPassword')}"
@@ -62,7 +62,7 @@
                     <div class="flex flex-row items-center justify-between mb-2">
                         <#if realm.rememberMe && !usernameHidden??>
                             <div class="flex items-center">
-                                <input tabindex="3" id="rememberMe" name="rememberMe" type="checkbox" class="h-4 w-4 rounded border-base-300 text-primary-600 focus:ring-primary-600"
+                                <input id="rememberMe" name="rememberMe" type="checkbox" class="h-4 w-4 rounded border-base-300 text-primary-600 focus:ring-primary-600"
                                        <#if login.rememberMe??>checked</#if>>
                                 <label for="rememberMe" class="ml-2 block text-sm text-font-default-light dark:text-font-default-dark">${msg("rememberMe")}</label>
                             </div>
@@ -71,12 +71,12 @@
 
                     <div class="flex flex-col gap-3 mt-2">
                         <input type="hidden" id="id-hidden-input" name="credentialId" <#if auth.selectedCredential?has_content>value="${auth.selectedCredential}"</#if>/>
-                        <button tabindex="4" class="${field.primaryButtonClass}" name="login" id="kc-login" type="submit">
+                        <button class="${field.primaryButtonClass}" name="login" id="kc-login" type="submit">
                             ${msg("doLogIn")}
                         </button>
 
                         <#if realm.resetPasswordAllowed>
-                            <a tabindex="5" href="${url.loginResetCredentialsUrl}" class="${field.secondaryButtonClass}">
+                            <a href="${url.loginResetCredentialsUrl}" class="${field.secondaryButtonClass}">
                                 ${msg("doForgotPassword")}
                             </a>
                         </#if>
@@ -84,20 +84,19 @@
                 </form>
             </#if>
             </div>
-
+            <#if properties.termsUrl?has_content>
+                <div id="kc-terms-and-conditions" class="mt-6 pt-4 border-t border-base-200 dark:border-base-700 text-center text-xs">
+                    ${msg("unfoldTermsPrefix")} <a href="${properties.termsUrl}" class="font-semibold text-primary-600 hover:text-primary-700 dark:text-primary-500">${msg("termsTitle")}</a>${msg("unfoldTermsSuffix")}
+                </div>
+            </#if>
         </div>
     <#elseif section = "info" >
         <#if realm.password && realm.registrationAllowed && !registrationDisabled??>
             <div id="kc-registration-container" class="text-center">
                 <div id="kc-registration">
-                    <span>${msg("noAccount")} <a tabindex="6" href="${url.registrationUrl}" class="font-semibold text-primary-600 hover:text-primary-700 dark:text-primary-500">${msg("doRegister")}</a></span>
+                    <span>${msg("noAccount")} <a href="${url.registrationUrl}" class="font-semibold text-primary-600 hover:text-primary-700 dark:text-primary-500">${msg("doRegister")}</a></span>
                 </div>
             </div>
-        </#if>
-        <#if properties.termsUrl?has_content || url.termsUrl??>
-        <div id="kc-terms-and-conditions" class="mt-4 pt-4 border-t border-base-200 dark:border-base-800 text-center text-xs">
-            By logging in, you agree to our <a href="${properties.termsUrl!url.termsUrl!'#'}" class="font-semibold text-primary-600 hover:text-primary-700 dark:text-primary-500">${msg("termsTitle")}</a>.
-        </div>
         </#if>
     <#elseif section = "socialProviders" >
         <#if realm.password && social?? && social.providers?has_content>

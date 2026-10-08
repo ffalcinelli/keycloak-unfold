@@ -18,7 +18,7 @@
                     <#if passwordRequired?? && (attribute.name == 'username' || (attribute.name == 'email' && realm.registrationEmailAsUsername))>
                         <div class="flex flex-col group mb-5">
                             <div class="flex flex-col gap-2">
-                                <label for="password" class="${field.labelClass}">${msg("password")}<span class="text-red-600">*</span></label>
+                                <label for="password" class="${field.labelClass}">${msg("password")}<span class="text-red-600" aria-hidden="true">*</span></label>
                                 <div class="relative w-full">
                                     <input type="password" id="password" class="${field.inputClass}" name="password"
                                            autocomplete="new-password"
@@ -43,7 +43,7 @@
                         <div class="flex flex-col group mb-5">
                             <div class="flex flex-col gap-2">
                                 <label for="password-confirm"
-                                       class="${field.labelClass}">${msg("passwordConfirm")}<span class="text-red-600">*</span></label>
+                                       class="${field.labelClass}">${msg("passwordConfirm")}<span class="text-red-600" aria-hidden="true">*</span></label>
                                 <div class="relative w-full">
                                     <input type="password" id="password-confirm" class="${field.inputClass}"
                                            name="password-confirm" autocomplete="new-password"
