@@ -71,3 +71,8 @@ jobs:
 
       - name: Package theme JAR
         run: mvn --batch-mode package
+
+      - name: Run E2E tests against the packaged JAR
+        run: |
+          THEME_JAR=$(ls target/keycloak-unfold-v*.jar | grep -v -e '-sources' -e '-javadoc')
+          THEME_JAR="$THEME_JAR" COMPOSE_FILE=docker-compose.jar.yml npm run test

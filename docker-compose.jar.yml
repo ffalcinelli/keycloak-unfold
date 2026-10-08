@@ -1,0 +1,12 @@
+# Runs Keycloak against the packaged theme JAR instead of the mounted theme/ folder,
+# to catch packaging problems (e.g. theme types missing from keycloak-themes.json).
+#   mvn package
+#   THEME_JAR=target/keycloak-unfold-v<version>.jar COMPOSE_FILE=docker-compose.jar.yml npm test
+services:
+  keycloak:
+    extends:
+      file: docker-compose.yml
+      service: keycloak
+    volumes: !override
+      - ./${THEME_JAR:?set THEME_JAR to the packaged theme jar, relative to the repo root}:/opt/keycloak/providers/keycloak-unfold.jar:ro
+      - ./demo:/opt/keycloak/data/import/
